@@ -25,9 +25,6 @@ import useAuthStore from '../../../../src/stores/useAuthStore'
 import Cookies from 'js-cookie'
 import Image from 'next/image'
 
-export const metadata: Metadata = {
-    title: 'Register Yacht',
-}
 
 const page: React.FC = () => {
     const [singUp] = useMutation<

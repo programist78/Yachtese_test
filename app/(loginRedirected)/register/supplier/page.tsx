@@ -18,10 +18,6 @@ import Cookies from 'js-cookie'
 import Image from 'next/image'
 
 
-export const metadata: Metadata = {
-  title: 'Register Supplier'
-}
-
 const page: React.FC = () => {
 
   const [singUp] = useMutation<registerUserMutationResponse, registerUserMutationInput>(REGISTER_USER_MUTATION)
