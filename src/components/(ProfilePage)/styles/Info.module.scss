@@ -1,0 +1,265 @@
+@import '../../../styles/variables.scss';
+
+.title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.lil_span {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.min_title {
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 6px;
+    margin-bottom: 15px;
+}
+
+.input {
+    border-radius: 15px;
+    border: 1px solid #909090;
+    background: #2E3030;
+    padding: 10px 20px;
+    font-size: 12px;
+    font-weight: 400;
+    width: 50%;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.min_input {
+    border-radius: 15px;
+    border: 1px solid #909090;
+    background: #2E3030;
+    padding: 5px 20px;
+    font-size: 12px;
+    font-weight: 400;
+    width: calc(25% - 8px);
+    margin-bottom: 15px;
+    outline: none;
+
+    @media (max-width: $screen-xl) and (min-width: $screen-md) {
+        width: calc(50% - 10px);
+    }
+
+    @media (max-width: $screen-sm) {
+        width: calc(50% - 10px);
+    }
+
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    &:last-of-type {
+        margin-left: 16px;
+    }
+
+    &:first-of-type {
+        margin-left: 0;
+    }
+}
+
+.radius {
+    -webkit-appearance: none;
+    background-color: #D3D3D3;
+    position: relative;
+    height: 1px;
+    margin-left: 50px;
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        left: -25px;
+    }
+
+    @media (max-width: $screen-lg) {
+        margin-right: 30px;
+    }
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 10px;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        background-color: #D3D3D3;
+    }
+
+    &::before {
+        content: '1 km';
+        color: #C1C1C1;
+        position: absolute;
+        top: -7px;
+        left: -35px;
+    }
+
+    &::after {
+        content: '1000 km';
+        color: #C1C1C1;
+        position: absolute;
+        top: -7px;
+        right: -60px;
+    }
+}
+
+.space_top {
+    margin-top: 25px;
+}
+
+.add_service {
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 15px;
+    border: 1px solid #C1C1C1;
+    background: #2E3030;
+    padding: 5px 30px 5px 10px;
+    position: relative;
+
+    &::after {
+        content: "+";
+        font-size: 15px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.service {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 15px;
+    border: 1px solid #C1C1C1;
+    background: #2E3030;
+    padding: 5px 30px 5px 10px;
+    position: relative;
+    width: min-content;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: inherit;
+    margin-bottom: 15px;
+
+    button {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+}
+
+.service_view {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 15px;
+    border: 1px solid #C1C1C1;
+    background: #2E3030;
+    padding: 5px 10px 5px 10px;
+    position: relative;
+    width: min-content;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: inherit;
+    margin-bottom: 15px;
+}
+
+.deleting {
+    border: 1px solid #c1c1c157;
+    background: #2e30306e;
+}
+
+.services_title {
+    margin-bottom: 20px;
+}
+
+.add_service_input {
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 15px;
+    border: 1px solid #C1C1C1;
+    background: #2E3030;
+    padding: 5px 30px 5px 10px;
+    position: relative;
+}
+
+.location {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-left: 5px;
+
+    @media (max-width: $screen-xl) and (min-width: $screen-md) {
+        font-size: 16px;
+        margin-left: 0;
+    }
+}
+
+.departmets_list {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.department {
+    max-width: 90%;
+    width: min-content;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    background-color: #000;
+    border-radius: 1000px;
+    border: 1px solid #C1C1C1;
+    background: #2A2B2B;
+    padding: 5px 20px 5px 20px;
+    position: relative;
+}
+
+.department_edit {
+    padding: 5px 35px 5px 20px;
+    cursor: pointer;
+
+    .delete {
+        position: absolute;
+        cursor: pointer;
+        font-size: 20px;
+        right: 20px;
+        transform: rotate(45deg) translateY(-50%);
+        top: 38%;
+    }
+
+    .add {
+        position: absolute;
+        cursor: pointer;
+        font-size: 20px;
+        right: 10px;
+        transform: translateY(-50%);
+        top: 48%;
+    }
+}
+
+.teammates_list {
+    display: flex;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+.teammate {
+    display: block;
+    cursor: pointer;
+    width: 55px;
+    aspect-ratio: 1/1;
+    border-radius: 1000px;
+}
+
+.fav_suppliers {
+    margin-bottom: 30px;
+}

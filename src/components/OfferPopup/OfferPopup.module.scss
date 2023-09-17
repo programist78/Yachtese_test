@@ -1,0 +1,55 @@
+@import '../../styles/variables';
+
+.main {
+    position: fixed;
+    z-index: 1005;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.menu {
+    padding: 50px 40px;
+    border-radius: 15px;
+    width: 450px;
+    max-height: 80vh;
+    background-color: $blackColor;
+    transition: .5s all ease-in-out;
+    overflow-y: scroll;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.inp_con {
+    position: relative;
+    width: 100%;
+}
+
+.inp {
+    width: 100%;
+    display: block;
+    padding:10px 15px;
+    border: 1px solid #909090;
+    background: #2A2C2C;
+    border-radius: 15px;
+    outline: none;
+    margin-bottom: 35px;
+    font-size: 15px;
+}
+
+.btn {
+    border-radius: 1000px;
+    background: #81736B;
+    padding: 15px 50px;
+}

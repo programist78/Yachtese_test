@@ -1,0 +1,145 @@
+@import './variables';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #F7F3EE;
+    z-index: 3;
+}
+// asdasdasdasdasdasd
+*::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    background-color: #2e2e2e;
+    z-index: -2;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-image: url('/assets/bg.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+    }
+}
+
+.main {
+    min-height: 100vh;
+    padding-bottom: 250px;
+
+    @media (max-width:$screen-sm) {
+        padding-bottom: 360px;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+}
+
+button {
+    display: block;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+textarea {
+    font-family: inherit;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 20px;
+    max-width: 1340px;
+
+    @media (max-width:$screen-xxl) and (min-width:$screen-xl) {
+        max-width: 1140px;
+    }
+
+    @media (max-width:$screen-xl) and (min-width:$screen-lg) {
+        max-width: 960px;
+    }
+
+    @media (max-width:$screen-lg) and (min-width:$screen-md) {
+        max-width: 720px;
+    }
+
+    @media (max-width:$screen-md) and (min-width:$screen-sm) {
+        max-width: 540px;
+        padding: 0 40px;
+    }
+
+    @media (max-width:$screen-sm) {
+        width: 100%;
+        padding: 0 20px;
+    }
+}
+
+.filtered_image_container {
+    position: relative;
+
+    img {
+        object-fit: cover;
+        display: block;
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        height: $imageHeight;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(27, 11, 0, 0.50);
+        z-index: 2;
+    }
+}
+
+.error_alert {
+    background-color: $blackColor;
+    color: #fff;
+}
+
+.error_button {
+    border: none;
+    outline: none;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+}
+
+.block {
+    background-color: rgba(14, 14, 14, 0.50);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 20px;
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        padding: 20px;
+    }
+}
+
+.marker_con {
+    position: relative;
+    bottom: 10px;
+}

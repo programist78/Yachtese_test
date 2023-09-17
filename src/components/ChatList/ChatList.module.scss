@@ -1,0 +1,160 @@
+@import '../../styles/variables';
+
+.main {
+    overflow: hidden;
+    height: 100%;
+    border-radius: 15px;
+    position: relative;
+}
+
+.chat {
+    display: flex;
+    gap: 15px;
+    padding: 10px 20px;
+
+    &:hover {
+        background-color: #00000015;
+    }
+}
+
+.photo {
+    aspect-ratio: 1/1;
+    height: 54px;
+    border-radius: 1000px;
+}
+
+.username {
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 70%;
+}
+
+.texts {
+    width: calc(100% - 69px);
+}
+
+.msg {
+    display: block;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.favorite_chats {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        height: 1px;
+        background-color: #767676;
+        width: calc(100% - 40px);
+        left: 20px;
+        bottom: 0;
+    }
+}
+
+.paperclip {
+    cursor: pointer;
+    margin-left: 5px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+
+    &:hover {
+        path {
+            fill: #fff;
+        }
+    }
+}
+
+.empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 25px 30px;
+
+    @media (max-width:$screen-lg) {
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+.search_icon {
+    cursor: pointer;
+
+    &:hover {
+        path {
+            stroke: #fff;
+        }
+    }
+}
+
+.filter {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 22px;
+    font-weight: 500;
+
+    option {
+        background-color: $blackColor;
+    }
+}
+
+.search_input {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    font-size: 20px;
+    padding: 5px;
+    position: relative;
+
+    div {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+.search_con {
+    position: relative;
+    width: 100%;
+}
+
+.close_search {
+    position: absolute;
+    font-size: 25px;
+    cursor: pointer;
+    right: 10px;
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.notification {
+    position: absolute;
+    left: -18px;
+    top: 0;
+    width: 10px;
+    aspect-ratio: 1/1;
+    border-radius: 100px;
+    background-color: #fff;
+}

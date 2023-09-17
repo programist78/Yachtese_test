@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.main {
+    background-color: $btnColor;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 15px 45px;
+    border-radius: 1000px;
+
+    &:hover {
+        background-color: darken($btnColor, 10%);
+    }
+}

@@ -1,0 +1,47 @@
+.main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.block {
+    width: 70%;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        font-size: 30px;
+        font-weight: 400;
+        margin-bottom: 50px;
+    }
+}
+
+.title {
+    font-size: 40px !important;
+    font-weight: 400;
+}
+
+.num {
+    font-size: 250px;
+    font-weight: 700;
+    line-height: 0.8em;
+    position: relative;
+    bottom: 50px;
+}
+
+.btn {
+    padding: 12px 70px;
+    border-radius: 1000px;
+    background: #81736B;
+    font-size: 16px;
+    font-weight: 700;
+}

@@ -1,0 +1,70 @@
+@import '../../../../src/styles/variables';
+
+.main {
+    img {
+        height: 100vh;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $blackColor;
+    padding: 40px 80px;
+    border-radius: 15px;
+
+    @media (max-width:$screen-sm) {
+        width: calc(100% - 40px);
+        padding: 40px 40px;
+    }
+}
+
+.title {
+    font-size: 40px;
+    text-align: center;
+    font-weight: 500;
+
+    @media (max-width:$screen-sm) {
+        font-size:24px;
+    }
+}
+
+.form {
+    padding: 20px 0 0 0;
+    width: 300px;
+
+    @media (max-width:$screen-sm) {
+        width: 100%;
+    }
+
+    p {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 400;
+        margin-top: 25px;
+        color: #F3F3F3;
+    }
+}
+
+.btn {
+    background: #81736B;
+    border-radius: 1000px;
+    padding: 15px 70px;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 35px auto 0;
+
+    @media (max-width:$screen-sm) {
+        padding: 10px 30px;
+        font-size: 12px;
+    }
+}
+
+.descr {
+    text-align: center;
+    margin-top: 15px;
+}

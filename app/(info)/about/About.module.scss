@@ -1,0 +1,53 @@
+@import '../../../src/styles/variables';
+
+.top {
+    height: $imageHeight;
+    width: 100%;
+
+    @media (max-width:$screen-sm) {
+        height: 70vh;
+    }
+}
+
+.sea {
+    height: 70vh;
+    width: 100%;
+}
+
+.title {
+    position: absolute;
+    left: 70%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: min-content;
+
+    @media (max-width:$screen-sm) {
+        left: 60%;
+        top: 50%;
+    }
+}
+
+.texts {
+    padding: 70px 0;
+
+    @media (max-width:$screen-sm) {
+        padding: 70px 20px;
+    }
+
+    p {
+        display: block;
+        margin-top: 70px;
+        font-size: 25px;
+        font-weight: 500;
+
+        @media (max-width:$screen-lg) and (min-width:$screen-sm) {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        @media (max-width:$screen-sm) {
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+}

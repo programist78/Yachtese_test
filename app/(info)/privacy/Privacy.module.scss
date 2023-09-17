@@ -1,0 +1,43 @@
+@import '../../../src/styles/variables';
+
+.top {
+    height: $imageHeight;
+    width: 100%;
+}
+
+.title {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+.texts {
+    padding: 70px 0 150px;
+
+    @media (max-width:$screen-sm) {
+        padding: 50px 20px 100px;
+    }
+
+    div {
+        font-size: 25px;
+        font-weight: 400;
+
+        @media (max-width:$screen-sm) {
+            font-size: 18px;
+        }
+    }
+}
+
+.first {
+    margin-bottom: 70px;
+}
+
+.text {
+    position: relative;
+    padding: 0 0 0 30px;
+}
+
+.number {
+    position: absolute;
+    left: 0;
+}

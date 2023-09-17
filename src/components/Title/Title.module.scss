@@ -1,0 +1,14 @@
+@import '../../styles/variables';
+
+.main {
+    font-size: 55px;
+    font-weight: 400;
+
+    @media (max-width:$screen-lg) {
+        font-size: 40px;
+    }
+
+    @media (max-width:$screen-sm) {
+        font-size: 30px;
+    }
+}

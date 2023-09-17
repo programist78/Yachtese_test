@@ -1,0 +1,180 @@
+@import '../../../styles/variables.scss';
+
+.con {
+    width: calc(100% - 100px);
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        width: 100%;
+    }
+
+    @media (max-width: $screen-sm) {
+        width: 100%;
+    }
+}
+
+.user_info {
+    display: flex;
+    gap: 20px;
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        display: block;
+    }
+
+    @media (max-width: $screen-sm) {
+        display: block;
+    }
+
+    h2 {
+        font-size: 30px;
+        font-weight: 700;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: max-content;
+        max-width: calc(100% - 50px);
+
+        @media (max-width: $screen-lg) and (min-width: $screen-md) {
+            font-size: 25px;
+        }
+    }
+}
+
+.user_info_view {
+    display: flex;
+    gap: 20px;
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        display: block;
+    }
+
+    @media (max-width: $screen-sm) {
+        display: block;
+    }
+
+    h2 {
+        font-size: 30px;
+        font-weight: 700;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: max-content;
+        max-width: calc(100% - 50px);
+
+        @media (max-width: $screen-lg) and (min-width: $screen-md) {
+            font-size: 25px;
+        }
+
+        @media (max-width: $screen-sm) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+.name {
+    display: flex;
+    width: 100%;
+
+    @media (max-width: $screen-sm) {
+        justify-content: center;
+    }
+
+    img {
+        position: relative;
+        top: -10px;
+    }
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+    border-radius: 1000px;
+    object-fit: cover;
+    display: block;
+
+    @media (max-width: $screen-lg) and (min-width: $screen-md) {
+        margin: 0 auto 15px;
+    }
+
+    @media (max-width: $screen-sm) {
+        height: 150px;
+        width: 150px;
+        margin: 0 auto 20px;
+    }
+}
+
+.location {
+    display: block;
+    width: 70%;
+    margin-top: 15px;
+
+    @media (max-width: $screen-xxl) and (min-width: $screen-xl) {
+        width: 100%;
+    }
+
+    @media (max-width: $screen-xl) {
+        width: 100%;
+    }
+
+    @media (max-width: $screen-sm) {
+        text-align: center;
+    }
+}
+
+.input {
+    background: transparent;
+    font-family: inherit;
+    display: block;
+    border: none;
+    outline: none;
+    font-size: 30px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    width: max-content;
+    max-width: calc(100% - 50px);
+}
+
+.btns {
+    a {
+        width: 50%;
+        border-radius: 1000px;
+        padding: 13px 20px;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: 500;
+
+        @media (max-width: $screen-xxl) and (min-width: $screen-xl) {
+            width: 60%;
+        }
+
+        @media (max-width: $screen-xl) {
+            width: 100%;
+        }
+    }
+}
+
+.pursepal {
+    background: #81736B;
+}
+
+.messages {
+    background: #FFF;
+    color: #81736B;
+}
+
+.image_con {
+    position: relative;
+}
+
+.edit_photo {
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
+
+.input_photo {
+    display: none;
+}

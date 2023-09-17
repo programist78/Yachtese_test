@@ -1,0 +1,24 @@
+// VARIABLES
+
+$screen-xxl: 1500px;
+$screen-xl: 1200px;
+$screen-lg: 998px;
+$screen-md: 768px;
+$screen-sm: 576px;
+$screen-xs: 376px;
+
+$imageHeight: 90vh;
+
+$btnColor: #81736B;
+$blackColor: #171818;
+$grayColor: #C1C1C1;
+
+$standardShadow: 5px 5px 15px 15px rgba(0, 0, 0, 0.10);
+
+$standardBorder: 1px solid #C1C1C1;
+
+@mixin flex($justify) {
+    display: flex;
+    align-items: center;
+    justify-content: $justify;
+}

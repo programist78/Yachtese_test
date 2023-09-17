@@ -1,0 +1,56 @@
+@import '../../../src/styles/variables.scss';
+
+.main {
+    padding-top: 160px;
+    padding-bottom: 130px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    width: 25%;
+    height: 800px;
+    padding: 0;
+
+    @media (max-width:$screen-xxl) and (min-width:$screen-lg) {
+        width: 30%;
+    }
+
+    @media (max-width:$screen-lg) {
+        width: 100%;
+    }
+}
+
+.right {
+    width: calc(75% - 20px);
+    height: 800px;
+    padding: 0;
+
+    @media (max-width:$screen-xxl) and (min-width:$screen-lg) {
+        width: calc(70% - 20px);
+    }
+}
+
+.empty_con {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.empty_title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+.empty_description {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.mobile_hidden {
+    @media (max-width:$screen-lg) {
+        display: none;
+    }
+}

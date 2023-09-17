@@ -1,0 +1,67 @@
+@import '../../../src/styles/variables';
+
+.main {
+    img {
+        height: 100vh;
+        width: 100%;
+    }
+}
+
+.block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: $standardShadow;
+    border-radius: 15px;
+    background-color: $blackColor;
+    width: 740px;
+    padding: 100px;
+
+    @media (max-width:$screen-lg) and (min-width:$screen-md) {
+        width: 600px;
+        padding: 50px;
+    }
+
+    @media (max-width:$screen-md) and (min-width:$screen-sm) {
+        width: 500px;
+        padding: 50px 30px;
+    }
+
+    @media (max-width:$screen-sm) {
+        width: calc(100vw - 40px);
+        padding: 50px 30px;
+    }
+
+    h2 {
+        font-size: 40px;
+        font-weight: 500;
+        text-align: center;
+        margin-bottom: 70px;
+
+        @media (max-width:$screen-lg) and (min-width:$screen-md) {
+            margin-bottom: 40px;
+        }
+
+        @media (max-width:$screen-md) and (min-width:$screen-sm) {
+            margin-bottom: 40px;
+        }
+
+        @media (max-width:$screen-sm) {
+            margin-bottom: 40px;
+            font-size: 25px;
+        }
+    }
+
+    a {
+        margin: 30px auto 0;
+        width: 200px;
+        padding: 0;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
