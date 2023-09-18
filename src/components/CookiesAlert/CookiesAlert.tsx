@@ -35,9 +35,6 @@ const CookiesAlert: React.FC = () => {
                         window.localStorage.setItem('isShowedCookies', 'showed')
                         setIsShowed('showed')
                     }}>Accept</button>
-                    <button onClick={() => {
-                        // IDK
-                    }}>Settings</button>
                 </div>
             </div>
         </div>

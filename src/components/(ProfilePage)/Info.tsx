@@ -121,10 +121,7 @@ export const SupplierViewInfo: FC = () => {
 }
 
 const Location: FC = () => {
-    const [updateLocation] = useMutation<
-        updateLocationResponse,
-        updateLocationInput
-    >(UPDATE_LOCATION)
+    const [updateLocation] = useMutation<updateLocationResponse, updateLocationInput>(UPDATE_LOCATION)
 
     const [isEditable, setIsEditable] = useState(false)
     const [error, setError] = useState<null | string>(null)
@@ -162,7 +159,7 @@ const Location: FC = () => {
                     setError('Wrong address!')
                     setPos({ latitude: '', longitude: '' })
                 })
-        }, 300)
+        }, 1000)
 
         return () => clearTimeout(tim)
     }, [place])

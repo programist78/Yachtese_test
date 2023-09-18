@@ -1,25 +1,30 @@
 import { gql } from '@apollo/client'
 
-export const ADD_FAVORIVE_SUPPLIER = gql`
-    mutation AddFavoriteSupplier(
-        $addFavoriteSupplierInput: AddFavoriteSupplierInput
-    ) {
-        addFavoriteSupplier(
-            addFavoriteSupplierInput: $addFavoriteSupplierInput
-        ) {
-            favoriteSuppliers
+export const RESTORE_FAVORIVE_SUPPLIER = gql`
+    mutation AnswerOffer($addFavoriteSuppliersGroupInput: AddFavoriteSuppliersGroupInput) {
+        addFavoriteSuppliersGroup(addFavoriteSuppliersGroupInput: $addFavoriteSuppliersGroupInput) {
+            favoriteSuppliers {
+                name
+                id
+            }
         }
     }
 `
 
-export interface addFavoriteSupplierResponse {
-    addFavoriteSupplier: {
-        favoriteSuppliers: Array<string>
+export interface restoreFavoriteSupplierResponse {
+    addFavoriteSuppliersGroupInput: {
+        favoriteSuppliers: Array<{
+            name: string
+            id: string | string[]
+        }>
     }
 }
 
-export interface addFavoriteSupplierInput {
-    addFavoriteSupplierInput: {
-        favoriteSuppliers: string
-      }
+export interface restoreFavoriteSupplierInput {
+    restoreFavoriteSuppliers: {
+        favoriteSuppliers: Array<{
+            name: string
+            id: string[]
+        }>
+    }
 }

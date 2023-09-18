@@ -23,6 +23,12 @@
     background-color: $blackColor;
     transition: .5s all ease-in-out;
     overflow-y: scroll;
+    position: relative;
+    top: 50px;
+
+    @media (max-width:$screen-sm) {
+        width: calc(100% - 40px);
+    }
 }
 
 .title {

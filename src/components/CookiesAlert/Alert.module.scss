@@ -24,10 +24,28 @@
 .con {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    @media (max-width:$screen-md) and (min-width:$screen-sm) {
+        display: block;
+        padding: 0!important;
+    }
+
+    @media (max-width:$screen-sm) {
+        display: block;
+    }
 }
 
 .texts {
     width: 60%;
+
+    @media (max-width:$screen-md) {
+        width: 100%;
+    }
+
+    @media (max-width:$screen-sm) {
+        text-align: center;
+    }
 
     h4 {
         font-size: 30px;
@@ -46,10 +64,29 @@
 
 .btns {
     width: 15%;
-    padding: 10px 0;
+
+
+    @media (max-width:$screen-xl) and (min-width:$screen-lg) {
+        width: 25%;
+    }
+
+    @media (max-width:$screen-lg) and (min-width:$screen-md) {
+        width: 25%;
+    }
+
+    @media (max-width:$screen-md) and (min-width:$screen-sm) {
+        width: 50%;
+        margin-top: 25px;
+    }
+
+    @media (max-width:$screen-sm) {
+        width: 50%;
+        margin: 25px auto;
+    }
 
     button {
         width: 100%;
+        padding: 15px 0;
         background-color: $btnColor;
         height: 50%;
         border-radius: 1000px;
@@ -60,16 +97,6 @@
 
         &:hover {
             background-color: darken($btnColor, 10%);
-        }
-
-        &:last-of-type {
-            background-color: $grayColor;
-            margin-top: 20px;
-            color: $blackColor;
-
-            &:hover {
-                background-color: darken($grayColor, 10%);
-            }
         }
     }
 }

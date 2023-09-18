@@ -1,25 +1,30 @@
 import { gql } from '@apollo/client'
+import { UserRolesType } from '../config/constants'
 
 export const LAST_MESSAGE = gql`
-    subscription Subscription {
-        lastMessage {
-            userName
-            user
-            message
-            created
-            avatarURL
-            chatId
-        }
-    }
+    subscription LastMessage {
+  lastMessage {
+    userName
+    user
+    role
+    message
+    isOffer
+    created
+    chatId
+    avatarURL
+  }
+}
 `
 
 export interface lastMessageResponse {
     lastMessage: {
-        avatarURL: string
-        chatId: string
-        created: string
-        message: string
-        user: string
         userName: string
+        user: string
+        role: UserRolesType
+        message: string
+        isOffer: boolean
+        created: string
+        chatId: string
+        avatarURL: string
     }
 }

@@ -9,7 +9,6 @@ import ImageError from '../../../src/utils/ImageError'
 import Link from 'next/link'
 import getLocalTime from '../../../src/utils/getLocalTime'
 import { useMutation, useSuspenseQuery } from '@apollo/client'
-import { ADD_FAVORIVE_SUPPLIER, addFavoriteSupplierInput, addFavoriteSupplierResponse } from '../../../src/graphql/addToFavoriteSuppliers'
 import useAuthStore from '../../../src/stores/useAuthStore'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { GET_ALL_SUPPLIERS, getAllSuppliercsResponse, getAllSuppliersInput } from '../../../src/graphql/getAllSuppliers'
@@ -17,8 +16,9 @@ import { GET_ALL_SUPPLIERS, getAllSuppliercsResponse, getAllSuppliersInput } fro
 const page: FC = () => {
 
     const params = useSearchParams()
+    const pageNum = params.get('page')
     const router = useRouter()
-    const [page, setPage] = useState(params.get('page') ? +params.get('page') : 1)
+    const [page, setPage] = useState(pageNum ? +pageNum : 1)
     const [selectedMarkerData, setSelectedMarkerData] = useState(null)
     
     const { data } = useSuspenseQuery<getAllSuppliercsResponse, getAllSuppliersInput>(GET_ALL_SUPPLIERS, {
@@ -26,10 +26,10 @@ const page: FC = () => {
             page
         }
     })
-    const maxPage = Math.ceil(data.getSuppliersByRole.count / 10)
+    const maxPage = Math.ceil(data.getSuppliersByRole.count ? data.getSuppliersByRole.count / 10 : 1)
 
     useEffect(() => {
-        setPage(+params.get('page'))
+        setPage(params.get('page') ? +params.get('page') : 1)
     }, [params])
 
     useEffect(() => {
@@ -120,8 +120,6 @@ interface SupplierProps {
 
 const Supplier: FC<SupplierProps> = ({ supplier }) => {
 
-    const [addToFavorite] = useMutation<addFavoriteSupplierResponse, addFavoriteSupplierInput>(ADD_FAVORIVE_SUPPLIER)
-
     const userData = useAuthStore((state) => state.userData)
     const router = useRouter()
 
@@ -172,20 +170,6 @@ const Supplier: FC<SupplierProps> = ({ supplier }) => {
                 )}
             </div>
             <div className={c.btns}>
-                <Image src='/assets/like.svg' alt='Add to favorite' height={45} width={45} onClick={(e) => {
-                    // debugger // Залишив для того щоб пам'ятати що в цьому місці проблема з бекендом і треба буде доробити
-                    // e.stopPropagation()
-                    // e.preventDefault()
-                    // if(!isFavorite) {
-                    //     addToFavorite({
-                    //         variables: {
-                    //             addFavoriteSupplierInput: {
-                    //                 favoriteSuppliers: supplier._id
-                    //             }
-                    //         }
-                    //     })
-                    // }
-                }}/>
                 <Image src='/assets/message.svg' alt='Add to favorite' height={45} width={45} onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()

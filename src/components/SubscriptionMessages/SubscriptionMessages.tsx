@@ -8,7 +8,6 @@ import useMessagesStore from '../../stores/useMessagesStore'
 
 const SubscriptionMessages: React.FC = () => {
 
-    const isLogined = useAuthStore((state) => state.isLogined)
     const setUserData = useAuthStore((state) => state.setUserData)
     const userData = useAuthStore((state) => state.userData)
     const selectedChatId = useMessagesStore((state) => state.selectedChatId)
@@ -16,8 +15,8 @@ const SubscriptionMessages: React.FC = () => {
 
     useSubscription<lastMessageResponse>(LAST_MESSAGE,
         {
-            onSubscriptionData: ({ subscriptionData }) => {
-                const { avatarURL, chatId, created, message, user, userName } = subscriptionData.data.lastMessage
+            onData: ({ data }) => {
+                const { avatarURL, chatId, created, message, user, userName, isOffer, role } = data.data.lastMessage
 
                 if (selectedChatId === chatId) {
                     addMessage({
@@ -27,7 +26,7 @@ const SubscriptionMessages: React.FC = () => {
                             createdAt: '',
                             _id: user,
                             avatarURL: avatarURL,
-                            role: 'SUPPLIER', // EDIT
+                            role: role,
                             userName
                         }
                     })
@@ -56,7 +55,7 @@ const SubscriptionMessages: React.FC = () => {
                                 // eslint-disable-next-line
                                 user_2: { createdAt: '', _id: user, avatarURL: avatarURL, role: 'SUPPLIER', userName }, // EDIT
                                 notification: true
-                        }
+                            }
                         ]
                     })
                 }

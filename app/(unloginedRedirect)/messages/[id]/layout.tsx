@@ -32,7 +32,7 @@ const layout: FC<Props> = async ({ params, children }) => {
                     id: params.id.replace('new', '')
                 }
             })
-    
+        
             return (
                 <>
                     <MessagesStoreInitializer
@@ -54,7 +54,7 @@ const layout: FC<Props> = async ({ params, children }) => {
             getMessagesInput
         >({
             query: GET_MESSAGES,
-            variables: { getMessagesInput: { chatId: params.id } },
+            variables: { getMessagesInput: { chatId: params.id } }
         })
 
         if (!data) redirect(RootURLsEnum.messages)
@@ -62,13 +62,14 @@ const layout: FC<Props> = async ({ params, children }) => {
         return (
             <>
                 <MessagesStoreInitializer
-                    messagesList={data.getMessages}
+                    messagesList={data.getMessages.messages}
+                    offers={data.getMessages.offers}
                     chatId={params.id}
                 />
                 {children}
             </>
         )
-    } catch {
+    } catch (e) {
         redirect(RootURLsEnum.messages)
     }
 }

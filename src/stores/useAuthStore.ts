@@ -85,6 +85,7 @@ export interface useAuthStoreType {
     isLogined: boolean
     userData: null | userDataType
     setUserData: (data: null | userDataType) => void
+    readAll: (chatId:string) => void
 }
 
 const useAuthStore = create<useAuthStoreType>()(devtools((set) => ({
@@ -93,11 +94,14 @@ const useAuthStore = create<useAuthStoreType>()(devtools((set) => ({
     setUserData: (data) => {
         if (!data) {
             set({ isLogined: false, userData: null })
-            
+
             return
         }
         set({ isLogined: true, userData: data })
-    }
+    },
+    readAll: (chatId) => set((state) => ({
+        userData: { ...state.userData, chats: state.userData.chats.map((item) => item._id === chatId ? ({ ...item, notification: false }) : item)}
+    }))
 }), { name: 'useAuthStore' }))
 
 export default useAuthStore

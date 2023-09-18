@@ -25,14 +25,17 @@
     align-items: center;
 
     @media (max-width:$screen-xxl) and (min-width:$screen-xl) {
+        top: 55%;
         left: 65%;
     }
 
     @media (max-width:$screen-xl) and (min-width:$screen-lg) {
+        top: 55%;
         left: 65%;
     }
 
     @media (max-width:$screen-lg) and (min-width:$screen-sm) {
+        top: 55%;
         left: 50%;
     }
 
