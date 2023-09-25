@@ -13,7 +13,6 @@ import instans from '../../config/axios'
 import useSupplierPageStore from '../../stores/useSupplierPageStore'
 import getLocalTime, { formatLocalTime } from '../../utils/getLocalTime'
 import Geocode from 'react-geocode'
-import Cookies from 'js-cookie'
 
 
 const UserInfo: FC = () => {

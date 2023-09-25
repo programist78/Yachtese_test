@@ -30,6 +30,7 @@ import useYachtPageStore from '../../stores/useYachtPageStore'
 import useSupplierPageStore from '../../stores/useSupplierPageStore'
 import useFavoriteSuppliersPopupStore from '../../stores/useFavoriteSuppliersPopupStore'
 import FavoriteSuppliersPopup from '../FavoriteSuppliersPopup/FavoriteSuppliersPopup'
+import { loactionList } from '../../config/constants'
 
 export const SupplierInfo: FC = () => {
     return (
@@ -129,6 +130,8 @@ const Location: FC = () => {
     const [place, setPlace] = useState('')
     const [placeInState, setPlaceInState] = useState('')
     const [_, startTransition] = useTransition()
+    const [openedGroupName, setOpenedGroupName] = useState('')
+    const [selectedCountry, setSelectedCountry] = useState(userData.country ? userData.country : '')
     const [radius, setRadius] = useState(
         userData.location.radius ? userData.location.radius : null,
     )
@@ -185,7 +188,7 @@ const Location: FC = () => {
 
     const handleSubmit = () => {
         if (!place || !pos.latitude) return setError('Address is required')
-        if (error) return
+        if (!selectedCountry) return setError('Country is required')
 
         updateLocation({
             variables: {
@@ -195,6 +198,7 @@ const Location: FC = () => {
                         lon: pos.longitude,
                         radius: Number(radius),
                     },
+                    country: selectedCountry
                 },
             },
         }).then(async (res) => {
@@ -293,6 +297,17 @@ const Location: FC = () => {
                     }
                 />
             </div>
+            {loactionList.map(({ countries, groupName }) => <div key={groupName}>
+                <div className={`${c.input_con} ${c.accordeon_group}`} onClick={() => setOpenedGroupName((prev) => prev === groupName ? '' : groupName)}>
+                    {groupName}
+                </div>
+                <div className={c.accordeon} style={openedGroupName === groupName ? { height: 'auto' } : { height: 0 }}>
+                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => isEditable && setSelectedCountry((prev) => prev === item ? '': item)}>
+                        <label htmlFor={item} className={c.label} onClick={(e) => isEditable && setSelectedCountry((prev) => prev === item ? '': item)}>{item}</label>
+                        <input id={item} name={item} type='checkbox' readOnly checked={selectedCountry === item} />
+                    </div>)}
+                </div>
+            </div>)}
         </>
     )
 }
@@ -312,8 +327,8 @@ const Services: FC = () => {
 
     const handleSubmit = () => {
         if (isPending) return
-        setIsPending(true)
         if (!input) return setIsEditable(false)
+        setIsPending(true)
 
         addService({
             variables: { addSupplierServiceInput: { services: [input] } },
@@ -638,7 +653,7 @@ const FavouriteSuppliers: FC = () => {
     const favoriteSuppliers = [].concat(...userData.favoriteSuppliers.map((obj) => obj.id))
 
     return (
-        <div>
+        favoriteSuppliers.length > 0 && <div>
             <h4 className={c.title}>
                 Favourite Suppliers{' '}
                 <EditIcon

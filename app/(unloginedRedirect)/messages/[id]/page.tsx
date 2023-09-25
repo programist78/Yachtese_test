@@ -45,7 +45,7 @@ const page: FC = () => {
         if (existingFavChat) router.replace(`${RootURLsEnum.messages}/${existingFavChat._id}`)
 
         return () => setSelectedChatId(null)
-    }, [])
+    }, [params.id, router, userData.chats, setSelectedChatId, userData.favoriteChats])
 
     return (<>
         <article className={`${c.left} block ${c.mobile_hidden}`}>
@@ -117,7 +117,6 @@ const MessagesList: FC = () => {
             <div className={c.message_right}>
                 <div className={c.message_top}>
                     <h5>{item.user.userName}</h5>
-                    {/* <h6>{new Date(item.createdAt).toLocaleTimeString()}</h6> */}
                 </div>
                 <div className={c.message_content}>
                     {item.message}
@@ -261,14 +260,19 @@ const OfferView: FC<{setIsOfferViewOpened:any, isOfferViewOpened:boolean}> = ({s
     }
     `)
 
-    return isOfferViewOpened && <div onClick={() => setIsOfferViewOpened(false)} className={c.backdrop}>
+    return isOfferViewOpened && offers.length > 0 && <div onClick={() => setIsOfferViewOpened(false)} className={c.backdrop}>
         <div className={c.block} onClick={(e) => {
             e.stopPropagation()
             e.preventDefault()
         }}>
             <h2>{offers[0].title}</h2>
             <p className={c.offer_descr}>{offers[0].description}</p>
-            {offers[0].services.map((item) => <p className={c.offer_services} key={item}>{item}</p>)}
+            {offers[0].services.map((item) =><p className={c.offer_services} key={item}>{item}</p>)}
+            {offers[0].fileUrl && <div className={c.file_svg}><svg onClick={() => window.open(offers[0].fileUrl[0], '_blank')} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+                <path d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z"></path>
+            </svg>
+            <span onClick={() => window.open(offers[0].fileUrl[0], '_blank')}>Click to download</span>
+            </div>}
             <button className={c.offer_accept} onClick={() => {
                 submitOffer({
                     variables: {

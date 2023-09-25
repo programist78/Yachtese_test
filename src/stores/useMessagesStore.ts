@@ -24,6 +24,7 @@ export interface useMessagesStoreType {
         description: string
         services: string[]
         title: string
+        fileUrl: string[]
     }>
     setSelectedUser: (user: Populate) => void
     setSelectedChatId: (id: string) => void

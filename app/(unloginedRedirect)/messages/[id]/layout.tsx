@@ -9,10 +9,28 @@ import MessagesStoreInitializer from '../../../../src/utils/MessagesStoreInitial
 import { redirect } from 'next/navigation'
 import { RootURLsEnum } from '../../../../src/config/constants'
 import { gql } from '@apollo/client'
+import { Metadata } from 'next'
 
 interface Props {
     children: ReactNode
     params: { id: string }
+}
+
+export const metadata: Metadata = {
+    title: 'Messages | Yachtease',
+    icons: '/assets/favicon.png',
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/messages`),
+    openGraph: {
+        type: 'website',
+        url: process.env.NEXT_PUBLIC_CLIENT_URL,
+        title: 'Messages | Yachtease',
+        images: '/preview.png',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Messages | Yachtease',
+        images: [`${process.env.NEXT_PUBLIC_CLIENT_URL}/preview.png`],
+    }
 }
 
 const layout: FC<Props> = async ({ params, children }) => {

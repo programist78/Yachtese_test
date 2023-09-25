@@ -46,27 +46,6 @@ const MapOnlyViewPopup: React.FC = () => {
                         {...mapProps}
                         onDrag={(e) => setViewport(e.viewState)}
                         onZoom={(e) => setViewport(e.viewState)}
-                        onDblClick={(e) => {
-                            Geocode.fromLatLng(
-                                `${e.lngLat.lat}`,
-                                `${e.lngLat.lng}`,
-                                process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY,
-                            ).then((res) => {
-                                setMarkers((prev) => [
-                                    ...prev,
-                                    {
-                                        lat: e.lngLat.lat,
-                                        lon: e.lngLat.lng,
-                                        time: new Date(),
-                                        status: false,
-                                        title: res.results[
-                                            Math.round(res.results.length / 2)
-                                        ].formatted_address,
-                                        unconfiremed: true,
-                                    },
-                                ])
-                            })
-                        }}
                         style={{
                             height: 600,
                             width: '100%',

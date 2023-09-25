@@ -1,24 +1,24 @@
 import { Metadata } from 'next'
-import React from 'react'
+import { FC, PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
-    title: 'Login | Yachtease',
+    title: 'About | Yachtease',
     icons: '/assets/favicon.png',
-    metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/login`),
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_CLIENT_URL}/about`),
     openGraph: {
         type: 'website',
         url: process.env.NEXT_PUBLIC_CLIENT_URL,
-        title: 'Login | Yachtease',
+        title: 'About | Yachtease',
         images: '/preview.png',
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Login | Yachtease',
+        title: 'About | Yachtease',
         images: [`${process.env.NEXT_PUBLIC_CLIENT_URL}/preview.png`],
     }
 }
 
-const layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+const layout: FC<PropsWithChildren> = ({ children }) => {
     return children
 }
 

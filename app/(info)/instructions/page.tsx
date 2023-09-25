@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React from 'react'
 import Title from '../../../src/components/Title/Title'
 import c from './Instructions.module.scss'

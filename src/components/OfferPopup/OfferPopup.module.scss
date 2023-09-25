@@ -40,6 +40,12 @@
 .inp_con {
     position: relative;
     width: 100%;
+
+    &:last-of-type {
+        .inp {
+            margin-bottom: 10px;
+        }
+    }
 }
 
 .inp {
@@ -58,4 +64,11 @@
     border-radius: 1000px;
     background: #81736B;
     padding: 15px 50px;
+}
+
+.file {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 15px 0 20px;
 }

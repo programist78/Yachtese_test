@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { UserRoles, UserRolesType } from '../config/constants'
+import { UserRolesType } from '../config/constants'
 
 export const GET_MESSAGES = gql`
 query Query($getMessagesInput: GetMessagesInput) {
@@ -14,6 +14,7 @@ query Query($getMessagesInput: GetMessagesInput) {
       description
       services
       title
+      fileUrl
     }
     messages {
       user {
@@ -60,6 +61,7 @@ export interface getMessagesResponse {
       description: string
       services: string[]
       title: string
+      fileUrl: string[]
     }>
   }
 }

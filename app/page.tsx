@@ -8,6 +8,7 @@ import Footer from '../src/components/Footer/Footer'
 import Image from 'next/image'
 import useAuthStore from '../src/stores/useAuthStore'
 import { useRouter } from 'next/navigation'
+import Script from 'next/script'
 
 
 const page: React.FC = () => {
@@ -20,7 +21,7 @@ const page: React.FC = () => {
         if (isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE')) router.replace(RootURLsEnum.search)
     }, [router, isLogined, userData])
 
-    return <div className='main'>
+    return <><div className='main'>
         <main className={c.main}>
             <article className={`${c.top} filtered_image_container`}>
                 <Image quality={100} fill priority src='/assets/yacht.webp' alt='Yacht' />
@@ -108,12 +109,13 @@ const page: React.FC = () => {
             </article>
             <article className={`${c.signup} container`}>
                 <Title className={c.centered_text}>Sign Up</Title>
-                <h3>Register on our website and learn all the advantages of our<br/> services!</h3>
-                <Button text='Sign Up' className={c.signup_btn} href={RootURLsEnum.registerChoose}/>
+                <h3>Register on our website and learn all the advantages of our<br /> services!</h3>
+                <Button text='Sign Up' className={c.signup_btn} href={RootURLsEnum.registerChoose} />
             </article>
         </main>
         <Footer />
     </div>
+    </>
 
 }
 

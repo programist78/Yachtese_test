@@ -1,8 +1,7 @@
-import React from 'react'
+import { FC, PropsWithChildren } from 'react'
 import Footer from '../../src/components/Footer/Footer'
 
-
-const layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+const layout: FC<PropsWithChildren> = ({ children }) => {
     return <div className='main'>
         {children}
         <Footer />

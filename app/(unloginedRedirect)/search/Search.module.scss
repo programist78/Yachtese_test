@@ -1,7 +1,7 @@
 @import '../../../src/styles/variables';
 
 .main {
-    padding-top: 160px;
+    padding-top: 60px;
 }
 
 .popup {
@@ -182,7 +182,7 @@
 
 .btns {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
     align-items: center;
 
     img {
@@ -221,4 +221,113 @@
     background-color: $blackColor;
     padding: 5px 15px;
     border-radius: 15px;
+}
+
+.filters {
+    display: flex;
+    gap: 25px;
+    padding-top: 40px;
+}
+
+.filter {
+    border: 1px solid #FFF;
+    background: #333434;
+    border-radius: 1000px;
+    outline: none;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.input_con {
+    border-bottom: 1px solid #DBDBDB80;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 500;
+    padding-left: 40px;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.11);
+    }
+    
+    label {
+        cursor: pointer;
+    }
+
+    input {
+        width: 0;
+        height: 0;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 100px;
+            background-color: rgba(217, 217, 217, 0.20);
+            border: 3px solid rgba(255, 255, 255, 0.40);
+        }
+
+        &:checked {
+            &::before {
+                background-color: #D9D9D9;
+                border: 3px solid #D9D9D9;
+            }
+        }
+    }
+}
+
+.accordeon {
+    overflow: hidden;
+}
+
+.accordeon_group {
+    padding-left: 0;
+}
+
+.accordeon_item {
+    padding: 10px;
+    font-size: 24px;
+    font-weight: 500;
+    padding-left: 40px;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.11);
+    }
+    
+    label {
+        cursor: pointer;
+    }
+
+    input {
+        width: 0;
+        height: 0;
+
+        &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 100px;
+            background-color: rgba(217, 217, 217, 0.20);
+            border: 3px solid rgba(255, 255, 255, 0.40);
+        }
+
+        &:checked {
+            &::before {
+                background-color: #D9D9D9;
+                border: 3px solid #D9D9D9;
+            }
+        }
+    }
 }

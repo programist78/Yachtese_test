@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import c from './styles/Additional.module.scss'
 import useAuthStore from '../../stores/useAuthStore'
-import ReactMapGl, { Marker } from 'react-map-gl'
+import ReactMapGl, { Layer, Marker, Source } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { mapProps } from '../../config/constants'
 import Image from 'next/image'
@@ -32,7 +32,7 @@ export const YachtAdditional: FC = () => {
 export const YachtTeammateAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
-        <Map/>
+        <Map />
     </article>
 }
 
@@ -43,7 +43,7 @@ export const YachtBussinesAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {subscription.customerId && <Subscription />}
-        <Map/>
+        <Map />
     </article>
 }
 
@@ -82,6 +82,21 @@ const Map: FC = () => {
                 {routes.map((item, index) => <Marker key={`Marker ${index}`} latitude={Number(item.lat)} longitude={Number(item.lon)} anchor='center'>
                     <div className='marker_con'><Image src='/assets/marker.png' alt={`#${index}`} width={20} height={30} /></div>
                 </Marker>)}
+                <Source id="polylineLayer" type="geojson" data={{
+                            type: 'Feature',
+                            properties: {},
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: routes.sort((a, b) => {
+                                    const dateA = new Date(a.time)
+                                    const dateB = new Date(b.time)
+                                
+                                    return Number(dateA) - Number(dateB)
+                                  }).map((item) => [ item.lon, item.lat ])
+                            }
+                        }}>
+                            <Layer type='line' />
+                        </Source>
             </ReactMapGl>
         </div>
     </div>

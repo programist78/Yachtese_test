@@ -59,32 +59,24 @@
 
     @media (max-width:$screen-xxl) and (min-width:$screen-lg) {
         width: 100%;
-        background: transparent;
-        backdrop-filter: none;
-        padding: 15px 0 0 0;
+        padding: 15px;
     }
 
     @media (max-width:$screen-lg) and (min-width:$screen-md) {
         width: 100%;
-        background: transparent;
-        backdrop-filter: none;
-        padding: 15px 0 0 0;
+        padding: 15px;
         font-size: 22px;
     }
 
     @media (max-width:$screen-md) and (min-width:$screen-sm) {
         width: 100%;
-        background: transparent;
-        backdrop-filter: none;
-        padding: 15px 0 0 0;
+        padding: 15px;
         font-size: 22px;
     }
 
     @media (max-width:$screen-sm) {
         width: 100%;
-        background: transparent;
-        backdrop-filter: none;
-        padding: 15px 0 0 0;
+        padding: 15px;
         font-size: 18px;
     }
 }

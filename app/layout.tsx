@@ -9,10 +9,33 @@ import CookiesAlert from '../src/components/CookiesAlert/CookiesAlert'
 import { getClient } from '../src/config/getClient'
 import { GET_USER_BY_TOKEN } from '../src/graphql/getUserByToken'
 import SubscriptionMessages from '../src/components/SubscriptionMessages/SubscriptionMessages'
+import MessageScript from '../src/components/MessageScript/MessageScript'
 
 export const metadata: Metadata = {
     title: 'Yachtease',
     icons: '/assets/favicon.png',
+    metadataBase: new URL(process.env.NEXT_PUBLIC_CLIENT_URL),
+    authors: [
+        {
+            name: 'webXwiz',
+            url: 'https://webxwiz.com',
+        },
+        {
+            name: 'Bohdan Shtahret',
+            url: 'https://www.linkedin.com/in/bohdan-shtanhret-310966261/',
+        },
+    ],
+    openGraph: {
+        type: 'website',
+        url: process.env.NEXT_PUBLIC_CLIENT_URL,
+        title: 'Yachtease',
+        images: '/preview.png',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Yachtease',
+        images: [`${process.env.NEXT_PUBLIC_CLIENT_URL}/preview.png`],
+    }
 }
 
 const font = Alegreya_Sans({
@@ -43,6 +66,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
                             </Providers>
                         </div>
                     </body>
+                    <MessageScript />
                 </html>
             )
         }
@@ -59,6 +83,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
                         </Providers>
                     </div>
                 </body>
+                <MessageScript />
             </html>
         )
     } catch (e) {
@@ -72,6 +97,7 @@ const RootLayout: React.FC<React.PropsWithChildren> = async ({ children }) => {
                         {children}
                     </Providers>
                 </body>
+                <MessageScript />
             </html>
         )
     }

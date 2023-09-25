@@ -17,6 +17,7 @@ interface Props {
         description: string
         services: string[]
         title: string
+        fileUrl: string[]
     }>
 }
 

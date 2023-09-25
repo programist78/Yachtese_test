@@ -407,3 +407,22 @@ $loadingColor: #00000046;
         display: flex;
     }
 }
+
+.file_svg {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    svg {
+        cursor: pointer;
+        path {
+            fill: white;
+        }
+    }
+
+    span {
+        cursor: pointer;
+    }
+}

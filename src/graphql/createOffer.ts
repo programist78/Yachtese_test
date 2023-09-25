@@ -18,6 +18,7 @@ export const CREATE_OFFER = gql`
 
 export interface sendOfferInput {
     sendOfferInput: {
+        fileUrl: string
         title: string
         services: string
         description: string

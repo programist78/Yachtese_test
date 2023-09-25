@@ -29,14 +29,8 @@ const Footer: React.FC = () => {
                     <Link href={RootURLsEnum.instructions}>Instructions</Link>
                 </div>
                 <div className={c.menu_item}>
-                    <Link href={RootURLsEnum.explore}>Explore</Link>
-                    <Link href={RootURLsEnum.contacts}>Contacts</Link>
-                    <Link href={RootURLsEnum.help}>Help</Link>
-                </div>
-                <div className={c.menu_item}>
                     <Link href={RootURLsEnum.login}>Log In</Link>
                     <Link href={RootURLsEnum.registerChoose}>Sign Up</Link>
-                    <Link href={RootURLsEnum.blog}>Blog</Link>
                 </div>
             </div>
         </div>

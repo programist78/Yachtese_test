@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import c from './MapPopup.module.scss'
 import useMapStore from '../../stores/useMapStore'
 import Title from '../Title/Title'
-import ReactMapGl, { Marker, ViewState } from 'react-map-gl'
+import ReactMapGl, { Marker, ViewState, Layer, Source } from 'react-map-gl'
 import useAuthStore, { MarkerType } from '../../stores/useAuthStore'
 import { mapProps } from '../../config/constants'
 import Image from 'next/image'
@@ -21,7 +21,7 @@ const MapPopup: React.FC = () => {
     const userData = useAuthStore((state) => state.userData)
     const setUserData = useAuthStore((state) => state.setUserData)
 
-    const [markers, setMarkers] = useState<Array<MarkerType & { time: string | null }>>(userData.yachtRoute.map((item) => ({...item, time: new Date(item.time).toISOString().slice(0, 16)})))
+    const [markers, setMarkers] = useState<Array<MarkerType & { time: string | null }>>(userData.yachtRoute.map((item) => ({ ...item, time: new Date(item.time).toISOString().slice(0, 16) })))
     const [viewport, setViewport] = useState<ViewState>({
         bearing: 0,
         latitude: Number(markers.length > 0 ? markers[0].lat : 0),
@@ -37,11 +37,11 @@ const MapPopup: React.FC = () => {
     })
 
     const handleSubmit = () => {
-        if(!markers.every((item) => item.time !== null)) return errorAlert('All markers must have time')
+        if (!markers.every((item) => item.time !== null)) return errorAlert('All markers must have time')
         updateRoute({
             variables: {
                 yachtRoutesInput: {
-                    yachtRoute:markers.map((item) => ({
+                    yachtRoute: markers.map((item) => ({
                         lat: item.lat,
                         lon: item.lon,
                         status: false,
@@ -50,9 +50,9 @@ const MapPopup: React.FC = () => {
                     }))
                 }
             }
-        }).then(({data}) => {
-            if(!data) return errorAlert()
-            setUserData({...userData, yachtRoute: data.changeAllYachtRoutes.yachtRoute})
+        }).then(({ data }) => {
+            if (!data) return errorAlert()
+            setUserData({ ...userData, yachtRoute: data.changeAllYachtRoutes.yachtRoute })
             successAlert('Yacht route updated!')
         }).catch(() => errorAlert())
     }
@@ -87,7 +87,7 @@ const MapPopup: React.FC = () => {
                                     {
                                         lat: e.lngLat.lat,
                                         lon: e.lngLat.lng,
-                                        time: null,
+                                        time: new Date().toISOString().slice(0, 16),
                                         status: false,
                                         title: res.results[
                                             res.results.length > 1 ? Math.round(res.results.length / 2) : 0
@@ -102,8 +102,7 @@ const MapPopup: React.FC = () => {
                             width: '100%',
                             borderRadius: 15,
                             overflow: 'hidden',
-                        }}
-                    >
+                        }}>
                         {markers.length > 0 &&
                             markers.map((item, index) => (
                                 <Marker
@@ -126,15 +125,28 @@ const MapPopup: React.FC = () => {
                                         />
                                     </div>
                                 </Marker>
-                            ))}
+                            ))
+                        }
+                        <Source id="polylineLayer" type="geojson" data={{
+                            type: 'Feature',
+                            properties: {},
+                            geometry: {
+                                type: 'LineString',
+                                coordinates: markers.sort((a, b) => {
+                                    const dateA = new Date(a.time)
+                                    const dateB = new Date(b.time)
+
+                                    return Number(dateA) - Number(dateB)
+                                }).map((item) => [item.lon, item.lat])
+                            }
+                        }}>
+                            <Layer type='line' />
+                        </Source>
                     </ReactMapGl>
                     <div className={c.inputs}>
                         {markers.length > 0 &&
                             markers.map((item, index) => (
-                                <div
-                                    key={`${item.title}${index}`}
-                                    className={c.route}
-                                >
+                                <div key={`${item.title}${index}`} className={c.route}>
                                     <>
                                         <input
                                             className={c.input}

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const GET_ALL_SUPPLIERS = gql`
-  query GetSuppliersByRole($page: Int) {
-  getSuppliersByRole(page: $page) {
+  query Query($getSuppliersByRoleInput: GetSuppliersByRoleInput) {
+  getSuppliersByRole(getSuppliersByRoleInput: $getSuppliersByRoleInput) {
     count
     suppliers {
       _id
@@ -70,5 +70,8 @@ export interface getAllSuppliercsResponse {
 }
 
 export interface getAllSuppliersInput {
-  page: number
+  getSuppliersByRoleInput: {
+    page: number
+    service?: string[]
+  }
 } 
