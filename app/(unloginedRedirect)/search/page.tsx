@@ -1,13 +1,10 @@
 'use client'
 import { useEffect, useState, FC, Dispatch, SetStateAction } from 'react'
 import c from './Search.module.scss'
-import { RootURLsEnum, departmentsList, loactionList, servicesList } from '../../../src/config/constants'
+import { RootURLsEnum, loactionList, servicesList } from '../../../src/config/constants'
 import Image from 'next/image'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import ImageError from '../../../src/utils/ImageError'
-import MapCircle from 'mapbox-gl-circle'
-import mapboxgl from 'mapbox-gl'
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Link from 'next/link'
 import getLocalTime from '../../../src/utils/getLocalTime'
@@ -17,6 +14,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { GET_ALL_SUPPLIERS, getAllSuppliercsResponse, getAllSuppliersInput } from '../../../src/graphql/getAllSuppliers'
 import { addFavoriteSupplierInput, addFavoriteSupplierResponse, ADD_FAVORIVE_SUPPLIER, RESTORE_FAV_SUPPLIER, restoreFavoriteSupplierInput, restoreFavoriteSupplierResponse } from '../../../src/graphql/addToFavoriteSuppliers'
 import { errorAlert } from '../../../src/utils/alerts'
+import dynamic from 'next/dynamic'
+const MapBox = dynamic(() => import('./Map'), { ssr: false })
 
 const page: FC = () => {
 
@@ -54,7 +53,7 @@ const page: FC = () => {
     }, [data, router])
 
     return <div className={`${c.main} container`}>
-        <MapboxMap suppliers={data.getSuppliersByRole.suppliers} />
+        <MapBox suppliers={data.getSuppliersByRole.suppliers} />
         <div className={c.filters}>
             <button className={c.filter} onClick={() => setIsLocationPopupOpened(true)}>Location<Image src='/assets/filter.svg' alt='Filter Location' width={24} height={22} /></button>
             <button className={c.filter} onClick={() => setIsServicesPopupOpened(true)}>Services<Image src='/assets/filter.svg' alt='Filter Services' width={24} height={22} /></button>
@@ -236,140 +235,5 @@ const ServicesFilterPopup: FC<{
     </div>
 }
 
-
-const MapboxMap: FC<{
-    suppliers: Array<{
-        _id: string
-        createdAt: string
-        role
-        userName
-        email
-        location: {
-            lat: string
-            lon: string
-            radius: string
-        }
-        services: Array<string>
-        avatarURL: string
-        description: string
-        contactInfo: {
-            name: string
-            link: string
-        }
-    }>
-}> = ({ suppliers }) => {
-
-    useEffect(() => {
-        mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
-
-        const initializeMap = () => {
-            const mapInstance = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/navigation-night-v1',
-                center: [0, 0],
-                zoom: 1.5,
-            })
-
-            mapInstance.on('load', () => {
-                mapInstance.addSource('markers', {
-                    type: 'geojson',
-                    data: {
-                        type: 'FeatureCollection',
-                        features: suppliers.filter((item) => item.location !== null).map((item) => ({
-                            type: 'Feature',
-                            geometry: {
-                                type: 'Point',
-                                coordinates: [+item.location.lon, +item.location.lat]
-                            },
-                            properties: {
-                                title: item.userName
-                            }
-                        })),
-                    },
-                })
-
-                mapInstance.addLayer({
-                    id: 'markers',
-                    type: 'symbol',
-                    source: 'markers',
-                    layout: {
-                        'icon-image': 'marker-15',
-                        'icon-size': 1.5,
-                        'text-field': ['get', 'title'],
-                        'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
-                        'text-offset': [0, 0.6],
-                        'text-anchor': 'top',
-                        'text-size': 14,
-                    },
-                    paint: {
-                        'text-color': '#FFFFFF',
-                    }
-                })
-
-                // mapInstance.addSource('circles', {
-                //     type: 'geojson',
-                //     data: {
-                //         type: 'FeatureCollection',
-                //         features: suppliers.filter((item) => item.location !== null).map((item) => ({
-                //             type: 'Feature',
-                //             geometry: {
-                //                 type: 'Point',
-                //                 coordinates: [+item.location.lon, +item.location.lat],
-                //             },
-                //             properties: {
-                //                 title: item.userName,
-                //             }
-                //         })),
-                //     },
-                // })
-
-                // suppliers.filter((item) => item.location !== null).map((supplier, i) => {
-                //     mapInstance.addLayer({
-                //         id: `${supplier._id}_circle`,
-                //         type: 'circle',
-                //         source: 'circles',
-                //         paint: {
-                //             'circle-color': 'red',
-                //             'circle-opacity': 0.3,
-                //             'circle-radius': {
-                //                 stops: [
-                //                     [0, 0],
-                //                     [20, +supplier.location.radius * 10000]
-                //                 ],
-                //                 base: 2
-                //             }
-                //         }
-                //     })
-                // })
-
-            })
-
-            const search = new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
-                mapboxgl: mapboxgl
-            })
-
-            suppliers.filter((item) => item.location !== null).map((supplier) => {
-                new MapCircle({ lat: +supplier.location.lat, lng: +supplier.location.lon }, (supplier.location.radius ? +supplier.location.radius * 1000 : 100), {
-                    fillColor: '#bfbfbf'
-                }).addTo(mapInstance)
-            })
-
-            mapInstance.addControl(search)
-            mapInstance.addControl(new mapboxgl.NavigationControl(), 'bottom-right')
-        }
-
-        initializeMap()
-    }, [suppliers])
-
-    return (
-        <div className={`${c.main} container`}>
-            <div
-                id="map"
-                style={{ width: '100%', height: '60vh', borderRadius: 15, overflow: 'hidden' }}
-            ></div>
-        </div>
-    )
-}
 
 export default page
