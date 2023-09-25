@@ -123,6 +123,13 @@ $loadingColor: #00000046;
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+
+    @media (min-width:$screen-lg) {
+        background-color: $blackColor;
+        padding: 15px;
+        border-radius: 15px;
+        width: 80%;
+    }
 }
 
 .your_message {
@@ -131,6 +138,14 @@ $loadingColor: #00000046;
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+
+    @media (min-width:$screen-lg) {
+        background-color: $blackColor;
+        padding: 15px;
+        border-radius: 15px;
+        width: 80%;
+        margin-left: 20%;
+    }
 
     .message_top {
         flex-direction: row-reverse;
@@ -390,6 +405,7 @@ $loadingColor: #00000046;
     position: absolute;
     left: 20px;
     top: 20px;
+    z-index: 2;
     height: 50px;
     width: 50px;
     aspect-ratio: 1/1;
@@ -417,6 +433,7 @@ $loadingColor: #00000046;
 
     svg {
         cursor: pointer;
+
         path {
             fill: white;
         }
@@ -424,5 +441,18 @@ $loadingColor: #00000046;
 
     span {
         cursor: pointer;
+    }
+}
+
+.message_content {
+    div {
+        padding-bottom: 20px;
+        h5 {
+            display: inline;
+            margin-right: 15px;
+        }
+        @media (min-width:$screen-xxl) {
+            display: none;
+        }
     }
 }

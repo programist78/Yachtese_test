@@ -19,6 +19,18 @@ import useOfferPopupStore from '../../../../src/stores/useOfferPopupStore'
 import ChatList from '../../../../src/components/ChatList/ChatList'
 import { errorAlert, successAlert } from '../../../../src/utils/alerts'
 
+const formatTimeTo12HourFormat = (d:string) => {
+    const date = new Date(d)
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+    const amPm = hours >= 12 ? 'pm' : 'am'
+    const formattedHours = hours % 12 || 12
+  
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
+  
+    return `${formattedHours}:${formattedMinutes} ${amPm}`
+  }
+
 const page: FC = () => {
     const params = useParams()
     const router = useRouter()
@@ -116,9 +128,12 @@ const MessagesList: FC = () => {
             </div>
             <div className={c.message_right}>
                 <div className={c.message_top}>
-                    <h5>{item.user.userName}</h5>
+                    <h5>{item.user.userName}</h5>{formatTimeTo12HourFormat(item.createdAt)}
                 </div>
                 <div className={c.message_content}>
+                    <div>
+                        <h5>{item.user.userName}</h5><span>{formatTimeTo12HourFormat(item.createdAt)}</span>
+                    </div>
                     {item.message}
                 </div>
             </div>
