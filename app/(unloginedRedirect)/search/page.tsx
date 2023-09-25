@@ -26,12 +26,14 @@ const page: FC = () => {
     const [isLocationPopupOpened, setIsLocationPopupOpened] = useState(false)
     const [isServicesPopupOpened, setIsServicesPopupOpened] = useState(false)
     const [services, setServices] = useState([])
+    const [locations, setLocations] = useState('')
 
     const { data } = useSuspenseQuery<getAllSuppliercsResponse, getAllSuppliersInput>(GET_ALL_SUPPLIERS, {
         variables: {
             getSuppliersByRoleInput: {
                 page,
-                service: services[0]
+                service: services[0],
+                country: locations ? locations : null
             }
         },
     })
@@ -68,7 +70,7 @@ const page: FC = () => {
             <div>{page}</div>
             {page < maxPage && <button className={c.plus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page + 1}`)}>{'>'}</button>}
         </div>
-        <LocationFilterPopup isOpen={isLocationPopupOpened} setIsOpen={setIsLocationPopupOpened} />
+        <LocationFilterPopup isOpen={isLocationPopupOpened} setIsOpen={setIsLocationPopupOpened} location={locations} setLocation={setLocations} />
         <ServicesFilterPopup isOpen={isServicesPopupOpened} setIsOpen={setIsServicesPopupOpened} setServices={setServices} services={services} />
     </div>
 }
@@ -195,9 +197,8 @@ const Supplier: FC<SupplierProps> = ({ supplier }) => {
     )
 }
 
-const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>> }> = ({ isOpen, setIsOpen }) => {
+const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, setLocation: Dispatch<SetStateAction<string>>, location:string }> = ({ isOpen, setIsOpen, setLocation, location }) => {
 
-    const [locations, setLocations] = useState([])
     const [openedGroupName, setOpenedGroupName] = useState('')
 
     return isOpen && <div className='backdrop' onClick={() => setIsOpen(false)}>
@@ -208,9 +209,9 @@ const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAct
                     {groupName}
                 </div>
                 <div className={c.accordeon} style={openedGroupName === groupName ? { height: 'auto' } : { height: 0 }}>
-                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => setLocations((prev) => !prev.includes(item) ? [...prev, item] : prev.filter((p) => p !== item))}>
-                        <label htmlFor={item} className={c.label} onClick={(e) => setLocations((prev) => !prev.includes(item) ? [...prev, item] : prev.filter((p) => p !== item))}>{item}</label>
-                        <input id={item} name={item} type='checkbox' checked={locations.includes(item)} />
+                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => setLocation((prev) => prev === item ? '' : item)}>
+                        <label htmlFor={item} className={c.label} onClick={(e) => setLocation((prev) => prev === item ? '' : item)}>{item}</label>
+                        <input id={item} name={item} type='checkbox' checked={location === item} />
                     </div>)}
                 </div>
             </div>)}
