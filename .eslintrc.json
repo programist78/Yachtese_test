@@ -19,6 +19,7 @@
         "newline-after-var": "error",
         "space-in-parens": "error",
         "react/jsx-wrap-multilines": "off",
+        "react/no-unescaped-entities": 0,
         "quotes": [
             "error",
             "single",

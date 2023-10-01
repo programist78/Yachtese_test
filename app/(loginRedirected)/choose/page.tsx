@@ -13,8 +13,8 @@ const page: React.FC = () => {
         >
             <Image src='/assets/choose-bg.jpg' alt='Background' height={1920} width={2280} />
             <article className={c.block}>
-                <h2>Choose who you are, please</h2>
-                <Button text='Yacht Owner' href={RootURLsEnum.regiserYacht} />
+                <h2>Please select your membership option:</h2>
+                <Button text='Yacht' href={RootURLsEnum.regiserYacht} />
                 <Button text='Supplier' href={RootURLsEnum.regiserSupplier} />
             </article>
         </main>

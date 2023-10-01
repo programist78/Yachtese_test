@@ -97,7 +97,7 @@ const page: React.FC = () => {
                         type='string'
                         name='fleet'
                         placehodler='Yachtease'
-                        labelText='Yacht Fleet'
+                        labelText='Yacht'
                         formik={formik}
                     />
                     <Input
@@ -112,15 +112,15 @@ const page: React.FC = () => {
                         setValue={setRole}
                         value={role}
                     >
-                            <option key={UserRoles.YACHT} value={UserRoles.YACHT}>
-                                {formText(UserRoles.YACHT)}
-                            </option>
-                            <option key={UserRoles.YACHT_BUSINESS} value={UserRoles.YACHT_BUSINESS}>
-                                {formText(UserRoles.YACHT_BUSINESS)}
-                            </option>
-                            <option key={UserRoles.YACHT_TEAMMATE} value={UserRoles.YACHT_TEAMMATE}>
-                                {formText(UserRoles.YACHT_TEAMMATE)}
-                            </option>
+                        <option key={UserRoles.YACHT} value={UserRoles.YACHT}>
+                            {formText(UserRoles.YACHT)}
+                        </option>
+                        <option key={UserRoles.YACHT_BUSINESS} value={UserRoles.YACHT_BUSINESS}>
+                            Yacht Fleet
+                        </option>
+                        <option key={UserRoles.YACHT_TEAMMATE} value={UserRoles.YACHT_TEAMMATE}>
+                            {formText(UserRoles.YACHT_TEAMMATE)}
+                        </option>
                     </Select>
                     <Input
                         type='email'

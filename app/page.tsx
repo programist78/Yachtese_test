@@ -8,7 +8,6 @@ import Footer from '../src/components/Footer/Footer'
 import Image from 'next/image'
 import useAuthStore from '../src/stores/useAuthStore'
 import { useRouter } from 'next/navigation'
-import Script from 'next/script'
 
 
 const page: React.FC = () => {
@@ -30,16 +29,20 @@ const page: React.FC = () => {
                     <p className={c.text}>
                         Welcome to Yachtease, where the era of simplified yachting begins with phase one of our groundbreaking journey. We are thrilled to announce our official launch, and our sole objective is crystal clear: simplified. But hold on tight because this is just the beginning. We have an exciting array of innovations still coming your way.
                     </p>
-                    <Button text='Order Services' className={c.btn} href={RootURLsEnum.registerChoose} />
+                    <Button text='Sign Up' className={c.btn} href={RootURLsEnum.registerChoose} />
                 </div>
             </article>
             <article className={`container ${c.about}`}>
                 <Title text='About Us' />
                 <div className={c.about_info}>
-                    <p>We are  your ultimate destination for luxury yacht rentals and unforgettable journeys across the globe! With Yachtease, you can explore stunning destinations and experience the thrill of sailing on a private yacht. Our site offers a wide selection of meticulously curated yachts to cater to your unique preferences. Discover the beauty of the world&#39;s oceans and create memories that will last a lifetime with Yachtease!</p>
-                    <Image src='/assets/y1.png' alt='Yacht' width={344} height={280} />
+                    <p>Our main goal is to help you!  We've been in the yachting industry for a long time, and one big problem we've seen is that people are always short on time. There's often not enough crew, and everyone is rushed. We've seen Pursers struggling to keep up with all their tasks. This got us thinking: How can we make their lives easier? What can we do to save them time, and what jobs can we take off their hands?<br />
+                        Our platform is all about making things simpler for the people who work on yachts and the suppliers who help with yacht operations.<br />
+                        We want to invite you to sign up and join us on this journey. You can help us make the platform just right for you.<br />
+                        We really value your feedback, and we have a chat feature where you can easily talk to us and share your thoughts, suggestions, and ideas for making things better.<br />
+                        We're excited about the chance to make your yachting experience easier with Yachtease. Let's work together to make a big difference!</p>
+                    <Image src='/assets/y1.webp' alt='Yacht' width={344} height={280} />
                     <div className={c.specialization}>
-                        <h2>Our specialization</h2>
+                        <h2>Our Approach</h2>
 
                         <div>
                             <Image src="/assets/icon1.svg" alt="Geo-Location Suppliers" height={35} width={35} />
@@ -47,15 +50,19 @@ const page: React.FC = () => {
                         </div>
                         <div>
                             <Image src="/assets/icon2.svg" alt="PursersPal | Coming Soon!" height={35} width={35} />
-                            <p>PursersPal | Coming Soon!</p>
+                            <p>Competitive Supplier Quotes</p>
                         </div>
                         <div>
                             <Image src="/assets/icon3.svg" alt="Quoting System" height={35} width={35} />
-                            <p>Quoting System</p>
+                            <p>Direct Messaging System</p>
+                        </div>
+                        <div>
+                            <Image src="/assets/icon3.svg" alt="Quoting System" height={35} width={35} />
+                            <p>Purserspal Coming Soon</p>
                         </div>
                     </div>
                 </div>
-                <Button text='Register' className={c.register} href={RootURLsEnum.registerChoose} />
+                <Button text='Sign Up' className={c.register} href={RootURLsEnum.registerChoose} />
             </article>
             <article className={`${c.features_container} container`}>
                 <Title className={c.features_title}>Features</Title>
@@ -109,7 +116,10 @@ const page: React.FC = () => {
             </article>
             <article className={`${c.signup} container`}>
                 <Title className={c.centered_text}>Sign Up</Title>
-                <h3>Register on our website and learn all the advantages of our<br /> services!</h3>
+                <h3>Unlock Exclusive Benefits!
+                    Join Now While It's FREE!<br/><br/>
+                    Yachts and Suppliers,
+                    We're thrilled to introduce you to our brand-new website, and we have an exciting opportunity for you. For a limited time, we're offering FREE early bird access to our platform, and we want you to be among the first to join.</h3>
                 <Button text='Sign Up' className={c.signup_btn} href={RootURLsEnum.registerChoose} />
             </article>
         </main>

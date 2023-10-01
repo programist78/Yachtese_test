@@ -3,12 +3,16 @@
 .top {
     width: 100%;
     height: $imageHeight;
+
+    img {
+        transform: scaleX(-1);
+    }
 }
 
 .top_texts {
     position: absolute;
     top: 50px;
-    left: 20%;
+    left: 5%;
     height: $imageHeight;
     display: flex;
     flex-direction: column;

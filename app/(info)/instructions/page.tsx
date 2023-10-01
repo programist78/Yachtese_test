@@ -15,63 +15,57 @@ const page: React.FC = () => {
         </article>
         <article className={`${c.texts} container`}>
             <div className={c.block}>
-                <h2>Step 1: Registration</h2>
+                <h2>Step 1: Register on Yachtease</h2>
                 <div>
-                    To begin using Yachtease, visit our website at www.yachtease.com. Click on the &quot;Register&quot; or &quot;Sign Up&quot; button to create an account. Provide the required information, including your name, email address, and password. Read and accept the terms of use and privacy policy. Once registered, you can access all the features and services available on the site.
+                    Click on any of the "Sign Up" buttons. You will then be redirected to a page with two distinct options:<br/>
+                    1. Supplier: If you are a supplier offering services to yachts, select this option to register your business.<br/>
+                    2. Yacht: If you are a yacht captain or part of the yacht's crew, choose this option to sign up and access Yachtease's resources for yachts and their crew.
                 </div>
             </div>
             <div className={c.block}>
-                <h2>Step 2: Browsing and Searching</h2>
+                <h2>Step 2: Registration Form</h2>
                 <div>
-                    Once logged in, you can start browsing and searching for available yachts. Use the search bar or filters to narrow down your options based on destination, yacht type, dates, and other preferences. Explore the yacht profiles to view detailed information, including specifications, amenities, and photos.
+                    Yachts or Suppliers<br/>
+                    Whether you're a yacht or a supplier, please complete the registration form with your company or yacht information. Here's a suggestion for yachts:<br/><br/>
+                    For Yachts:<br/>
+                    We recommend that the Purser or Captain initiates the first profile for the yacht. They can then invite Heads of Departments to sign up as teammates, granting them access to the same yacht profile information.<br/>
+                    This collaborative approach ensures that all relevant parties have access to and can contribute to the yacht's profile on Yachtease.<br/>
                 </div>
             </div>
             <div className={c.block}>
-                <h2>Step 3: Selecting a Yacht </h2>
+                <h2>Step 3: Creating Your Unique Profile</h2>
                 <div>
-                    When you find a yacht that meets your requirements, click on it to access more details. Review the rental terms, pricing, and availability calendar. If the yacht suits your needs, proceed to the booking process.
+                    Whether you're a supplier or a yacht, it's time to build your profile. Here's how:<br/><br/>
+                    For Suppliers:<br/>
+                    - Add vital contact information to facilitate easy communication.<br/>
+                    - Specify your location and the service radius to help yachts find you efficiently.<br/>
+                    - Enhance your profile with captivating images showcasing your offerings.<br/>
+                    - Craft an informative description detailing what your company provides and what makes you stand out from the rest.<br/>
+                    - In the bottom left, select your display information preferences to determine what is visible on your profile.<br/><br/>
+                    For Yachts:<br/>
+                    - Setting up a yacht profile is simple and requires less information.<br/>
+                    - Include basic contact details for smooth communication.<br/>
+                    - Yachts have the option to upload a profile image to showcase their vessel.<br/>
+                    - In the bottom left, select your display information preferences to control what is visible on your profile.<br/>
+                    - Note that a yacht profile only becomes visible to a supplier once contact has been established with a supplier.<br/>
                 </div>
             </div>
             <div className={c.block}>
-                <h2>Step 4: Booking Process</h2>
+                <h2>Step 4: Explore and Enjoy Our Platform</h2>
                 <div>
-                    Click on the &quot;Book Now&quot; or &quot;Request to Book&quot; button on the yacht&#39;s profile. Fill in the required booking details, such as the desired dates, the number of guests, and any additional services or requests. Review the booking summary and total cost. If you agree, proceed to the payment process.
+                    Congratulations, you're all set to make the most of our platform!<br/><br/>
+                    Feel free to:<br/>
+                    - Explore the platform's features and functionalities.<br/>
+                    - Connect with other users, whether you're a yacht or a supplier by using our messaging platform.<br/>
+                    - Use our chat icon for any questions, suggestions, or if you need assistance along the way.<br/>
+                    - Search our map for supplier.<br/><br/>
+                    We're here to make your yachting experience exceptional, so don't hesitate to reach out. Happy exploring! 
                 </div>
             </div>
             <div className={c.block}>
-                <h2>Step 5: Payment</h2>
+                <h2>Step 5: Share the Yachtease Experience</h2>
                 <div>
-                    Yachtease offers secure online payment options. Choose your preferred payment method (credit card, bank transfer, etc.) and follow the prompts to complete the transaction. Ensure that you provide accurate billing information and review the payment details before confirming your reservation.
-                </div>
-            </div>
-            <div className={c.block}>
-                <h2>Step 6: Confirmation and Communication</h2>
-                <div>
-                    After a successful booking, you will receive a confirmation email with the relevant details of your reservation. You can also access your booking information and communicate with the yacht owner/operator through your Yachtease account. Any additional arrangements or special requests can be discussed and coordinated directly with the yacht provider.
-                </div>
-            </div>
-            <div className={c.block}>
-                <h2>Step 7: Preparing for the Journey</h2>
-                <div>
-                    Before your trip, make sure to familiarize yourself with the yacht&#39;s specific instructions and policies provided by the owner/operator. Pack accordingly, considering the destination&#39;s climate and any recommended items. Stay in touch with the yacht provider to address any last-minute queries or updates.
-                </div>
-            </div>
-            <div className={c.block}>
-                <h2>Step 8: Enjoy Your Yacht Ride</h2>
-                <div>
-                    On the day of your reservation, arrive at the designated marina or meeting point. Meet the yacht owner/operator or designated crew members who will welcome you on board. Enjoy your yacht ride, follow safety instructions, and embrace the experience of cruising the stunning waters of your chosen destination.
-                </div>
-            </div>
-            <div className={c.block}>
-                <h2>Step 9: Post-Trip Feedback</h2>
-                <div>
-                    After your journey, we value your feedback. Share your experience by leaving a review on the Yachtease platform. Your feedback helps us maintain the quality of our services and assists future users in their decision-making process.
-                </div>
-            </div>
-            <div className={c.block}>
-                <h2>Step 10: Assistance and Support</h2>
-                <div>
-                    If you have any questions, concerns, or need assistance at any point during the process, feel free to contact our customer support team. We are available via email or phone to address your inquiries and provide guidance throughout your Yachtease experience.
+                    Spread the word and share the Yachtease platform with your industry friends! The more people we have on board, the better the platform becomes for everyone involved. Your support and referrals are invaluable in making the yachting community thrive. Thank you for being a part of our journey to enhance the yachting industry together!
                 </div>
             </div>
         </article>

@@ -36,7 +36,7 @@ const Header: React.FC = () => {
 
     return (
         <header className={c.main}>
-            <div className={classNames('container', c.con)}>
+            <div className={c.con}>
                 <Link href={isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE') ? RootURLsEnum.search : RootURLsEnum.homepage} className={c.logo}>
                     <Image
                         src='/assets/logo.png'
