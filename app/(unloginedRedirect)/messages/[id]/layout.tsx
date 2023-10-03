@@ -50,7 +50,7 @@ const layout: FC<Props> = async ({ params, children }) => {
                     id: params.id.replace('new', '')
                 }
             })
-        
+
             return (
                 <>
                     <MessagesStoreInitializer
@@ -61,7 +61,7 @@ const layout: FC<Props> = async ({ params, children }) => {
                     {children}
                 </>
             )
-        } catch {
+        } catch (err) {
             redirect(RootURLsEnum.messages)
         }
     }
@@ -87,7 +87,7 @@ const layout: FC<Props> = async ({ params, children }) => {
                 {children}
             </>
         )
-    } catch (e) {
+    } catch (err) {
         redirect(RootURLsEnum.messages)
     }
 }

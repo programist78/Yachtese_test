@@ -14,19 +14,27 @@ const page: React.FC = () => {
         <article className={classNames('container', c.texts)}>
             <Title text='AbouT Us' />
             <p>
-                Welcome to Yachtease, the premier online platform that offers an extraordinary collection of luxury yachts for rent, allowing you to embark on remarkable journeys to diverse destinations across the globe. Whether you are a seasoned sailor or a first-time adventurer, our site provides an unparalleled selection of meticulously curated yachts and personalized itineraries to fulfill your dreams of a perfect yacht vacation.
+                Discover a Yachting Revolution
             </p>
             <p>
-                <b>Luxury Yachts for Every Occasion:</b><br />At Yachtease, we understand that every journey is unique, and we strive to provide an extensive range of luxury yachts to suit various preferences and group sizes. From sleek motor yachts to elegant sailing vessels, our fleet comprises the finest collection of well-maintained and opulent yachts that offer exceptional comfort, style, and performance. We partner with renowned yacht owners and operators worldwide to ensure that you have access to the most prestigious and awe-inspiring vessels.
+                Welcome to Yachtease, where we're on a mission to redefine your yachting experience, inspired by the challenges faced in the high-octane world of fast-paced yachts. As an ex-head of service who knows the demands of balancing guest interactions with meticulous planning and provisioning, I saw the potential for a groundbreaking platform that could streamline the backstage work, liberating more time for the hands-on tasks that small teams often grapple with.
             </p>
             <p>
-                <b>Explore the World&#39;s Most Exquisite Destinations:</b><br />Indulge in unforgettable voyages to some of the world&#39;s most captivating destinations. Yachtease offers an impressive selection of regions to explore, ranging from the azure waters of the Mediterranean to the idyllic islands of the Caribbean, the exotic allure of Southeast Asia, the untamed beauty of the South Pacific, and beyond. Whether you crave vibrant cosmopolitan cities, secluded tropical hideaways, or breathtaking natural landscapes, our tailored itineraries cover a wide array of destinations to satisfy your wanderlust.
+                <b>Your Journey, Our Commitment:</b><br />Drawing from firsthand experience, we understand the relentless pace of yachting life, where every minute counts. Our platform is meticulously crafted to be your ally in the quest for efficiency. Imagine a tool that effortlessly cuts down the time and effort spent on finding suppliers, initiating contact, obtaining competitive quotes, and strategising for those dynamic seasons when your location changes daily.
             </p>
             <p>
-                <b>Tailored Itineraries for Unparalleled Experiences:</b><br />At Yachtease, we believe in delivering personalized experiences that surpass expectations. Our team of experienced travel experts collaborates closely with you to create bespoke itineraries tailored to your specific desires. Whether you envision a thrilling adventure along the French Riviera, a romantic escape to the Greek Islands, an exploration of remote Caribbean islands, or a cultural journey through Southeast Asia, we meticulously plan every detail to ensure a seamless and unforgettable voyage. From onboard activities and water sports to curated shore excursions, we strive to craft an itinerary that reflects your unique preferences.
+                <b>Your Trusted Partners, Always Within Reach: </b><br />Imagine having a favorite suppliers list that transcends departments, a list that can be curated by the purser or captain, ensuring that every head of department can access and rely on trusted partners. Yachtease is more than a platform; it's your dedicated support system.
             </p>
             <p>
-                <b>Effortless Booking Process:</b><br />Booking your dream yacht charter has never been easier. Our user-friendly website provides a seamless and intuitive booking process, allowing you to browse available yachts, compare features and prices, and make secure reservations with just a few clicks. Our dedicated customer support team is available around the clock to assist you at every step, providing guidance, answering your queries, and offering valuable recommendations to enhance your experience.
+                <b>Your Voice Shapes Our Odyssey:</b><br />At Yachtease, we value your insight and perspective. As someone who's walked the deck and knows the ropes, your feedback is instrumental in shaping our journey. Share your ideas, suggestions, or concerns with ease through our convenient tawk chat feature or send us an email on hello@yachtease.co, and watch as your insights steer our platform towards perfection.
+            </p>
+            <p>
+                <b>Embark on a Voyage of Efficiency:</b><br />Join Yachtease today, and step into a future where you can finally dedicate more of your precious time to what truly matters - delivering excellence to your guests and ensuring smooth sailing for your crew. Let's revolutionize the yachting world together, making efficiency and collaboration our guiding stars.
+            </p>
+            <p>
+                Thank you for being part of this thrilling adventure!<br/>
+                Set Sail for Success,<br/>
+                Yachtease<br/>
             </p>
         </article>
         <article className={classNames(c.sea, 'filtered_image_container')}>

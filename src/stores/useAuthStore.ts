@@ -33,7 +33,7 @@ export interface MarkerType {
 export interface userDataType {
     _id?: string
     avatarURL?: string
-    country?: string
+    country?: string[]
     chats: Array<Chat>
     companyName?: string
     connectedYachtCompany?: string

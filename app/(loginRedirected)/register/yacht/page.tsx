@@ -108,7 +108,7 @@ const page: React.FC = () => {
                         formik={formik}
                     />
                     <Select
-                        labelText='Position Onboard'
+                        labelText='Yacht Structure'
                         setValue={setRole}
                         value={role}
                     >

@@ -9,28 +9,16 @@ import {
     addSupplierServiceInput,
     addSupplierServiceResponse,
 } from '../../graphql/addSuplierService'
-import { errorAlert } from '../../utils/alerts'
-import {
-    DELETE_SUPPLIER_SERVICE,
-    deleteSupplierServiceInput,
-    deleteSupplierServiceResponse,
-} from '../../graphql/deleteSupplierService'
-import {
-    UPDATE_DEPARTMENTS,
-    updateDepartmentsInput,
-    updateDepartmentsResponse,
-} from '../../graphql/updateDepartments'
-import {
-    UPDATE_LOCATION,
-    updateLocationInput,
-    updateLocationResponse,
-} from '../../graphql/updateLocation'
+import { errorAlert, successAlert } from '../../utils/alerts'
+import { DELETE_SUPPLIER_SERVICE, deleteSupplierServiceInput, deleteSupplierServiceResponse } from '../../graphql/deleteSupplierService'
+import { UPDATE_DEPARTMENTS, updateDepartmentsInput, updateDepartmentsResponse } from '../../graphql/updateDepartments'
+import { UPDATE_LOCATION, updateLocationInput, updateLocationResponse } from '../../graphql/updateLocation'
 import useTeamMatesPopupStore from '../../stores/useTeamMatesPopupStore'
 import useYachtPageStore from '../../stores/useYachtPageStore'
 import useSupplierPageStore from '../../stores/useSupplierPageStore'
 import useFavoriteSuppliersPopupStore from '../../stores/useFavoriteSuppliersPopupStore'
 import FavoriteSuppliersPopup from '../FavoriteSuppliersPopup/FavoriteSuppliersPopup'
-import { loactionList } from '../../config/constants'
+import { loactionList, servicesList } from '../../config/constants'
 
 export const SupplierInfo: FC = () => {
     return (
@@ -69,9 +57,9 @@ export const YachtBussinesInfo: FC = () => {
     const userData = useAuthStore((state) => state.userData)
 
     return <article className='block'>
-        <Departments/>
-        {userData.favoriteSuppliers.length > 0 && <FavouriteSuppliers/>}
-        {userData.teamMates.length > 0 && <Teammates/>}
+        <Departments />
+        {userData.favoriteSuppliers.length > 0 && <FavouriteSuppliers />}
+        {userData.teamMates.length > 0 && <Teammates />}
     </article>
 }
 
@@ -131,7 +119,7 @@ const Location: FC = () => {
     const [placeInState, setPlaceInState] = useState('')
     const [_, startTransition] = useTransition()
     const [openedGroupName, setOpenedGroupName] = useState('')
-    const [selectedCountry, setSelectedCountry] = useState(userData.country ? userData.country : '')
+    const [selectedCountries, setSelectedCountries] = useState(userData.country ? userData.country : [])
     const [radius, setRadius] = useState(
         userData.location.radius ? userData.location.radius : null,
     )
@@ -188,7 +176,7 @@ const Location: FC = () => {
 
     const handleSubmit = () => {
         if (!place || !pos.latitude) return setError('Address is required')
-        if (!selectedCountry) return setError('Country is required')
+        if (!selectedCountries) return setError('Country is required')
 
         updateLocation({
             variables: {
@@ -198,7 +186,7 @@ const Location: FC = () => {
                         lon: pos.longitude,
                         radius: Number(radius),
                     },
-                    country: selectedCountry
+                    country: selectedCountries
                 },
             },
         }).then(async (res) => {
@@ -302,69 +290,24 @@ const Location: FC = () => {
                     {groupName}
                 </div>
                 <div className={c.accordeon} style={openedGroupName === groupName ? { height: 'auto' } : { height: 0 }}>
-                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => isEditable && setSelectedCountry((prev) => prev === item ? '': item)}>
-                        <label htmlFor={item} className={c.label} onClick={(e) => isEditable && setSelectedCountry((prev) => prev === item ? '': item)}>{item}</label>
-                        <input id={item} name={item} type='checkbox' readOnly checked={selectedCountry === item} />
+                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => isEditable && setSelectedCountries((prev) => prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item])}>
+                        <label htmlFor={item} className={c.label} onClick={(e) => isEditable && setSelectedCountries((prev) => prev.includes(item) ? prev.filter((i) => i !== item) : [...prev, item])}>{item}</label>
+                        <input id={item} name={item} type='checkbox' readOnly checked={selectedCountries.includes(item)} />
                     </div>)}
                 </div>
             </div>)}
+            <div className={c.accordeon_item} onClick={() => isEditable && setSelectedCountries((prev) => prev.includes('World wide') ? prev.filter((i) => i !== 'World wide') : [...prev, 'World wide'])}>
+                <label htmlFor={'World wide'} className={c.label} onClick={(e) => isEditable && setSelectedCountries((prev) => prev.includes('World wide') ? prev.filter((i) => i !== 'World wide') : [...prev, 'World wide'])}>{'World wide'}</label>
+                <input id={'World wide'} name={'World wide'} type='checkbox' readOnly checked={selectedCountries.includes('World wide')} />
+            </div>
         </>
     )
 }
 
 const Services: FC = () => {
-    const [addService] = useMutation<
-        addSupplierServiceResponse,
-        addSupplierServiceInput
-    >(ADD_SUPLIER_SERVICE)
-
     const [isEditable, setIsEditable] = useState(false)
-    const [isPending, setIsPending] = useState(false)
     const services = useAuthStore((state) => state.userData.services)
-    const userData = useAuthStore((state) => state.userData)
-    const setUserData = useAuthStore((state) => state.setUserData)
-    const [input, setInput] = useState('')
 
-    const handleSubmit = () => {
-        if (isPending) return
-        if (!input) return setIsEditable(false)
-        setIsPending(true)
-
-        addService({
-            variables: { addSupplierServiceInput: { services: [input] } },
-        })
-            .then(({ data }) => {
-                setUserData({
-                    ...userData,
-                    services: data.addSupplierService.services,
-                })
-                setIsPending(false)
-                setIsEditable(false)
-                setInput('')
-            })
-            .catch(() => {
-                setIsEditable(false)
-                setInput('')
-                setIsPending(false)
-                errorAlert('Somthing went wrong!')
-            })
-    }
-
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'Escape') {
-                setIsEditable(false)
-
-                return setInput('')
-            }
-        }
-
-        document.addEventListener('keydown', handleKeyDown)
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown)
-        }
-    }, [])
 
     return (
         <div className={c.space_top}>
@@ -372,48 +315,25 @@ const Services: FC = () => {
                 All Services
                 <EditIcon
                     isOn={isEditable}
-                    onClick={
-                        !isEditable
-                            ? () => setIsEditable(true)
-                            : () => handleSubmit()
-                    }
+                    onClick={() => setIsEditable((p) => !p)}
                 />
             </h4>
-            {services.map((item) => (
-                <Service key={item} name={item} />
-            ))}
-            {isEditable ? (
-                <input
-                    className={c.add_service_input}
-                    value={input}
-                    disabled={isPending}
-                    onChange={(e) => setInput(e.target.value)}
-                    onBlur={() => handleSubmit()}
-                    placeholder='Cleaning'
-                />
-            ) : (
-                <button
-                    className={c.add_service}
-                    onClick={() => setIsEditable(true)}>
-                    Create Service
-                </button>
-            )}
+            {!isEditable ? services.map((item) => <Service key={item} name={item} isEditable={isEditable} isExist={services.includes(item)} />)
+                : servicesList.map((item) => <Service key={item} name={item} isEditable={isEditable} isExist={services.includes(item)} />)}
         </div>
     )
 }
 
-const Service: FC<{ name: string }> = ({ name }) => {
-    const [deleteService] = useMutation<
-        deleteSupplierServiceResponse,
-        deleteSupplierServiceInput
-    >(DELETE_SUPPLIER_SERVICE)
+const Service: FC<{ name: string, isEditable: boolean, isExist: boolean }> = ({ name, isEditable, isExist }) => {
+    const [deleteService] = useMutation<deleteSupplierServiceResponse, deleteSupplierServiceInput>(DELETE_SUPPLIER_SERVICE)
+    const [addService] = useMutation<addSupplierServiceResponse, addSupplierServiceInput>(ADD_SUPLIER_SERVICE)
 
     const userData = useAuthStore((state) => state.userData)
     const setUserData = useAuthStore((state) => state.setUserData)
-    const [isDeleting, setIsDeleting] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleDelete = (item: string) => {
-        setIsDeleting(true)
+        setIsLoading(true)
         deleteService({
             variables: { deleteSupplierServiceInput: { services: item } },
         })
@@ -422,20 +342,35 @@ const Service: FC<{ name: string }> = ({ name }) => {
                     ...userData,
                     services: data.deleteSupplierService.services,
                 })
-                setIsDeleting(false)
+                setIsLoading(false)
             })
             .catch(() => {
                 errorAlert('Something went wrong!')
-                setIsDeleting(true)
+                setIsLoading(true)
+            })
+    }
+
+    const handleAdd = (item: string) => {
+        addService({ variables: { addSupplierServiceInput: { services: [item] } } })
+            .then(({ data }) => {
+                setUserData({
+                    ...userData,
+                    services: data.addSupplierService.services
+                })
+                setIsLoading(false)
+            })
+            .catch(() => {
+                setIsLoading(false)
+                errorAlert('Somthing went wrong!')
             })
     }
 
     return (
-        <span className={`${c.service} ${isDeleting ? c.deleting : ''}`}>
+        <span className={`${c.service} ${isLoading ? c.deleting : ''}`}>
             {name}
-            <button onClick={!isDeleting && (() => handleDelete(name))}>
-                +
-            </button>
+            {isEditable && <button style={isExist ? { transform: 'rotate(0)' } : {}} onClick={!isLoading && (isExist ? () => handleDelete(name) : () => handleAdd(name))}>
+                {isExist ? '-' : '+'}
+            </button>}
         </span>
     )
 }

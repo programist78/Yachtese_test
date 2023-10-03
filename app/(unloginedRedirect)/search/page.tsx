@@ -26,14 +26,16 @@ const page: FC = () => {
     const [isLocationPopupOpened, setIsLocationPopupOpened] = useState(false)
     const [isServicesPopupOpened, setIsServicesPopupOpened] = useState(false)
     const [services, setServices] = useState([])
-    const [locations, setLocations] = useState('')
+    const [locations, setLocations] = useState([])
+    const [view, setView] = useState<'NEW' | 'FAV' | 'OLD' | null>(null)
 
     const { data } = useSuspenseQuery<getAllSuppliercsResponse, getAllSuppliersInput>(GET_ALL_SUPPLIERS, {
         variables: {
             getSuppliersByRoleInput: {
                 page,
-                service: services[0],
-                country: locations ? locations : null
+                service: services,
+                country: locations,
+                view
             }
         },
     })
@@ -61,14 +63,23 @@ const page: FC = () => {
             <button className={c.filter} onClick={() => setIsServicesPopupOpened(true)}>Services<Image src='/assets/filter.svg' alt='Filter Services' width={24} height={22} /></button>
         </div>
         {data.getSuppliersByRole && <div className={c.list_con}>
+            <div className={c.type_filters}>
+                <button onClick={() => {
+                    setLocations([])
+                    setServices([])
+                    setView('NEW')
+                }}>All suppliers</button>
+                <button onClick={() => setView('FAV')}>Favourite suppliers</button>
+                <button onClick={() => setView('OLD')}>Olders suppliers</button>
+            </div>
             <div className={c.list}>
                 {data.getSuppliersByRole.suppliers.map((item, index) => <Supplier key={item._id} supplier={item} />)}
             </div>
         </div>}
         <div className={c.pagination}>
-            {page > 1 && <button className={c.minus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page - 1}`)}>{'<'}</button>}
+            {page > 1 && maxPage !== 1 && <button className={c.minus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page - 1}`)}>{'<'}</button>}
             <div>{page}</div>
-            {page < maxPage && <button className={c.plus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page + 1}`)}>{'>'}</button>}
+            {page < maxPage && maxPage !== 1 && <button className={c.plus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page + 1}`)}>{'>'}</button>}
         </div>
         <LocationFilterPopup isOpen={isLocationPopupOpened} setIsOpen={setIsLocationPopupOpened} location={locations} setLocation={setLocations} />
         <ServicesFilterPopup isOpen={isServicesPopupOpened} setIsOpen={setIsServicesPopupOpened} setServices={setServices} services={services} />
@@ -197,7 +208,7 @@ const Supplier: FC<SupplierProps> = ({ supplier }) => {
     )
 }
 
-const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, setLocation: Dispatch<SetStateAction<string>>, location:string }> = ({ isOpen, setIsOpen, setLocation, location }) => {
+const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>, setLocation: Dispatch<SetStateAction<string[]>>, location:string[] }> = ({ isOpen, setIsOpen, setLocation, location }) => {
 
     const [openedGroupName, setOpenedGroupName] = useState('')
 
@@ -209,12 +220,16 @@ const LocationFilterPopup: FC<{ isOpen: boolean, setIsOpen: Dispatch<SetStateAct
                     {groupName}
                 </div>
                 <div className={c.accordeon} style={openedGroupName === groupName ? { height: 'auto' } : { height: 0 }}>
-                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => setLocation((prev) => prev === item ? '' : item)}>
-                        <label htmlFor={item} className={c.label} onClick={(e) => setLocation((prev) => prev === item ? '' : item)}>{item}</label>
-                        <input id={item} name={item} type='checkbox' checked={location === item} />
+                    {countries.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => setLocation((prev) => prev.includes(item) ? prev.filter((f) => f !== item) : [...prev, item])}>
+                        <label htmlFor={item} className={c.label} onClick={(e) => setLocation((prev) => prev.includes(item) ? prev.filter((f) => f !== item) : [...prev, item])}>{item}</label>
+                        <input id={item} name={item} type='checkbox' checked={location.includes(item)} />
                     </div>)}
                 </div>
             </div>)}
+            <div className={c.accordeon_item} onClick={() => setLocation((prev) => prev.includes('World wide') ? prev.filter((i) => i !== 'World wide') : [...prev, 'World wide'])}>
+                <label htmlFor={'World wide'} className={c.label} onClick={(e) => setLocation((prev) => prev.includes('World wide') ? prev.filter((i) => i !== 'World wide') : [...prev, 'World wide'])}>{'World wide'}</label>
+                <input id={'World wide'} name={'World wide'} type='checkbox' readOnly checked={location.includes('World wide')} />
+            </div>
         </div>
     </div>
 }

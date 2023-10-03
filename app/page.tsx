@@ -45,19 +45,19 @@ const page: React.FC = () => {
                         <h2>Our Approach</h2>
 
                         <div>
-                            <Image src="/assets/icon1.svg" alt="Geo-Location Suppliers" height={35} width={35} />
+                            <Image src="/assets/icon1.png" alt="Geo-Location Suppliers" height={35} width={35} />
                             <p>Geo-Location Suppliers</p>
                         </div>
                         <div>
-                            <Image src="/assets/icon2.svg" alt="PursersPal | Coming Soon!" height={35} width={35} />
+                            <Image src="/assets/icon2.png" alt="PursersPal | Coming Soon!" height={35} width={35} />
                             <p>Competitive Supplier Quotes</p>
                         </div>
                         <div>
-                            <Image src="/assets/icon3.svg" alt="Quoting System" height={35} width={35} />
+                            <Image src="/assets/icon3.png" alt="Quoting System" height={35} width={35} />
                             <p>Direct Messaging System</p>
                         </div>
                         <div>
-                            <Image src="/assets/icon3.svg" alt="Quoting System" height={35} width={35} />
+                            <Image src="/assets/icon4.png" alt="Quoting System" height={35} width={35} />
                             <p>Purserspal Coming Soon</p>
                         </div>
                     </div>
@@ -69,7 +69,7 @@ const page: React.FC = () => {
                 <div className={c.features}>
                     <div className={c.feature}>
                         <div className={c.feature_image}>
-                            <Image src='/assets/feature1.webp' alt='Feature 1' fill />
+                            <Image src='/assets/chat.png' alt='Feature 1' fill />
                         </div>
                         <div className={c.feature_texts}>
                             <h3>CHAT TO US</h3>
@@ -78,7 +78,7 @@ const page: React.FC = () => {
                     </div>
                     <div className={c.feature}>
                         <div className={c.feature_image}>
-                            <Image src='/assets/feature2.webp' alt='Feature 2' fill />
+                            <Image src='/assets/map.png' alt='Feature 2' fill />
                         </div>
                         <div className={c.feature_texts}>
                             <h3>GEO-LOCATION SUPPLIERS</h3>
@@ -87,7 +87,7 @@ const page: React.FC = () => {
                     </div>
                     <div className={c.feature}>
                         <div className={c.feature_image}>
-                            <Image src='/assets/feature3.webp' alt='Feature 3' fill />
+                            <Image src='/assets/table.jpeg' alt='Feature 3' fill />
                         </div>
                         <div className={c.feature_texts}>
                             <h3>SUPPLIERS & EXPOSURE</h3>
@@ -96,20 +96,22 @@ const page: React.FC = () => {
                     </div>
                     <div className={c.feature}>
                         <div className={c.feature_image}>
-                            <Image src='/assets/feature4.webp' alt='Feature 4' fill />
+                            <Image src='/assets/calc.jpeg' alt='Feature 4' fill />
                         </div>
                         <div className={c.feature_texts}>
-                            <h3>Create new routes</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis, nulla quis aliquet tincidunt, augue turpis semper leo, vel egestas risus augue quis purus. Etiam a tempus mauris.</p>
+                            <h3>MESSAGING PLATFORM</h3>
+                            <p>Our messaging platform, right on the website, makes it super easy to communicate with a wide range of suppliers. You'll find it's a breeze to request competitive price quotes with just a few clicks. Suppliers, on the other hand, can directly connect with yachts and tap into a vast network of potential new clients. Consider this platform as the efficient and modern way to communicate in the evolving world of yachting.</p>
                         </div>
                     </div>
                     <div className={c.feature}>
                         <div className={c.feature_image}>
-                            <Image src='/assets/feature5.webp' alt='Feature 5' fill />
+                            <Image src='/assets/yacht-feature.jpeg' alt='Feature 5' fill />
                         </div>
                         <div className={c.feature_texts}>
                             <h3>TEAM MANAGEMENT</h3>
-                            <p>Take full control with our platform&#39;s team management feature. Easily coordinate and communicate with your team members regarding pick up point, suppliers and planning ahead to ensuring smooth operations on board. Additionally, you can add preferred suppliers to your yachts profile, streamlining the process of sourcing essential services and products. Plan Ahead with Precision.Our platform lets you map out future locations, allowing for proactive planning and smooth logistics. Prepare for upcoming destinations by logging preferred suppliers for each location, ensuring a hassle-free experience and securing the best services ahead of time.</p>
+                            <p>Take full control of your yachting journey with our platform's team management feature. Easily coordinate and communicate with your team members regarding pick up point, suppliers and planning ahead to ensuring smooth operations on board. <br/>
+                            Additionally, you can add preferred suppliers to your yacht profile, streamlining the process of sourcing essential services and products.<br/>
+                            Plan Ahead with Precision. Our platform lets you map out future locations, allowing for proactive planning and smooth logistics. Prepare for upcoming destinations by logging preferred suppliers for each location, ensuring a hassle-free experience and securing the best services ahead of time. Prepare for upcoming destinations by logging preferred suppliers for each location, ensuring a hassle-free experience and securing the best services ahead of time.</p>
                         </div>
                     </div>
                 </div>

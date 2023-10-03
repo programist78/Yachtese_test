@@ -75,6 +75,9 @@ const page: FC = () => {
             </div>
             <div className={c.main_messages}>
                 <div className={c.meessages_container}>
+                {offers && offers[0] && <div className={c.offer_pop} onClick={() => setIsOfferViewOpened(true)}>
+                    You received a new offer!
+                </div>}
                     <MessagesList />
                     <Form />
                 </div>
@@ -100,9 +103,6 @@ const page: FC = () => {
                     </div>
                 </aside>
             </div>
-            {offers && offers[0] && <div className={c.offer_pop} onClick={() => setIsOfferViewOpened(true)}>
-                New Offer!
-            </div>}
             <OfferView setIsOfferViewOpened={setIsOfferViewOpened} isOfferViewOpened={isOfferViewOpened} />
             <OfferPopup />
             <div className={c.add_offer_mobile} onClick={() => setOfferMenuIsOpen(true)}>+</div>

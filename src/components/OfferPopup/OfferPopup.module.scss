@@ -68,7 +68,18 @@
 
 .file {
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     padding: 15px 0 20px;
+
+    div {
+        display: flex;
+        gap: 15px;
+
+        button {
+            transform: rotate(45deg);
+            font-size: 30px;
+            line-height: 10px;
+        }
+    }
 }

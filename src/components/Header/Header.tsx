@@ -41,6 +41,7 @@ const Header: React.FC = () => {
                     <Image
                         src='/assets/logo.png'
                         alt='Yachtease'
+                        priority
                         width={846}
                         height={307}
                     />

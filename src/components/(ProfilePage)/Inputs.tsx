@@ -3,7 +3,7 @@ import { useState, FC, useEffect } from 'react'
 import supplier from './styles/SupplierInput.module.scss'
 import c from './styles/Inputs.module.scss'
 import useAuthStore from '../../stores/useAuthStore'
-import ImageError from '../../utils/ImageError'
+import PhoneInput from 'react-phone-input-2'
 import EditIcon from '../EditIcon/EditIcon'
 import { useMutation } from '@apollo/client'
 import {
@@ -163,7 +163,7 @@ const FullNameInput: FC = () => {
     return !isEditable ? (
         <>
             <h4 className={supplier.title}>
-                Full Name
+                {userData.role === 'SUPPLIER' ? 'Full Name' : 'Yacht Name'}
                 <EditIcon
                     isOn={isEditable}
                     onClick={() => setIsEditable(true)}
@@ -283,7 +283,7 @@ const ContactInfo: FC = () => {
     const [isEditable, setIsEditable] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false)
 
-    const { values, handleChange, handleBlur, handleSubmit } = useFormik({
+    const { values, handleBlur, handleSubmit, setFieldValue } = useFormik({
         initialValues: {
             phone:
                 userData.contactInfo.filter((item) => item.name === 'phone')[0]
@@ -360,22 +360,17 @@ const ContactInfo: FC = () => {
                     }}
                 />
             </h4>
-            <h6 className={c.link_name}>Phone number</h6>
-            <input
-                name='phone'
-                className={c.input}
-                placeholder={'Phone'}
+            <PhoneInput specialLabel='Phone number'
+                inputClass={c.input}
+                placeholder='Phone'
                 value={values.phone}
-                onChange={handleChange}
-                onBlur={handleBlur}
-            />
-            <h6 className={c.link_name}>Whatsapp</h6>
-            <input
-                name='whatsapp'
-                className={c.input}
+                onChange={(e) => setFieldValue('phone', e)}
+                onBlur={handleBlur}/>
+            <PhoneInput specialLabel='Whatsapp'
+                inputClass={c.input}
                 placeholder={'Whatsapp'}
                 value={values.whatsapp}
-                onChange={handleChange}
+                onChange={(e) => setFieldValue('whatsapp', e)}
                 onBlur={handleBlur}
             />
         </div>

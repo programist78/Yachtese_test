@@ -37,6 +37,7 @@
     "react-geocode": "^0.2.3",
     "react-hook-form": "^7.46.1",
     "react-map-gl": "^7.1.5",
+    "react-phone-input-2": "^2.15.1",
     "react-textarea-autosize": "^8.5.3",
     "sass": "^1.66.0",
     "sharp": "^0.32.5",

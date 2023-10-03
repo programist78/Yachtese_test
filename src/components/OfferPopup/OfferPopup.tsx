@@ -91,7 +91,10 @@ const OfferPopup: FC = () => {
                             e.preventDefault()
                             setFile(null)
                         }
-                        }>{file.name}</div> : <Image src='/assets/paperclip.svg' alt='paperclip' width={20} height={20} />}</label>
+                        }>{file.name} <button onClick={(e) => {
+                            e.preventDefault()
+                            setFile(null)
+                        }}>+</button></div> : <Image src='/assets/paperclip.svg' alt='paperclip' width={20} height={20} />}</label>
                         <input id='file_offer' type='file' style={{ display: 'none' }} onChange={(e) => setFile(e.target.files[0])} />
                         <button className={c.btn} type='submit'>Send</button>
                     </form>

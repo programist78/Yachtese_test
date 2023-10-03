@@ -19,7 +19,7 @@ export interface updateLocationResponse {
           lon: string,
           lat: string
         }
-        country: string
+        country: string[]
       }
 }
 
@@ -30,6 +30,6 @@ export interface updateLocationInput {
           lon: string,
           lat: string
         }
-        country: string
+        country: string[]
       }
 }

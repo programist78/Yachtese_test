@@ -72,7 +72,8 @@ export interface getAllSuppliercsResponse {
 export interface getAllSuppliersInput {
   getSuppliersByRoleInput: {
     page: number
-    country?: string
+    country?: string[]
     service?: string[]
+    view?: 'NEW' | 'FAV' | 'OLD'
   }
 } 

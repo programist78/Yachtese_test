@@ -6,6 +6,11 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import { mapProps } from '../../config/constants'
 import Image from 'next/image'
 import useMapStore from '../../stores/useMapStore'
+import { useMutation } from '@apollo/client'
+import { DELETE_USER } from '../../graphql/deleteUser'
+import { errorAlert, successAlert } from '../../utils/alerts'
+import Swal from 'sweetalert2'
+import Cookies from 'js-cookie'
 
 
 export const SupplierAdditional: FC = () => {
@@ -15,6 +20,7 @@ export const SupplierAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {subscription.customerId && <Subscription />}
+        <DeleteProfile/>
     </article>
 }
 
@@ -26,6 +32,7 @@ export const YachtAdditional: FC = () => {
         <Email />
         {userData.subscription.customerId && <Subscription />}
         <Map />
+        <DeleteProfile/>
     </article>
 }
 
@@ -33,6 +40,7 @@ export const YachtTeammateAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         <Map />
+        <DeleteProfile/>
     </article>
 }
 
@@ -44,6 +52,7 @@ export const YachtBussinesAdditional: FC = () => {
         <Email />
         {subscription.customerId && <Subscription />}
         <Map />
+        <DeleteProfile/>
     </article>
 }
 
@@ -99,5 +108,42 @@ const Map: FC = () => {
                         </Source>
             </ReactMapGl>
         </div>
+    </div>
+}
+
+const DeleteProfile: FC = () => {
+
+    const [deleteUser] = useMutation(DELETE_USER)
+    const setUserData = useAuthStore((state) => state.setUserData)
+
+    const handleClick = () => {
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to restore a deleted account.',
+            cancelButtonColor: 'green',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: 'red',
+            confirmButtonText: 'Delete',
+            showCancelButton: true,
+            icon: 'warning',
+            background: '#171818',
+            color: '#ffffff',
+        }).then(({ isConfirmed }) => {
+            if(isConfirmed) {
+                deleteUser().then(({ errors }) => {
+                    if(errors) return errorAlert()
+                    successAlert('Your profile deleted!')
+                    Cookies.remove('token')
+                    setUserData(null)
+                }).catch(() => {
+                    errorAlert()
+                })
+            }
+        })
+    }
+
+    return <div className={c.delete_user}>
+        <button onClick={handleClick}>Delete Account</button>
     </div>
 }

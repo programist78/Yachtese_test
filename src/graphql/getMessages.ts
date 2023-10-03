@@ -4,29 +4,29 @@ import { UserRolesType } from '../config/constants'
 export const GET_MESSAGES = gql`
 query Query($getMessagesInput: GetMessagesInput) {
   getMessages(getMessagesInput: $getMessagesInput) {
-    offers {
-      _id
-      accepted
-      chatId
-      createdFor
-      createdBy
-      createdAt
-      description
-      services
-      title
-      fileUrl
-    }
     messages {
+      _id
+      createdAt
       user {
+        _id
         userName
         avatarURL
-        _id
       }
-      readStatus
       message
+      readStatus
       images
-      createdAt
+    }
+    offers {
       _id
+      createdAt
+      createdBy
+      createdFor
+      title
+      description
+      services
+      accepted
+      chatId
+      fileUrl
     }
   }
 }
