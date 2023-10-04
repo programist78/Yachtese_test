@@ -27,6 +27,8 @@ import {
 import useYachtPageStore from '../../stores/useYachtPageStore'
 import useSupplierPageStore from '../../stores/useSupplierPageStore'
 import instans from '../../config/axios'
+import { ADD_TEAMMATE } from '../../graphql/addTeammate'
+import { ADD_YACHT } from '../../graphql/addYacht'
 
 export const SupplierInputs: FC = () => {
 
@@ -45,6 +47,7 @@ export const YachtInputs: FC = () => {
         <article className={classNames(supplier.inputs, 'block')}>
             <FullNameInput />
             <ContactInfo />
+            <AddTeammate/>
         </article>
     )
 }
@@ -61,6 +64,7 @@ export const YachtBussinesInputs: FC = () => {
     return <article className={classNames(supplier.inputs, 'block')}>
         <FullNameInput />
         <ContactInfo />
+        <AddYacht/>
     </article>
 }
 
@@ -449,4 +453,52 @@ const Images: FC = () => {
             </div>
         </>
     )
+}
+
+const AddTeammate: FC = () => {
+    const [addTeammate] = useMutation(ADD_TEAMMATE)
+    const [input, setInput] = useState('')
+
+    return <form className={c.add_teammate} onSubmit={(e) => {
+        e.preventDefault()
+
+        addTeammate({
+            variables: {
+                email:input
+            }
+        }).then(({errors}) => {
+            if(errors) return errorAlert(errors[0].message)
+            successAlert('Teammate added!')
+        }).catch(() => {
+            errorAlert()
+        })
+    }}>
+        <h4 className={c.contact}>Add to Team</h4>
+        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email'/>
+        <button>Send</button>
+    </form>
+}
+
+const AddYacht: FC = () => {
+    const [addYacht] = useMutation(ADD_YACHT)
+    const [input, setInput] = useState('')
+
+    return <form className={c.add_teammate} onSubmit={(e) => {
+        e.preventDefault()
+
+        addYacht({
+            variables: {
+                email:input
+            }
+        }).then(({errors}) => {
+            if(errors) return errorAlert(errors[0].message)
+            successAlert('Invite Sent!')
+        }).catch(() => {
+            errorAlert()
+        })
+    }}>
+        <h4 className={c.contact}>Add Yacht</h4>
+        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email'/>
+        <button>Send</button>
+    </form>
 }

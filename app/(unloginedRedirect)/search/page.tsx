@@ -27,7 +27,7 @@ const page: FC = () => {
     const [isServicesPopupOpened, setIsServicesPopupOpened] = useState(false)
     const [services, setServices] = useState([])
     const [locations, setLocations] = useState([])
-    const [view, setView] = useState<'NEW' | 'FAV' | 'OLD' | null>(null)
+    const [view, setView] = useState<'NEW' | 'FAV' | 'OLD'>('NEW')
 
     const { data } = useSuspenseQuery<getAllSuppliercsResponse, getAllSuppliersInput>(GET_ALL_SUPPLIERS, {
         variables: {
@@ -38,6 +38,7 @@ const page: FC = () => {
                 view
             }
         },
+        fetchPolicy: 'no-cache'
     })
 
     if (!data) {
@@ -64,17 +65,17 @@ const page: FC = () => {
         </div>
         {data.getSuppliersByRole && <div className={c.list_con}>
             <div className={c.type_filters}>
-                <button onClick={() => {
+                <button className={view === 'NEW' ? c.selected : c.a} onClick={() => {
                     setLocations([])
                     setServices([])
                     setView('NEW')
                 }}>All suppliers</button>
-                <button onClick={() => setView('FAV')}>Favourite suppliers</button>
-                <button onClick={() => setView('OLD')}>Olders suppliers</button>
+                <button className={view === 'FAV' ? c.selected : c.a} onClick={() => setView('FAV')}>Favourite suppliers</button>
+                <button className={view === 'OLD' ? c.selected : c.a} onClick={() => setView('OLD')}>Olders suppliers</button>
             </div>
-            <div className={c.list}>
+            {data.getSuppliersByRole.suppliers.length > 0 ?<div className={c.list}>
                 {data.getSuppliersByRole.suppliers.map((item, index) => <Supplier key={item._id} supplier={item} />)}
-            </div>
+            </div> : <div className={c.empty_list}>We can't find anyone...</div>}
         </div>}
         <div className={c.pagination}>
             {page > 1 && maxPage !== 1 && <button className={c.minus_page} onClick={() => router.replace(`${RootURLsEnum.search}?page=${page - 1}`)}>{'<'}</button>}

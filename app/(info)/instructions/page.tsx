@@ -70,7 +70,7 @@ const page: React.FC = () => {
             </div>
         </article>
         <article className={`${c.top} filtered_image_container`}>
-            <Image quality={100} fill priority src='/assets/instructions-yacht-second.png' alt='Yacht' />
+            <Image quality={100} fill priority src='/assets/instructions-yacht-second.jpeg' alt='Yacht' />
             <Title className={c.second_title}>Yachting Simplified</Title>
         </article>
     </main>

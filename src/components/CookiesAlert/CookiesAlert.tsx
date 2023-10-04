@@ -27,7 +27,7 @@ const CookiesAlert: React.FC = () => {
                 <div className={c.texts}>
                     <h4>We Use Coockies!</h4>
                     <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ornare mauris non augue posuere rhoncus. Aliquam ultrices ultricies velit, in rhoncus metus suscipit eu. Fusce ac libero quis nibh pulvinar luctus. Nullam enim tortor, luctus cursus erat vitae, facilisis gravida diam.
+                        Yachtease uses cookies to enhance your browsing experience and provide personalized content.
                     </span>
                 </div>
                 <div className={c.btns}>
