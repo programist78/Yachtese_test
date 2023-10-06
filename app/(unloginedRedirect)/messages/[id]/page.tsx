@@ -93,12 +93,12 @@ const page: FC = () => {
                         <button
                             className={c.offer}
                             onClick={() => setOfferMenuIsOpen(true)}>
-                            Create an Offer
+                            Quote Request
                         </button>
                         <Link
                             href={selectedUser.role === 'SUPPLIER' ? `${RootURLsEnum.supplier}/${selectedUser._id}` : `${RootURLsEnum.yacht}/${selectedUser._id}`}
                             className={c.profile}>
-                            See profile instead of:
+                            View Profile
                         </Link>
                     </div>
                 </aside>

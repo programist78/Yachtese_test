@@ -66,10 +66,9 @@ const MapPopup: React.FC = () => {
                 >
                     <Title className={c.title}>How It Works</Title>
                     <span>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Aenean pharetra sit amet tortor ut auctor. Nullam
-                        fermentum at lorem eget rhoncus. Quisque sit amet justo
-                        a lorem cursus dictum id ut neque.
+                        Effortless Location Planning with Our Map Route Feature<br/>
+                        Discover your next destination on the map, simply double-click, and watch a pin drop effortlessly. A convenient bar at the bottom of your screen will appear, allowing you to fine-tune your arrival details, specifying the time and date you'll be reaching the location.<br/>
+                        Here's the kicker: this information is exclusively accessible to your fellow yacht teammates, ensuring a streamlined operation across all departments. With this feature in action, you can now harmonize your busy yacht schedules, making provisioning and deliveries a breeze.
                     </span>
                     <ReactMapGl
                         {...viewport}
@@ -98,7 +97,7 @@ const MapPopup: React.FC = () => {
                             })
                         }}
                         style={{
-                            height: 400,
+                            height: 500,
                             width: '100%',
                             borderRadius: 15,
                             overflow: 'hidden',

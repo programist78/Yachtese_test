@@ -7,6 +7,7 @@
     color: #F7F3EE;
     z-index: 3;
 }
+
 // asdasdasdasdasdasd
 *::-webkit-scrollbar {
     width: 0;
@@ -178,7 +179,7 @@ canvas {
     z-index: 1;
 }
 
-.mapboxgl-ctrl-geocoder--suggestion > * {
+.mapboxgl-ctrl-geocoder--suggestion>* {
     color: black;
 }
 
@@ -195,8 +196,9 @@ canvas {
     position: relative;
     width: 80px;
     height: 80px;
-  }
-  .lds-ring div {
+}
+
+.lds-ring div {
     box-sizing: border-box;
     display: block;
     position: absolute;
@@ -207,21 +209,83 @@ canvas {
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #fff transparent transparent transparent;
-  }
-  .lds-ring div:nth-child(1) {
+}
+
+.lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
-  }
-  .lds-ring div:nth-child(2) {
+}
+
+.lds-ring div:nth-child(2) {
     animation-delay: -0.3s;
-  }
-  .lds-ring div:nth-child(3) {
+}
+
+.lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
-  }
-  @keyframes lds-ring {
+}
+
+@keyframes lds-ring {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
+
     100% {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
+
+.pretitle {
+    color: #FFF;
+    text-align: right;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.text {
+    color: #FFF;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.a_input {
+    border-radius: 24px;
+    border: 1px solid #C1C1C1;
+    display: flex;
+    width: 309px;
+    padding: 14px 16px;
+    align-items: flex-start;
+    gap: 10px;
+    height: 48px;
+    padding-left: 15px;
+    color: #7D7D7D;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    background-color: white;
+    line-height: 20px;
+}
+
+.b_button {
+    border-radius: 30px;
+    background: #81736B;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    min-width: 100px;
+    max-width: 250px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 45px;
+    border: none;
+    color: #FFF;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

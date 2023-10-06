@@ -13,7 +13,8 @@ export enum RootURLsEnum {
     yacht = '/yacht',
     forgot = '/forgot',
     supplier = '/supplier',
-    search = '/search'
+    search = '/search',
+    subscription = '/subscription'
 }
 
 export enum UserRoles {

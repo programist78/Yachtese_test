@@ -31,6 +31,7 @@ export const YachtAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {userData.subscription.customerId && <Subscription />}
+        <Routes/>
         <Map />
         <DeleteProfile/>
     </article>
@@ -39,6 +40,7 @@ export const YachtAdditional: FC = () => {
 export const YachtTeammateAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
+        <Routes/>
         <Map />
         <DeleteProfile/>
     </article>
@@ -51,6 +53,7 @@ export const YachtBussinesAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {subscription.customerId && <Subscription />}
+        <Routes/>
         <Map />
         <DeleteProfile/>
     </article>
@@ -145,5 +148,19 @@ const DeleteProfile: FC = () => {
 
     return <div className={c.delete_user}>
         <button onClick={handleClick}>Delete Account</button>
+    </div>
+}
+
+const Routes: FC = () => {
+
+    const userData = useAuthStore((state) => state.userData)
+    const setIsOpened = useMapStore((state) => state.setIsOpened)
+
+    return userData.yachtRoute && userData.yachtRoute.length > 0 && <div className={c.routes}>
+        <h4 className={c.title}>Routes</h4>
+        {userData.yachtRoute.map((item, i) => <div key={i} onClick={() => setIsOpened(true)}>
+            <h5>{item.title}</h5>
+            <span>{new Date(item.time).getHours()}:{new Date(item.time).getMinutes()}</span>
+        </div>)}
     </div>
 }

@@ -59,6 +59,7 @@ const page: FC = () => {
 
     return <div className={`${c.main} container`}>
         <MapBox suppliers={data.getSuppliersByRole.suppliers} />
+        <span className={c.lil_desc}>The faded white circle indicates the area serviced by the supplier.</span>
         <div className={c.filters}>
             <button className={c.filter} onClick={() => setIsLocationPopupOpened(true)}>Location<Image src='/assets/filter.svg' alt='Filter Location' width={24} height={22} /></button>
             <button className={c.filter} onClick={() => setIsServicesPopupOpened(true)}>Services<Image src='/assets/filter.svg' alt='Filter Services' width={24} height={22} /></button>

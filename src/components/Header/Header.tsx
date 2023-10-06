@@ -46,12 +46,9 @@ const Header: React.FC = () => {
                         height={307}
                     />
                 </Link>
-                <nav
-                    className={
-                        isMenuOpened ? `${c.nav}` : `${c.nav} ${c.hidden}`
-                    }
-                >
+                <nav className={isMenuOpened ? `${c.nav}` : `${c.nav} ${c.hidden}`}>
                     <Link href={isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE') ? RootURLsEnum.search : RootURLsEnum.homepage}>Home</Link>
+                    <Link href={RootURLsEnum.subscription}>Subscription</Link>
                     <Link href={RootURLsEnum.about}>About</Link>
                     <Link href={RootURLsEnum.privacy}>Privacy Policy</Link>
                     {isLogined ? (

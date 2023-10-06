@@ -13,6 +13,7 @@ import { SupplierAdditional, YachtAdditional, YachtBussinesAdditional, YachtTeam
 import TeamMatesPopup from '../../../src/components/TeamMatesPopup/TeamMatesPopup'
 import MapPopup from '../../../src/components/MapPopup/MapPopup'
 import YachtRequest from '../../../src/components/YachtRequest/YachtRequest'
+import Admin from '../../../src/components/Admin/Admin'
 
 
 const page: FC = () => {
@@ -82,9 +83,7 @@ const page: FC = () => {
             </main>
         }
         case 'ADMIN': {
-            router.push('/')
-            
-            return null
+            return <Admin/>
         }
         default: {
             router.push(RootURLsEnum.homepage)
