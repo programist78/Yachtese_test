@@ -12,6 +12,7 @@ import UserInfo from '../../../src/components/(ProfilePage)/UserInfo'
 import { SupplierAdditional, YachtAdditional, YachtBussinesAdditional, YachtTeammateAdditional } from '../../../src/components/(ProfilePage)/Additional'
 import TeamMatesPopup from '../../../src/components/TeamMatesPopup/TeamMatesPopup'
 import MapPopup from '../../../src/components/MapPopup/MapPopup'
+import YachtRequest from '../../../src/components/YachtRequest/YachtRequest'
 
 
 const page: FC = () => {
@@ -38,6 +39,7 @@ const page: FC = () => {
             return <main className={classNames(c.main, 'container')}>
                 <div className={c.left}>
                     <UserInfo />
+                    <YachtRequest/>
                     <YachtInfo />
                     <DisplayFieldsButton />
                 </div>

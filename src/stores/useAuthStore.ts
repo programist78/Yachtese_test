@@ -57,7 +57,11 @@ export interface userDataType {
         link: string
         name: string
     }>
-    requestedYachtCompany: Array<any>
+    requestedYachtCompany: Array<{
+        avatarURL:string
+        userName:string
+        _id:string
+    }>
     resetPassword: {
         token: string
         expire: string

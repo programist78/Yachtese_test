@@ -7,7 +7,7 @@ import Image from 'next/image'
 const page: React.FC = () => {
     return <main>
         <article className={`${c.top} filtered_image_container`}>
-            <Image quality={100} fill priority src='/assets/instructions-yacht.png' alt='Yacht' />
+            <Image quality={100} fill priority src='/assets/instructions.webp' alt='Yacht' />
             <div className={c.top_texts}>
                 <Title className={c.title}>How to Use<br />Yachtease</Title>
                 <span>Before you start using our site, you should familiarize yourself with the instructions for using our site so that it will be convenient and easy for you in the future!</span>

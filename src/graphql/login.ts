@@ -42,8 +42,22 @@ mutation Login($email: String!, $password: String!) {
         endDate
         status
       }
-      requestedYachtCompany
-      connectedYachtCompany
+      requestedYachtCompany {
+        avatarURL
+        _id
+        companyName
+        userName
+      }
+      connectedYachtCompany {
+        _id
+        userName
+        avatarURL
+      }
+      connectedYacht {
+        _id
+        avatarURL
+        userName
+      }
       teamMates {
         _id
         userName
@@ -69,6 +83,7 @@ mutation Login($email: String!, $password: String!) {
         }
         name
       }
+      
       yachtRoute {
         lat
         lon

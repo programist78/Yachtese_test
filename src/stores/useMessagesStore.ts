@@ -31,6 +31,18 @@ export interface useMessagesStoreType {
     addMessage: (message: Message) => void
     removeLastMessage: () => void
     deleteFirstOffer: () => void
+    addOffer: (offerData:{
+        _id: string
+        accepted: boolean
+        chatId: string
+        createdFor: string
+        createdBy: string
+        createdAt: string
+        description: string
+        services: string[]
+        title: string
+        fileUrl: string[]
+    }) => void
 }
 
 const useMessagesStore = create<useMessagesStoreType>()(devtools((set) => ({
@@ -44,7 +56,8 @@ const useMessagesStore = create<useMessagesStoreType>()(devtools((set) => ({
     setSelectedChatId: (id) => set({ selectedChatId: id }),
     addMessage: (message) => set((state) => ({ messagesList: [...state.messagesList, message] })),
     removeLastMessage: () => set((state) => ({ messagesList: state.messagesList.slice(0, -1) })),
-    deleteFirstOffer: () => set((state) => ({ offerData: state.offerData.slice(1) }))
+    deleteFirstOffer: () => set((state) => ({ offerData: state.offerData.slice(1) })),
+    addOffer: (offer) => set(((state) => ({ offerData: state.offerData ? [...state.offerData, offer] : [offer] })))
 }), { name: 'useMessagesStore' }))
 
 export default useMessagesStore

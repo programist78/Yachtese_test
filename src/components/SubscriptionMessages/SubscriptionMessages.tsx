@@ -12,11 +12,21 @@ const SubscriptionMessages: React.FC = () => {
     const userData = useAuthStore((state) => state.userData)
     const selectedChatId = useMessagesStore((state) => state.selectedChatId)
     const addMessage = useMessagesStore((state) => state.addMessage)
+    const addOffer = useMessagesStore((state) => state.addOffer)
 
     useSubscription<lastMessageResponse>(LAST_MESSAGE,
         {
             onData: ({ data }) => {
+
                 const { avatarURL, chatId, created, message, user, userName, isOffer, role } = data.data.lastMessage
+
+                // if(isOffer && selectedChatId === chatId) {
+                //     addOffer({
+                //         _id: 
+                //     })
+
+                //     return
+                // }
 
                 if (selectedChatId === chatId) {
                     addMessage({

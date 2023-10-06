@@ -1,0 +1,51 @@
+.main {
+    background-color: #2C3139;
+    padding: 25px;
+    border: 1px solid #ffffff80;
+    margin-bottom: 20px;
+    border-radius: 15px;
+
+    h5 {
+        font-size: 20px;
+        font-weight: 400;
+        width: 65%;
+    }
+}
+
+.info {
+    display: flex;
+    gap: 25px;
+    margin-top: 25px;
+    
+    span {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+}
+
+.img {
+    border-radius: 1000px;
+    width: 80px;
+    height: 80px;
+}
+
+.btns {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+
+    button {
+        padding: 12px 35px;
+        border-radius: 1000px;
+    }
+}
+
+.accept {
+    background-color: #81736B;
+}
+
+.decline {
+    background-color: #FFF;
+    color: #81736B;
+}
