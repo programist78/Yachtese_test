@@ -46,7 +46,6 @@
 
 .packages {
     display: flex;
-    align-items: flex-start;
     justify-content: space-evenly;
     padding-top: 30px;
     flex-wrap: wrap;
@@ -55,7 +54,7 @@
 .package {
     width: 30%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 
