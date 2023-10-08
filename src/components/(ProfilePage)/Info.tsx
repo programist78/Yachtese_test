@@ -308,6 +308,18 @@ const Services: FC = () => {
     const [isEditable, setIsEditable] = useState(false)
     const services = useAuthStore((state) => state.userData.services)
 
+    const allServices = servicesList.map(item => item.services).flat()
+
+    if (isEditable) return <div className={c.space_top}>
+        <h4 className={`${c.title} ${c.services_title}`}>
+            All Services
+            <EditIcon
+                isOn={isEditable}
+                onClick={() => setIsEditable((p) => !p)}
+            />
+        </h4>
+        {allServices.map((item, i) => <Service key={`${item}${i}all`} name={item} isEditable={isEditable} isExist={services.includes(item)} />)}
+    </div>
 
     return (
         <div className={c.space_top}>
@@ -318,8 +330,7 @@ const Services: FC = () => {
                     onClick={() => setIsEditable((p) => !p)}
                 />
             </h4>
-            {!isEditable ? services.map((item) => <Service key={item} name={item} isEditable={isEditable} isExist={services.includes(item)} />)
-                : servicesList.map((item) => <Service key={item} name={item} isEditable={isEditable} isExist={services.includes(item)} />)}
+            {services.map((item, i) => <Service key={`${item}${i}service`} name={item} isEditable={isEditable} isExist={services.includes(item)} />)}
         </div>
     )
 }
@@ -368,7 +379,7 @@ const Service: FC<{ name: string, isEditable: boolean, isExist: boolean }> = ({ 
     return (
         <span className={`${c.service} ${isLoading ? c.deleting : ''}`}>
             {name}
-            {isEditable && <button style={isExist ? { transform: 'rotate(0)' } : {}} onClick={!isLoading && (isExist ? () => handleDelete(name) : () => handleAdd(name))}>
+            {isEditable && <button style={{ transform: 'rotate(0) translateY(-50%)' }} onClick={!isLoading && (isExist ? () => handleDelete(name) : () => handleAdd(name))}>
                 {isExist ? '-' : '+'}
             </button>}
         </span>

@@ -1,12 +1,27 @@
+@import '../../src/styles/variables';
+
 .main {
     padding: 250px 0;
     min-height: 100vh;
+
+    @media (max-width:$screen-lg) and (min-width:$screen-md) {
+        padding: 200px 0;
+    }
+
+    @media (max-width:$screen-md) {
+        padding: 130px 0;
+    }
+
+    h1 {
+        padding: 0 20px;
+    }
 
     h2 {
         font-size: 25px;
         text-align: center;
         font-weight: 400;
         margin-top: 15px;
+        padding: 0 20px;
     }
 
     h3 {
@@ -14,6 +29,14 @@
         font-size: 30px;
         font-weight: 400;
         text-align: center;
+
+        @media (max-width:$screen-lg) and (min-width:$screen-md) {
+            font-size: 25px;
+        }
+
+        @media (max-width:$screen-md) {
+            font-size: 20px;
+        }
     }
 }
 
@@ -23,16 +46,22 @@
 
 .packages {
     display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
     padding-top: 30px;
-    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .package {
-    width: 33.333%;
+    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    @media (max-width:$screen-lg) {
+        width: 100%;
+    }
 
     h5 {
         font-size: 30px;
@@ -82,6 +111,10 @@
     border: 2px solid #fff;
     margin-top: 20px;
     line-height: 35px;
+
+    @media (max-width:$screen-md) {
+        font-size: 35px;
+    }
 }
 
 .buy {
@@ -96,5 +129,9 @@
 
     p {
         font-size: 20px;
+
+        @media (max-width:$screen-md) {
+            font-size: 16px;
+        }
     }
 }

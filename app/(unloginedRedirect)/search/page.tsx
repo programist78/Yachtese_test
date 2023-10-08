@@ -241,13 +241,22 @@ const ServicesFilterPopup: FC<{
     setIsOpen: Dispatch<SetStateAction<boolean>>,
     setServices: Dispatch<SetStateAction<string[]>>
     services: string[]
-}> = ({ isOpen, setIsOpen, setServices, services }) => {
+}> = ({ isOpen, setIsOpen, setServices, services: servicesProps }) => {
+    const [openedGroupName, setOpenedGroupName] = useState('')
+
     return isOpen && <div className='backdrop' onClick={() => setIsOpen(false)}>
         <div className='popup' onClick={(e) => e.stopPropagation()}>
             <h3>Services</h3>
-            {servicesList.map((item) => <div key={item} className={c.input_con} onClick={(e) => setServices((prev) => !prev.includes(item) ? [...prev, item] : prev.filter((p) => p !== item))}>
-                <label htmlFor={item} className={c.label} onClick={(e) => setServices((prev) => !prev.includes(item) ? [...prev, item] : prev.filter((p) => p !== item))}>{item}</label>
-                <input id={item} name={item} type='checkbox' checked={services.includes(item)} />
+            {servicesList.map(({ services, groupName }, index) => <div key={groupName}>
+                <div className={`${c.input_con} ${c.accordeon_group}`} onClick={() => setOpenedGroupName((prev) => prev === groupName ? '' : groupName)}>
+                    {groupName}
+                </div>
+                <div className={c.accordeon} style={openedGroupName === groupName ? { height: 'auto' } : { height: 0 }}>
+                    {services.map((item) => <div key={item} className={c.accordeon_item} onClick={(e) => setServices((prev) => prev.includes(item) ? prev.filter((f) => f !== item) : [...prev, item])}>
+                        <label htmlFor={item} className={c.label} onClick={(e) => setServices((prev) => prev.includes(item) ? prev.filter((f) => f !== item) : [...prev, item])}>{item}</label>
+                        <input id={item} name={item} type='checkbox' checked={servicesProps.includes(item)} />
+                    </div>)}
+                </div>
             </div>)}
         </div>
     </div>
