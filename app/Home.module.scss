@@ -329,6 +329,10 @@
         text-transform: uppercase;
         margin-bottom: 25px;
 
+        @media (max-width:$screen-lg) {
+            text-align: left;
+        }
+
         @media (max-width:$screen-md) {
             font-size: 20px;
         }
@@ -343,6 +347,10 @@
         text-align: end;
         font-size: 24px;
         font-weight: 300;
+
+        @media (max-width:$screen-lg) {
+            text-align: left;
+        }
 
         @media (max-width:$screen-md) {
             font-size: 20px;

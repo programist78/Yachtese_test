@@ -78,7 +78,7 @@ const page: React.FC = () => {
         <Input type='password' name='password' placehodler='Password' labelText='Your password' formik={formik} />
       </div>
       <div className={c.description}>By creating an account, you agree with Conditions of Use and Privacy Policy</div>
-      <Link href="#" className={c.message}>Message Us!</Link>
+      <Link href={process.env.NEXT_PUBLIC_MESSAGE_US} className={c.message}>Message Us!</Link>
       <Button text='Sign Up' className={c.btn} type='submit' />
     </form>
   </main>

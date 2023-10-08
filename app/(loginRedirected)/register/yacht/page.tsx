@@ -126,7 +126,7 @@ const page: React.FC = () => {
                         type='email'
                         name='email'
                         placehodler='vikavika@gmail.com'
-                        labelText='Adress'
+                        labelText='Address'
                         formik={formik}
                     />
                     <Input
@@ -141,7 +141,7 @@ const page: React.FC = () => {
                     By creating an account, you agree with Conditions of Use and
                     Privacy Policy
                 </div>
-                <Link href='#' className={c.message}>
+                <Link href={process.env.NEXT_PUBLIC_MESSAGE_US} className={c.message}>
                     Message Us!
                 </Link>
                 <Button text='Sign Up' className={c.btn} type='submit' />
