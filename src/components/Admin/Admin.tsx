@@ -9,18 +9,18 @@ import { GETUSERS_BYROLE, SEND_EMAIL_INVITES } from '../../graphql/admin'
 
 
 export default function Admin() {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const [screenWidth, setScreenWidth] = useState()
 
     useEffect(() => {
         const handleResize = () => {
-            setScreenWidth(window.innerWidth)
+            setScreenWidth(window?.innerWidth)
         }
 
-        window.addEventListener('resize', handleResize)
+        window?.addEventListener('resize', handleResize)
 
         // Очистка слушателя события при размонтировании компонента
         return () => {
-            window.removeEventListener('resize', handleResize)
+            window?.removeEventListener('resize', handleResize)
         }
     }, [])
 
@@ -61,7 +61,7 @@ const SupliersRegistration = () => {
     console.log({ data, loading, error })
 
     const formatTimestamp = (timestamp) => {
-        const date = new Date(Number(timestamp))
+        const date = new Date(timestamp)
         const day = date.getDate()
         const month = date.getMonth() + 1
         const hours = date.getHours()
@@ -73,7 +73,7 @@ const SupliersRegistration = () => {
 
     const filterData = () => {
 
-        return data?.getUserByRole
+        return data?.getUsersByRole
     }
 
     const [isOpen, setIsOpen] = useState(false)
@@ -81,10 +81,11 @@ const SupliersRegistration = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen)
     }
+    console.log(data)
 
     return (
         <div className={styles.part}>
-            <p className='title'>Posters Registration</p>
+            <p className='title'>Supplier Registration</p>
             <div className={styles.filters}>
                 {/* <div
           onClick={() => setLeftFilter1("All Posters")}
@@ -197,7 +198,7 @@ const SupliersRegistration = () => {
                         {filterData()?.map((data, index) => (
                             <tr key={index}>
                                 <td className='text'>{formatTimestamp(data.createdAt)}</td>
-                                <td className='text'>{data.fullname}</td>
+                                <td className='text'>{data.name}</td>
                                 <td className='text'>
                                     {data.reviewMedia?.google ||
                                         data.reviewMedia?.yelp ||
@@ -265,7 +266,7 @@ const PosterRegistration = () => {
     })
 
     const formatTimestamp = (timestamp) => {
-        const date = new Date(Number(timestamp))
+        const date = new Date(timestamp)
         const day = date.getDate()
         const month = date.getMonth() + 1
         const hours = date.getHours()
@@ -276,7 +277,7 @@ const PosterRegistration = () => {
     }
 
     const filterData = () => {
-        return data?.getUserByRole
+        return data?.getUsersByRole
     }
 
     const [isOpen, setIsOpen] = useState(false)
