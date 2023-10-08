@@ -101,7 +101,7 @@ const page: React.FC = () => {
                     <div className={c.with}>Sign in with:</div>
                     <div className={c.icons}>
                         <Image width={35} height={35}
-                            src='/assets/facebook.png'
+                            src='/assets/facebook-icon.svg'
                             alt='Facebook'
                             onClick={() =>
                                 signIn('facebook', {
@@ -110,7 +110,7 @@ const page: React.FC = () => {
                             }
                         />
                         <Image width={35} height={35}
-                            src='/assets/google.png'
+                            src='/assets/google.svg'
                             alt='Google'
                             onClick={() =>
                                 signIn('google', {

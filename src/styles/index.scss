@@ -289,3 +289,7 @@ canvas {
     font-weight: 700;
     line-height: normal;
 }
+
+.swal2-icon-show > * {
+    z-index: 1;
+}
