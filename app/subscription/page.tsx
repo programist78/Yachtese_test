@@ -17,14 +17,13 @@ const layout: FC = () => {
     const userData = useAuthStore((state) => state.userData)
     const { push } = useRouter()
 
-    const getLink = (productId: string, priceKey: string) => {
+    const getLink = (priceKey: string) => {
 
         if (!isLogined) return push(RootURLsEnum.homepage)
 
         buy({
             variables: {
                 paymentCheckoutInput: {
-                    productId,
                     priceKey
                 }
             }
@@ -81,7 +80,7 @@ const layout: FC = () => {
                 </p>
                 <span className={c.price}>FREE</span>
                 <button className={c.buy} onClick={() => {
-                    getLink('prod_OlZ0IMmmQ8qwfq', 'price_1Ny1sGJjsA7WDmLer0ZD5CCW')
+                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_1)
                 }}>FREE TRIAL</button>
             </article>
             <article className={classNames('block', c.package)}>
@@ -124,7 +123,9 @@ const layout: FC = () => {
                     Stay ahead with extended access to our platform and benefit from continuous improvements and innovations.
                 </p>
                 <span className={c.price}>30$</span>
-                <button className={c.buy}>Buy Now</button>
+                <button className={c.buy} onClick={() => {
+                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_2)
+                }}>Buy Now</button>
             </article>
             <article className={classNames('block', c.package)}>
                 <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
@@ -166,7 +167,9 @@ const layout: FC = () => {
                     Secure your place in the Yachtease community and experience uninterrupted benefits while saving significantly with this annual subscription.
                 </p>
                 <span className={c.price}>54$</span>
-                <button className={c.buy}>Buy Now</button>
+                <button className={c.buy} onClick={() => {
+                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_3)
+                }}>Buy Now</button>
             </article>
             </> : <>
             <article className={classNames('block', c.package)}>
@@ -204,7 +207,7 @@ const layout: FC = () => {
                 </p>
                 <span className={c.price}>FREE</span>
                 <button className={c.buy} onClick={() => {
-                    getLink('prod_OlZ0IMmmQ8qwfq', 'price_1Ny1sGJjsA7WDmLer0ZD5CCW')
+                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
                 }}>FREE TRIAL</button>
             </article>
             <article className={classNames('block', c.package)}>
@@ -247,7 +250,9 @@ const layout: FC = () => {
                     Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
                 </p>
                 <span className={c.price}>75$</span>
-                <button className={c.buy}>Buy Now</button>
+                <button className={c.buy} onClick={() => {
+                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
+                }}>Buy Now</button>
             </article>
             <article className={classNames('block', c.package)}>
                 <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
@@ -289,7 +294,9 @@ const layout: FC = () => {
                     Elevate your yachting journey with extended access to our platform and benefit from significant savings with this annual subscription.
                 </p>
                 <span className={c.price}>135$</span>
-                <button className={c.buy}>Buy Now</button>
+                <button className={c.buy} onClick={() => {
+                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
+                }}>Buy Now</button>
             </article>
             </>}
         </section>
