@@ -49,13 +49,13 @@ const Admin = () => {
         </div>
     )
 }
-//done
+
 const SupliersRegistration = () => {
     const [page1, setPage1] = useState(1)
     const [argument1, setArgument1] = useState('createdAt')
 
     const { data, loading, error } = useQuery(GETUSERS_BYROLE, {
-        variables: { role: 'SUPPLIER' }
+        variables: { role: 'SUPPLIER', pageNumber: page1 }
     })
 
     const formatTimestamp = (timestamp) => {
@@ -67,11 +67,6 @@ const SupliersRegistration = () => {
         const formattedDate = `${month}/${day} ${hours}:${minutes < 10 ? '0' + minutes : minutes}${hours >= 12 ? 'pm' : 'am'}`
 
         return formattedDate
-    }
-
-    const filterData = () => {
-
-        return data?.getUsersByRole
     }
 
     const [isOpen, setIsOpen] = useState(false)
@@ -192,10 +187,10 @@ const SupliersRegistration = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filterData()?.map((data, index) => (
+                        {data && data.getUsersByRole.users.map((data, index) => (
                             <tr key={index}>
                                 <td className='text'>{formatTimestamp(data.createdAt)}</td>
-                                <td className='text'>{data.name}</td>
+                                <td className='text'>{data.userName}</td>
                                 <td className='text'>
                                     {data.reviewMedia?.google ||
                                         data.reviewMedia?.yelp ||
@@ -250,17 +245,13 @@ const SupliersRegistration = () => {
         </div>
     )
 }
-//done
+
 const PosterRegistration = () => {
     const [page1, setPage1] = useState(1)
     const [argument1, setArgument1] = useState('createdAt')
 
-    const {
-        data,
-        loading,
-        error,
-    } = useQuery(GETUSERS_BYROLE, {
-        variables: { role: 'YACHT' },
+    const { data, loading, error } = useQuery(GETUSERS_BYROLE, {
+        variables: { role: 'YACHT', pageNumber: page1 }
     })
 
     const formatTimestamp = (timestamp) => {
@@ -272,10 +263,6 @@ const PosterRegistration = () => {
         const formattedDate = `${month}/${day} ${hours}:${minutes < 10 ? '0' + minutes : minutes}${hours >= 12 ? 'pm' : 'am'}`
 
         return formattedDate
-    }
-
-    const filterData = () => {
-        return data?.getUsersByRole
     }
 
     const [isOpen, setIsOpen] = useState(false)
@@ -396,10 +383,10 @@ const PosterRegistration = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filterData()?.map((data, index) => (
+                        {data && data.getUsersByRole.users.map((data, index) => (
                             <tr key={index}>
                                 <td className='text'>{formatTimestamp(data.createdAt)}</td>
-                                <td className='text'>{data.fullname}</td>
+                                <td className='text'>{data.userName}</td>
                                 <td className='text'>
                                     {data.reviewMedia?.google ||
                                         data.reviewMedia?.yelp ||
@@ -453,7 +440,7 @@ const PosterRegistration = () => {
         </div>
     )
 }
-//done
+
 const SendIvitesComponent = () => {
     const [subject, setSubject] = useState('')
     const [sendEmail] = useMutation(SEND_EMAIL_INVITES, {
