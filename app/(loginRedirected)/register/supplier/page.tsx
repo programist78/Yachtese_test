@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation'
 import * as Yup from 'yup'
 import { errorAlert, successAlert } from '../../../../src/utils/alerts'
 import useAuthStore from '../../../../src/stores/useAuthStore'
-import { Metadata } from 'next'
 import Cookies from 'js-cookie'
 import Image from 'next/image'
 

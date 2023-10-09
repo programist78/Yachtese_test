@@ -27,10 +27,7 @@ import Image from 'next/image'
 
 
 const page: React.FC = () => {
-    const [singUp] = useMutation<
-        registerUserMutationResponse,
-        registerUserMutationInput
-    >(REGISTER_USER_MUTATION)
+    const [singUp] = useMutation<registerUserMutationResponse, registerUserMutationInput>(REGISTER_USER_MUTATION)
 
     const setUserData = useAuthStore((state) => state.setUserData)
     const router = useRouter()
@@ -81,12 +78,6 @@ const page: React.FC = () => {
         },
     })
 
-    const formText = (string: string): string => {
-        return (
-            string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
-        ).replace('_', ' ')
-    }
-
     return (
         <main className={classNames(c.main, 'filtered_image_container')}>
             <Image src='/assets/register-yacht.png' alt='Yacht background' width={4000} height={2000} />
@@ -113,13 +104,13 @@ const page: React.FC = () => {
                         value={role}
                     >
                         <option key={UserRoles.YACHT} value={UserRoles.YACHT}>
-                            {formText(UserRoles.YACHT)}
+                            Yacht
                         </option>
                         <option key={UserRoles.YACHT_BUSINESS} value={UserRoles.YACHT_BUSINESS}>
                             Yacht Fleet
                         </option>
                         <option key={UserRoles.YACHT_TEAMMATE} value={UserRoles.YACHT_TEAMMATE}>
-                            {formText(UserRoles.YACHT_TEAMMATE)}
+                            Yacht Teammate
                         </option>
                     </Select>
                     <Input
