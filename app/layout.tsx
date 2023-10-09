@@ -13,8 +13,9 @@ import MessageScript from '../src/components/MessageScript/MessageScript'
 
 export const metadata: Metadata = {
     title: 'Yachtease',
-    icons: '/assets/favicon.png',
+    icons: '/assets/favicon.svg',
     metadataBase: new URL(process.env.NEXT_PUBLIC_CLIENT_URL),
+    description: 'Welcome to our premier yachting connection hub. A unique platform developed to simplifying the yachting industry. Yachtease, not only connects suppliers, but all yacht related necessities with yacht crew worldwide. Geo Location, suppliers & services. With a brand new ever evolving platform.',
     authors: [
         {
             name: 'webXwiz',

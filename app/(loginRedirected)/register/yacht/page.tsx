@@ -116,7 +116,7 @@ const page: React.FC = () => {
                     <Input
                         type='email'
                         name='email'
-                        placehodler='vikavika@gmail.com'
+                        placehodler='hello@yachtease.co'
                         labelText='Address'
                         formik={formik}
                     />

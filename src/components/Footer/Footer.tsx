@@ -11,9 +11,6 @@ const Footer: React.FC = () => {
             <div className={c.left}>
                 <Image src='/assets/logo.png' alt='Yachtease' width={846} height={307} />
                 <div className={c.icons}>
-                    <a href={process.env.NEXT_PUBLIC_TWITTER_LINK}>
-                        <Image src='/assets/twitter.svg' alt='Yachtease' width={24} height={24} style={{opacity: 0.5}} />
-                    </a>
                     <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK}>
                         <Image src='/assets/instagram.svg' alt='Yachtease' width={24} height={24} />
                     </a>

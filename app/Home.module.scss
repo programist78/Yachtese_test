@@ -323,15 +323,10 @@
     }
 
     h3 {
-        text-align: end;
         font-size: 36px;
         font-weight: 700;
         text-transform: uppercase;
         margin-bottom: 25px;
-
-        @media (max-width:$screen-lg) {
-            text-align: left;
-        }
 
         @media (max-width:$screen-md) {
             font-size: 20px;
@@ -344,13 +339,8 @@
     }
 
     p {
-        text-align: end;
         font-size: 24px;
         font-weight: 300;
-
-        @media (max-width:$screen-lg) {
-            text-align: left;
-        }
 
         @media (max-width:$screen-md) {
             font-size: 20px;
@@ -381,8 +371,7 @@
     h3 {
         margin-top: 30px;
         margin-bottom: 50px;
-        text-align: center;
-        font-size: 38px;
+        font-size: 24px;
         font-weight: 500;
 
         @media (max-width:$screen-lg) and (min-width:$screen-sm) {

@@ -118,10 +118,19 @@ const page: React.FC = () => {
             </article>
             <article className={`${c.signup} container`}>
                 <Title className={c.centered_text}>Sign Up</Title>
-                <h3>Unlock Exclusive Benefits!
-                    Join Now While It's FREE!<br/><br/>
-                    Yachts and Suppliers,
-                    We're thrilled to introduce you to our brand-new website, and we have an exciting opportunity for you. For a limited time, we're offering FREE early bird access to our platform, and we want you to be among the first to join.</h3>
+                <h3>
+                    If you sign up for any of our packages, you will have access to the following:<br/><br/>
+                    - Create Your Unique Platform: Tailor your platform to your needs and preferences.<br/>
+                    - Team Collaboration: Yachts can add teammates, allowing different departments to share the same yacht profile.<br/>
+                    - Efficient Planning: Plan ahead with favorite suppliers for different locations.<br/>
+                    - Route Planner: Share locations and times privately with your teammates using our route planner.<br/>
+                    - Direct Messaging: Connect directly with suppliers through our unique messaging platform.<br/>
+                    - Quote Requests: Suppliers can send quotes directly through our platform.<br/>
+                    - Competitive Quotes: Receive competitive quotes from multiple suppliers with just a few clicks.<br/>
+                    - Geo-location Map: Easily find suppliers and the areas they service using our map feature.<br/>
+                    - Privacy Control: Hide certain information from other users with a simple click.<br/>
+                    - Experience these and more functionalities with Yachtease
+                </h3>
                 <Button text='Sign Up' className={c.signup_btn} href={RootURLsEnum.registerChoose} />
             </article>
         </main>

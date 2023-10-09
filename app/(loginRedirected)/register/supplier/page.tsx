@@ -73,7 +73,7 @@ const page: React.FC = () => {
         <Input type='string' name='company' placehodler='Happy Yacht Co.' labelText='Suppliers Company Name' formik={formik} />
         <Input type='string' name='name' placehodler='John Doe' labelText='Company Contact Person' formik={formik} />
         <Input type='string' name='number' placehodler='+1234567890' labelText='Contact Number' formik={formik} />
-        <Input type='email' name='email' placehodler='vikavika@gmail.com' labelText='Address' formik={formik} />
+        <Input type='email' name='email' placehodler='hello@yachtease.co' labelText='Address' formik={formik} />
         <Input type='password' name='password' placehodler='Password' labelText='Your password' formik={formik} />
       </div>
       <div className={c.description}>By creating an account, you agree with Conditions of Use and Privacy Policy</div>

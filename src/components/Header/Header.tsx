@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import c from './Header.module.scss'
 import Image from 'next/image'
-import classNames from 'classnames'
 import Link from 'next/link'
 import useAuthStore from '../../stores/useAuthStore'
 import { RootURLsEnum } from '../../config/constants'
@@ -48,7 +47,7 @@ const Header: React.FC = () => {
                 </Link>
                 <nav className={isMenuOpened ? `${c.nav}` : `${c.nav} ${c.hidden}`}>
                     <Link href={isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE') ? RootURLsEnum.search : RootURLsEnum.homepage}>Home</Link>
-                    <Link href={RootURLsEnum.subscription}>Subscription</Link>
+                    <Link href={RootURLsEnum.subscription}>Pricing</Link>
                     <Link href={RootURLsEnum.about}>About</Link>
                     <Link href={RootURLsEnum.privacy}>Privacy Policy</Link>
                     {isLogined ? (
