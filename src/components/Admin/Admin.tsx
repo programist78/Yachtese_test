@@ -8,19 +8,19 @@ import Swal from 'sweetalert2'
 import { GETUSERS_BYROLE, SEND_EMAIL_INVITES } from '../../graphql/admin'
 
 
-export default function Admin() {
-    const [screenWidth, setScreenWidth] = useState()
+const Admin = () => {
+    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
 
     useEffect(() => {
         const handleResize = () => {
-            setScreenWidth(window?.innerWidth)
+            setScreenWidth(window.innerWidth)
         }
 
-        window?.addEventListener('resize', handleResize)
+        window.addEventListener('resize', handleResize)
 
         // Очистка слушателя события при размонтировании компонента
         return () => {
-            window?.removeEventListener('resize', handleResize)
+            window.removeEventListener('resize', handleResize)
         }
     }, [])
 
@@ -58,8 +58,6 @@ const SupliersRegistration = () => {
         variables: { role: 'SUPPLIER' }
     })
 
-    console.log({ data, loading, error })
-
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp)
         const day = date.getDate()
@@ -81,7 +79,6 @@ const SupliersRegistration = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen)
     }
-    console.log(data)
 
     return (
         <div className={styles.part}>
@@ -242,6 +239,7 @@ const SupliersRegistration = () => {
                     className='text'
                     value={page1}
                     onChange={(e) => setPage1(+e.target.value)}
+                    style={{color: '#000'}}
                 />
                 {/* <p className="text">Next page</p> */}
                 <IoIosArrowForward
@@ -486,3 +484,5 @@ const SendIvitesComponent = () => {
         </div>
     )
 }
+
+export default Admin
