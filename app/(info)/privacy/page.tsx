@@ -43,7 +43,7 @@ const page: React.FC = () => {
                 <Text num={8}>Changes to the Privacy Policy: Yachtease reserves the right to update.</Text>
             </div>
         </article>
-        <article className='container'>
+        <article className={`${c.texts} container`}>
             <h1>Privacy Policy</h1>
             <p>Last updated: October 09, 2023</p>
             <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
@@ -53,7 +53,7 @@ const page: React.FC = () => {
             <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
             <h3>Definitions</h3>
             <p>For the purposes of this Privacy Policy:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>
                     <p><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</p>
                 </li>
@@ -98,7 +98,7 @@ const page: React.FC = () => {
             <h3>Types of Data Collected</h3>
             <h4>Personal Data</h4>
             <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>
                     <p>Email address</p>
                 </li>
@@ -122,7 +122,7 @@ const page: React.FC = () => {
             <p>We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.</p>
             <h4>Information from Third-Party Social Media Services</h4>
             <p>The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>Google</li>
                 <li>Facebook</li>
                 <li>Instagram</li>
@@ -133,13 +133,13 @@ const page: React.FC = () => {
             <p>You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service's account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.</p>
             <h4>Tracking Technologies and Cookies</h4>
             <p>We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:</p>
-            <ul>
+            <ul className={c.text}>
                 <li><strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.</li>
                 <li><strong>Web Beacons.</strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
             </ul>
             <p>Cookies can be &quot;Persistent&quot; or &quot;Session&quot; Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. Learn more about cookies on the <Link href="https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking" target="_blank">Free Privacy Policy website</Link> article.</p>
             <p>We use both Session and Persistent Cookies for the purposes set out below:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>
                     <p><strong>Necessary / Essential Cookies</strong></p>
                     <p>Type: Session Cookies</p>
@@ -162,7 +162,7 @@ const page: React.FC = () => {
             <p>For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.</p>
             <h3>Use of Your Personal Data</h3>
             <p>The Company may use Personal Data for the following purposes:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>
                     <p><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</p>
                 </li>
@@ -189,7 +189,7 @@ const page: React.FC = () => {
                 </li>
             </ul>
             <p>We may share Your personal information in the following situations:</p>
-            <ul>
+            <ul className={c.text}>
                 <li><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
                 <li><strong>For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
                 <li><strong>With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
@@ -216,7 +216,7 @@ const page: React.FC = () => {
             <p>Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).</p>
             <h4>Other legal requirements</h4>
             <p>The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>Comply with a legal obligation</li>
                 <li>Protect and defend the rights or property of the Company</li>
                 <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
@@ -237,7 +237,7 @@ const page: React.FC = () => {
             <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
             <h2>Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, You can contact us:</p>
-            <ul>
+            <ul className={c.text}>
                 <li>
                     <p>By email: <Link href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="a6cec3cacac9e6dfc7c5ced2c3c7d5c388c5c9">[email&#160;protected]</Link></p>
                 </li>
