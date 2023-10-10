@@ -268,7 +268,7 @@ const TablePagination: FC<{ page: number, setPage: Dispatch<SetStateAction<numbe
             className='text'
             value={page}
             onChange={(e) => setPage(+e.target.value)}
-            style={{ color: '#000' }}
+            style={{ color: '#F0FAFF', backgroundColor: '#615A57', borderRadius: "25%", borderStyle: "none", textAlign: "center" }}
         />
         {/* <p className="text">Next page</p> */}
         <IoIosArrowForward
