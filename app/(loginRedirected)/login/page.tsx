@@ -118,7 +118,7 @@ const page: React.FC = () => {
                                 })
                             }
                         />
-                        <Image width={35} height={35}
+                        {/* <Image width={35} height={35}
                             src='/assets/apple.svg'
                             alt='Apple'
                             onClick={() =>
@@ -126,7 +126,7 @@ const page: React.FC = () => {
                                     redirect: false,
                                 })
                             }
-                        />
+                        /> */}
                     </div>
                 </div>
                 <Link href={RootURLsEnum.registerChoose} className={c.new}>

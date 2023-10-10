@@ -25,3 +25,19 @@ mutation Mutation($subject: String!) {
   }
 }
 `
+
+export const BAN_USER = gql`
+  mutation BanUser($email: String!) {
+    banUser(email: $email) {
+      _id
+    }
+  }
+`
+
+export const UNBAN_USER = gql`
+  mutation BanUser($email: String!) {
+    unBanUser(email: $email) {
+      _id
+    }
+  }
+`

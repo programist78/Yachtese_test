@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client'
 import { IoIosArrowDown, IoIosArrowBack, IoIosArrowForward, IoIosArrowUp } from 'react-icons/io'
 import { useMutation } from '@apollo/client'
 import Swal from 'sweetalert2'
-import { GETUSERS_BYROLE, SEND_EMAIL_INVITES } from '../../graphql/admin'
+import { GETUSERS_BYROLE, SEND_EMAIL_INVITES, BAN_USER, UNBAN_USER } from '../../graphql/admin'
 
 
 const formatTimestamp = (timestamp: string): string => {
@@ -226,6 +226,68 @@ const SendIvitesComponent: FC = () => {
     )
 }
 
+const BanUser: FC = () => {
+    const [subject, setSubject] = useState('')
+    const [sendEmail] = useMutation(BAN_USER, {
+        onError(error) {
+            Swal.fire({
+                icon: 'error',
+                title: `${error}`,
+            })
+        },
+        onCompleted: (data) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+            })
+        },
+        variables: {
+            email: subject
+        },
+    })
+
+    return (
+        <div className={styles.inline_form}>
+            <p className='pretitle'>Ban User</p>
+            <input className='a_input' onChange={(e) => setSubject(e.target.value)} value={subject} placeholder='email@email.com' />
+            <button className='b_button' onClick={() => sendEmail()}>
+                Ban
+            </button>
+        </div>
+    )
+}
+
+const UnBanUser: FC = () => {
+    const [subject, setSubject] = useState('')
+    const [sendEmail] = useMutation(UNBAN_USER, {
+        onError(error) {
+            Swal.fire({
+                icon: 'error',
+                title: `${error}`,
+            })
+        },
+        onCompleted: (data) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+            })
+        },
+        variables: {
+            email: subject
+        },
+    })
+
+    return (
+        <div className={styles.inline_form}>
+            <p className='pretitle'>Unban User</p>
+            <input className='a_input' onChange={(e) => setSubject(e.target.value)} value={subject} placeholder='email@email.com' />
+            <button className='b_button' onClick={() => sendEmail()}>
+                Unban
+            </button>
+        </div>
+    )
+}
+
 //ELEMENTS
 
 const LoadingTable: FC = () => {
@@ -268,7 +330,7 @@ const TablePagination: FC<{ page: number, setPage: Dispatch<SetStateAction<numbe
             className='text'
             value={page}
             onChange={(e) => setPage(+e.target.value)}
-            style={{ color: '#F0FAFF', backgroundColor: '#615A57', borderRadius: "25%", borderStyle: "none", textAlign: "center" }}
+            style={{ color: '#F0FAFF', backgroundColor: '#615A57', borderRadius: '10px', borderStyle: 'none', textAlign: 'center' }}
         />
         {/* <p className="text">Next page</p> */}
         <IoIosArrowForward
@@ -318,6 +380,8 @@ const Admin: FC = () => {
     return (
         <div className={styles.back}>
             <SendIvitesComponent />
+            <BanUser/>
+            <UnBanUser/>
             <SupliersRegistration />
             <YachtRegistration />
             <TeammateRegistration/>
