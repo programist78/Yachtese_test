@@ -19,7 +19,7 @@ const layout: FC = () => {
 
     const getLink = (priceKey: string) => {
 
-        if (!isLogined) return push(RootURLsEnum.homepage)
+        if (!isLogined) return push(RootURLsEnum.login)
 
         buy({
             variables: {
