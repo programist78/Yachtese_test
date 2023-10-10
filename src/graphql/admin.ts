@@ -8,6 +8,10 @@ export const GETUSERS_BYROLE = gql`
       createdAt
       userName
       email
+      contactInfo {
+        link
+        name
+      }
     }
   }
 }
