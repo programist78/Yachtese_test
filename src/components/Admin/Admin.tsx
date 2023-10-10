@@ -29,7 +29,6 @@ const SupliersRegistration: FC = () => {
         variables: { role: 'SUPPLIER', pageNumber: page }
     })
 
-
    if (loading || !data) return <div className={styles.part}>
         <p className='title'>Supplier Registration</p>
         <div className={styles.filters}>
@@ -249,7 +248,7 @@ const TableHead: FC = () => {
             <th className='text'>Date</th>
             <th className='text'>Username</th>
             <th className='text'>Email</th>
-            <th className='text'>Action</th>
+            <th className='text'>Phone</th>
         </tr>
     </thead>
 }
@@ -283,7 +282,7 @@ const Menu: FC<{ isOpen: boolean, setArgument: Dispatch<SetStateAction<string>> 
     <div onClick={() => setArgument('createdAt')} className='text'>Date</div>
     <div onClick={() => setArgument('fullname')} className='text'>Username</div>
     <div onClick={() => setArgument('brandname')} className='text'>Login</div>
-    <div onClick={() => setArgument('brandDescription')} className='text'>Action</div>
+    <div onClick={() => setArgument('brandDescription')} className='text'>Phone</div>
 </div>
 
 const TableBody: FC<{ users: Array<{ _id:string, createdAt:string, userName:string, email:string, contactInfo?: Array<{ link }> }> }> = ({users}) => {
