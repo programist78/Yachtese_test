@@ -1,7 +1,9 @@
 import type { FC, PropsWithChildren } from 'react'
 
 const layout: FC<PropsWithChildren> = ({ children }) => {
-    return children
+    return <>
+        {children}
+    </>
 }
 
 export default layout

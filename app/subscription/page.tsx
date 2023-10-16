@@ -1,5 +1,5 @@
 'use client'
-import type { FC } from 'react'
+import { type FC, useLayoutEffect } from 'react'
 import Title from '../../src/components/Title/Title'
 import c from './Subsciption.module.scss'
 import classNames from 'classnames'
@@ -15,7 +15,7 @@ const layout: FC = () => {
     const [buy] = useMutation(BUY_LINK)
     const isLogined = useAuthStore((state) => state.isLogined)
     const userData = useAuthStore((state) => state.userData)
-    const { push } = useRouter()
+    const { push, replace } = useRouter()
 
     const getLink = (priceKey: string) => {
 
@@ -32,6 +32,10 @@ const layout: FC = () => {
             location.href = data.paymentCheckout.url
         }).catch(errorAlert)
     }
+
+    useLayoutEffect(() => {
+        if(!isLogined) replace('/login')
+    }, [replace, isLogined])
 
     return <main className={c.main}>
         <section>
