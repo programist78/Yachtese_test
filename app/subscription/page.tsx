@@ -43,263 +43,315 @@ const layout: FC = () => {
                 : <h3>Suppliers, join Yachtease to elevate your business. Connect with yachts effortlessly, offer seamless services, and expand your reach. Discover how Yachtease can boost your efficiency and growth in the yachting industry.</h3>}
                 </div>
         </section>
+        {userData.subscription.status == "complete" ?
+                <section className={classNames('container', c.packages)}>
+                <>
+            
+                <article className={classNames('block', c.package)}>
+                    <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+                    <h5>Six-Month Package with 3 Months Free:</h5>
+                    <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
+                    <span className={c.tabl_title}>Features:</span>
+                    <p>
+                        Full access to all platform features for six months.
+                    </p>
+                    <p>
+                        Connect with suppliers, plan routes, and streamline operations.
+                    </p>
+                    <p>
+                        Experience the power of Yachtease with a generous 3-month discount.
+                    </p>
+                    <p>
+                        Gain insights into how our platform can simplify your yachting experience.
+                    </p>
+                    <p>
+                        Access to our support team for assistance and guidance during your subscription.
+                    </p>
+                    <p>
+                        Provide valuable feedback to help us improve the platform based on your needs.
+                    </p>
+                    <p>
+                        Enjoy access to any updates or new features introduced during your subscription period.
+                    </p>
+                    <p>
+                        Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
+                    </p>
+                    <span className={c.tabl_title}>Payment:</span>
+                    <p>
+                        One-time payment of $75 USD, covering six months (equivalent to 3 months free).
+                    </p>
+                    <p>
+                        No recurring monthly charges during the 6-month period
+                    </p>
+                    <p>
+                        Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
+                    </p>
+                    <span className={c.price}>75$</span>
+                    <button className={c.buy} onClick={() => {
+                        getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
+                    }}>Buy Now</button>
+                </article>
+                </>
+            </section>
+        : 
         <section className={classNames('container', c.packages)}>
-            {!isLogined || userData.role === 'SUPPLIER' ? <>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
-                <h5>No-Commitment Free Trial</h5>
-                <h6>Duration: 1 Month</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for one month.
-                </p>
-                <p>
-                    Connect with yachts, offer services, and expand your reach.
-                </p>
-                <p>
-                    Experience the power of Yachtease with no commitment.
-                </p>
-                <p>
-                    Gain insights into how our platform can boost your efficiency in the yachting industry.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance during your trial.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <span className={c.tabl_title}>After the Trial:</span>
-                <p>
-                    At the end of the one-month trial period, you have the option to sign up for the paid version.
-                </p>
-                <p>
-                    Monthly subscription fee of $10 USD.
-                </p>
-                <p>
-                    No obligation, no strings attached during the trial. Try it out, and if it works for you, we're here to support your yachting business.
-                </p>
-                <span className={c.price}>FREE</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_1)
-                }}>FREE TRIAL</button>
-            </article>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
-                <h5>Six-Month Package with 3 Months Free:</h5>
-                <h6>Duration: 6 Months (Paid upfront at $30 USD)</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for six months.
-                </p>
-                <p>
-                    Connect with yachts, offer services, and expand your reach.
-                </p>
-                <p>
-                    Experience the power of Yachtease with a generous 3-month discount.
-                </p>
-                <p>
-                    Gain insights into how our platform can boost your efficiency in the yachting industry.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance during your subscription.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <p>
-                    Enjoy access to any updates or new features introduced during your subscription period.
-                </p>
-                <p>
-                    Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
-                </p>
-                <span className={c.tabl_title}>Payment:</span>
-                <p>
-                    One-time payment of $30 USD, covering six months (equivalent to 3 months free).
-                </p>
-                <p>
-                    No recurring monthly charges during the 6-month period.
-                </p>
-                <p>
-                    Stay ahead with extended access to our platform and benefit from continuous improvements and innovations.
-                </p>
-                <span className={c.price}>30$</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_2)
-                }}>Buy Now</button>
-            </article>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
-                <h5>One-Year Subscription with 55% Discount</h5>
-                <h6>Duration: 12 Months (Paid upfront at $54 USD)</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for one year.
-                </p>
-                <p>
-                    Connect with yachts, offer services, and expand your reach.
-                </p>
-                <p>
-                    Enjoy an incredible 55% discount with our one-year subscription.
-                </p>
-                <p>
-                    Gain insights into how our platform can boost your efficiency in the yachting industry.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance throughout your subscription.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <p>
-                    Stay up-to-date with access to any updates or new features introduced during your subscription period.
-                </p>
-                <p>
-                    Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
-                </p>
-                <span className={c.tabl_title}>Payment:</span>
-                <p>
-                    One-time payment of $54 USD, covering a full year (equivalent to more than 6 months free).
-                </p>
-                <p>
-                    No recurring monthly charges during the 12-month period.
-                </p>
-                <p>
-                    Secure your place in the Yachtease community and experience uninterrupted benefits while saving significantly with this annual subscription.
-                </p>
-                <span className={c.price}>54$</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_3)
-                }}>Buy Now</button>
-            </article>
-            </> : <>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
-                <h5>No-Commitment Free Trial</h5>
-                <h6>Duration: 1 Month</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for one month.
-                </p>
-                <p>
-                    Connect with suppliers, plan routes, and streamline operations.
-                </p>
-                <p>
-                    Experience the power of Yachtease with no commitment.
-                </p>
-                <p>
-                    Gain insights into how our platform can simplify your yachting.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance during your trial.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <span className={c.tabl_title}>After the Trial:</span>
-                <p>
-                    At the end of the one-month trial period, you have the option to sign up for the paid version.
-                </p>
-                <p>
-                    Monthly subscription fee of $25 USD after the free trail.
-                </p>
-                <p>
-                    No obligation, no strings attached during the trial. Try it out, and if it works for you, we`re here to assist your yachting journey.
-                </p>
-                <span className={c.price}>FREE</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
-                }}>FREE TRIAL</button>
-            </article>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
-                <h5>Six-Month Package with 3 Months Free:</h5>
-                <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for six months.
-                </p>
-                <p>
-                    Connect with suppliers, plan routes, and streamline operations.
-                </p>
-                <p>
-                    Experience the power of Yachtease with a generous 3-month discount.
-                </p>
-                <p>
-                    Gain insights into how our platform can simplify your yachting experience.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance during your subscription.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <p>
-                    Enjoy access to any updates or new features introduced during your subscription period.
-                </p>
-                <p>
-                    Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
-                </p>
-                <span className={c.tabl_title}>Payment:</span>
-                <p>
-                    One-time payment of $75 USD, covering six months (equivalent to 3 months free).
-                </p>
-                <p>
-                    No recurring monthly charges during the 6-month period
-                </p>
-                <p>
-                    Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
-                </p>
-                <span className={c.price}>75$</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
-                }}>Buy Now</button>
-            </article>
-            <article className={classNames('block', c.package)}>
-                <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
-                <h5>One-Year Subscription with 55% Discount</h5>
-                <h6>Duration: 12 Months (Paid upfront at $135 USD)</h6>
-                <span className={c.tabl_title}>Features:</span>
-                <p>
-                    Full access to all platform features for one year.
-                </p>
-                <p>
-                    Connect with suppliers, plan routes, and streamline operations.
-                </p>
-                <p>
-                    Enjoy an incredible 55% discount with our one-year subscription.
-                </p>
-                <p>
-                    Gain insights into how our platform can simplify your yachting experience.
-                </p>
-                <p>
-                    Access to our support team for assistance and guidance throughout your subscription.
-                </p>
-                <p>
-                    Provide valuable feedback to help us improve the platform based on your needs.
-                </p>
-                <p>
-                    Stay up-to-date with access to any updates or new features introduced during your subscription period.
-                </p>
-                <p>
-                    Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
-                </p>
-                <span className={c.tabl_title}>Payment:</span>
-                <p>
-                    One-time payment of $135 USD, covering a full year (equivalent to more than 6 months free).
-                </p>
-                <p>
-                    No recurring monthly charges during the 12-month period.
-                </p>
-                <p>
-                    Elevate your yachting journey with extended access to our platform and benefit from significant savings with this annual subscription.
-                </p>
-                <span className={c.price}>135$</span>
-                <button className={c.buy} onClick={() => {
-                    getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
-                }}>Buy Now</button>
-            </article>
-            </>}
-        </section>
+        {!isLogined || userData.role === 'SUPPLIER' ? <>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <h5>No-Commitment Free Trial</h5>
+            <h6>Duration: 1 Month</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for one month.
+            </p>
+            <p>
+                Connect with yachts, offer services, and expand your reach.
+            </p>
+            <p>
+                Experience the power of Yachtease with no commitment.
+            </p>
+            <p>
+                Gain insights into how our platform can boost your efficiency in the yachting industry.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance during your trial.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <span className={c.tabl_title}>After the Trial:</span>
+            <p>
+                At the end of the one-month trial period, you have the option to sign up for the paid version.
+            </p>
+            <p>
+                Monthly subscription fee of $10 USD.
+            </p>
+            <p>
+                No obligation, no strings attached during the trial. Try it out, and if it works for you, we're here to support your yachting business.
+            </p>
+            <span className={c.price}>FREE</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_1)
+            }}>FREE TRIAL</button>
+        </article>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <h5>Six-Month Package with 3 Months Free:</h5>
+            <h6>Duration: 6 Months (Paid upfront at $30 USD)</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for six months.
+            </p>
+            <p>
+                Connect with yachts, offer services, and expand your reach.
+            </p>
+            <p>
+                Experience the power of Yachtease with a generous 3-month discount.
+            </p>
+            <p>
+                Gain insights into how our platform can boost your efficiency in the yachting industry.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance during your subscription.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <p>
+                Enjoy access to any updates or new features introduced during your subscription period.
+            </p>
+            <p>
+                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
+            </p>
+            <span className={c.tabl_title}>Payment:</span>
+            <p>
+                One-time payment of $30 USD, covering six months (equivalent to 3 months free).
+            </p>
+            <p>
+                No recurring monthly charges during the 6-month period.
+            </p>
+            <p>
+                Stay ahead with extended access to our platform and benefit from continuous improvements and innovations.
+            </p>
+            <span className={c.price}>30$</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_2)
+            }}>Buy Now</button>
+        </article>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <h5>One-Year Subscription with 55% Discount</h5>
+            <h6>Duration: 12 Months (Paid upfront at $54 USD)</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for one year.
+            </p>
+            <p>
+                Connect with yachts, offer services, and expand your reach.
+            </p>
+            <p>
+                Enjoy an incredible 55% discount with our one-year subscription.
+            </p>
+            <p>
+                Gain insights into how our platform can boost your efficiency in the yachting industry.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance throughout your subscription.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <p>
+                Stay up-to-date with access to any updates or new features introduced during your subscription period.
+            </p>
+            <p>
+                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
+            </p>
+            <span className={c.tabl_title}>Payment:</span>
+            <p>
+                One-time payment of $54 USD, covering a full year (equivalent to more than 6 months free).
+            </p>
+            <p>
+                No recurring monthly charges during the 12-month period.
+            </p>
+            <p>
+                Secure your place in the Yachtease community and experience uninterrupted benefits while saving significantly with this annual subscription.
+            </p>
+            <span className={c.price}>54$</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_3)
+            }}>Buy Now</button>
+        </article>
+        </> : <>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <h5>No-Commitment Free Trial</h5>
+            <h6>Duration: 1 Month</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for one month.
+            </p>
+            <p>
+                Connect with suppliers, plan routes, and streamline operations.
+            </p>
+            <p>
+                Experience the power of Yachtease with no commitment.
+            </p>
+            <p>
+                Gain insights into how our platform can simplify your yachting.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance during your trial.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <span className={c.tabl_title}>After the Trial:</span>
+            <p>
+                At the end of the one-month trial period, you have the option to sign up for the paid version.
+            </p>
+            <p>
+                Monthly subscription fee of $25 USD after the free trail.
+            </p>
+            <p>
+                No obligation, no strings attached during the trial. Try it out, and if it works for you, we`re here to assist your yachting journey.
+            </p>
+            <span className={c.price}>FREE</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
+            }}>FREE TRIAL</button>
+        </article>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <h5>Six-Month Package with 3 Months Free:</h5>
+            <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for six months.
+            </p>
+            <p>
+                Connect with suppliers, plan routes, and streamline operations.
+            </p>
+            <p>
+                Experience the power of Yachtease with a generous 3-month discount.
+            </p>
+            <p>
+                Gain insights into how our platform can simplify your yachting experience.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance during your subscription.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <p>
+                Enjoy access to any updates or new features introduced during your subscription period.
+            </p>
+            <p>
+                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
+            </p>
+            <span className={c.tabl_title}>Payment:</span>
+            <p>
+                One-time payment of $75 USD, covering six months (equivalent to 3 months free).
+            </p>
+            <p>
+                No recurring monthly charges during the 6-month period
+            </p>
+            <p>
+                Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
+            </p>
+            <span className={c.price}>75$</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
+            }}>Buy Now</button>
+        </article>
+        <article className={classNames('block', c.package)}>
+            <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <h5>One-Year Subscription with 55% Discount</h5>
+            <h6>Duration: 12 Months (Paid upfront at $135 USD)</h6>
+            <span className={c.tabl_title}>Features:</span>
+            <p>
+                Full access to all platform features for one year.
+            </p>
+            <p>
+                Connect with suppliers, plan routes, and streamline operations.
+            </p>
+            <p>
+                Enjoy an incredible 55% discount with our one-year subscription.
+            </p>
+            <p>
+                Gain insights into how our platform can simplify your yachting experience.
+            </p>
+            <p>
+                Access to our support team for assistance and guidance throughout your subscription.
+            </p>
+            <p>
+                Provide valuable feedback to help us improve the platform based on your needs.
+            </p>
+            <p>
+                Stay up-to-date with access to any updates or new features introduced during your subscription period.
+            </p>
+            <p>
+                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
+            </p>
+            <span className={c.tabl_title}>Payment:</span>
+            <p>
+                One-time payment of $135 USD, covering a full year (equivalent to more than 6 months free).
+            </p>
+            <p>
+                No recurring monthly charges during the 12-month period.
+            </p>
+            <p>
+                Elevate your yachting journey with extended access to our platform and benefit from significant savings with this annual subscription.
+            </p>
+            <span className={c.price}>135$</span>
+            <button className={c.buy} onClick={() => {
+                getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
+            }}>Buy Now</button>
+        </article>
+        </>}
+    </section>
+        }
         <section className={classNames(c.descr, 'container')}>
             <p>
                 If you sign up for any of our packages, you will have access to the following:<br /><br />
