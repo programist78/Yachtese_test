@@ -90,7 +90,7 @@ export const AutocompleteField: FC<CitiesDropdownProps> = ({ changeInput, error,
                     {/* eslint-disable-next-line*/}
                     <span>{main_text},</span>
                     {/* eslint-disable-next-line*/}
-                    {secondary_text}
+                    <span>{secondary_text}</span>
                   </button>
                 </li>
               )

@@ -2,6 +2,7 @@
 
 .autocompleteField {
     position: relative;
+    z-index: 100;
     .autocompleteField_label {
         font-weight: 600;
         // color: $dark;
