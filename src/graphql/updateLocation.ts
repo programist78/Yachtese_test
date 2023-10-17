@@ -27,8 +27,8 @@ export interface updateLocationInput {
     changeLocationInput: {
         location: {
           radius: number,
-          lon: string,
-          lat: string
+          lon: number,
+          lat: number
         }
         country: string[]
       }

@@ -32,6 +32,7 @@ import useFavoriteSuppliersPopupStore from "../../stores/useFavoriteSuppliersPop
 import FavoriteSuppliersPopup from "../FavoriteSuppliersPopup/FavoriteSuppliersPopup";
 import { loactionList, servicesList } from "../../config/constants";
 import { AutocompleteField } from "../common/AutocompleteField";
+import { getGeocode, getLatLng } from 'use-places-autocomplete'
 
 export const SupplierInfo: FC = () => {
   return (
@@ -130,126 +131,64 @@ const Location: FC = () => {
   >(UPDATE_LOCATION);
 
   const [isEditable, setIsEditable] = useState(false);
-  const [error, setError] = useState<null | string>(null);
   const userData = useAuthStore((state) => state.userData);
-  const [place, setPlace] = useState("");
-  const [placeInState, setPlaceInState] = useState("");
+  const setUserData = useAuthStore((state) => state.setUserData);
   const [_, startTransition] = useTransition();
+  const [place, setPlace] = useState()
   const [openedGroupName, setOpenedGroupName] = useState("");
   const [selectedCountries, setSelectedCountries] = useState(
     userData.country ? userData.country : []
   );
   const [radius, setRadius] = useState(
     userData.location.radius ? userData.location.radius : null
-  );
-  const [pos, setPos] = useState<{ latitude: string; longitude: string }>(
-    () => {
-      if (!userData.location.lat || !userData.location.lon)
-        return { latitude: "", longitude: "" };
-
-      return {
-        latitude: userData.location.lat,
-        longitude: userData.location.lon,
-      };
-    }
-  );
+  )
+  const [streetError, setStreetError] = useState(false);
+  const changeStreetError = (street: boolean) => setStreetError(street);
 
   function onSelectPlace(place: string) {
-    setPlace(place);
+    getGeocode({ address: place }).then((results) => {
+      const { lat, lng } = getLatLng(results[0])
+
+      updateLocation({
+        variables: {
+          changeLocationInput: {
+            location: {
+              lat: lat,
+              lon: lng,
+              radius: Number(radius),
+            },
+            country: selectedCountries,
+          },
+        },
+      }).then(({ data }) => {
+        setUserData({...userData, location: data.changeLocation.location})
+      }).catch(() => {
+        errorAlert()
+      })
+    })
   }
 
-//   useEffect(() => {
-//     if (!place) return;
-//     const tim = setTimeout(() => {
-//       Geocode.fromAddress(place, process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY)
-//         .then((res) => {
-//           setError(null);
-//           setPos({
-//             latitude: res.results[0].geometry.location.lat,
-//             longitude: res.results[0].geometry.location.lng,
-//           });
-//         })
-//         .catch((e) => {
-//           setError("Wrong address!");
-//           setPos({ latitude: "", longitude: "" });
-//         });
-//     }, 1000);
+  useEffect(() => {
+    Geocode.fromLatLng(userData.location.lat, userData.location.lon).then((res) => {
+      setPlace(res.results[0].formatted_address)
+    })
+  }, [userData.location])
 
-//     return () => clearTimeout(tim);
-//   }, [place]);
-
-//   useEffect(() => {
-//     if (!pos.latitude || !pos.longitude) return setPlaceInState("Add location");
-//     Geocode.fromLatLng(
-//       pos.latitude,
-//       pos.longitude,
-//       process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY
-//     ).then((res) => {
-//       setPlaceInState(
-//         res.results[Math.round(res.results.length / 2)].formatted_address
-//       );
-//       setPlace(
-//         res.results[Math.round(res.results.length / 2)].formatted_address
-//       );
-//     });
-//   }, [pos.latitude, pos.longitude]);
-
-  const handleSubmit = () => {
-    if (!place || !pos.latitude) return setError("Address is required");
-    if (!selectedCountries) return setError("Country is required");
-
-    updateLocation({
-      variables: {
-        changeLocationInput: {
-          location: {
-            lat: pos.latitude,
-            lon: pos.longitude,
-            radius: Number(radius),
-          },
-          country: selectedCountries,
-        },
-      },
-    }).then(async (res) => {
-      const adr = await Geocode.fromLatLng(
-        res.data.changeLocation.location.lat,
-        res.data.changeLocation.location.lon,
-        process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY
-      ).then((res) => {
-        return res.results[Math.round(res.results.length / 2)]
-          .formatted_address;
-      });
-
-      setPlaceInState(adr);
-      setIsEditable(false);
-    });
-  };
-  const [streetError, setStreetError] = useState(false);
-
-  const changeStreetError = (street: boolean) => setStreetError(street);
 
   return (
     <>
       <h4 className={c.title}>
         Location
-        {isEditable ? (
-          <EditIcon isOn={isEditable} onClick={handleSubmit} />
-        ) : (
-          <EditIcon isOn={isEditable} onClick={() => setIsEditable(true)} />
-        )}
+        <EditIcon isOn={isEditable} onClick={() => setIsEditable((p) => !p)} />
       </h4>
       <h6 className={c.min_title}>Add/Change</h6>
       <div>
         {isEditable ? (
           <>
-            {/* <input
-                            className={c.input}
-                            value={place}
-                            onChange={(e) => setPlace(e.target.value)}
-                            placeholder={placeInState}
-                        /> */}
             <AutocompleteField
               onSelect={onSelectPlace}
-              placeholder={placeInState}
+              placeholder={place}
+              changeInput={setPlace}
               name="location"
               label={""}
               seacrhItem={place}
@@ -263,28 +202,14 @@ const Location: FC = () => {
               error={streetError}
               setError={changeStreetError}
             />
-            {error && <span>{streetError}</span>}
           </>
         ) : (
-        //   <h3 className={c.location}>
-        //     {placeInState ? placeInState : "Loading..."}
-        //   </h3>
-        <h1>Hello world</h1>
+        <h4 style={{ paddingBottom: 10 }}>{place ? place : 'Loading...'}</h4>
         )}
       </div>
       <div>
-        <input
-          className={c.min_input}
-          value={pos.latitude}
-          readOnly
-          placeholder="Latitude"
-        />
-        <input
-          className={c.min_input}
-          value={pos.longitude}
-          readOnly
-          placeholder="Longitude"
-        />
+        <input className={c.min_input} value={userData.location.lat} readOnly placeholder="Latitude" />
+        <input className={c.min_input} value={userData.location.lon} readOnly placeholder="Longitude" />
       </div>
       <div>
         <input

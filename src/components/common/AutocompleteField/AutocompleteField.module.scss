@@ -8,34 +8,28 @@
     }
 
     .autocompleteField_wrapper {
-        display: grid;
+        display: block;
         grid-template-columns: max-content 1fr;
-        border: 8px solid #dfddde;
         border-radius: 10px;
         height: 48px;
         margin-top: 8px;
     }
 
     .autocompleteField_icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 48px;
-        height: 100%;
-        padding-left: 3px;
-
-        color: white;
-        border-right: 1px solid #dfddde;
-        & svg {
-            width: 20px;
-            height: 20px;
-        }
+        display: none;
     }
 
     .autocompleteField_input {
         padding: 0 16px 0 12px;
-        color: black;
+        background-color: #2E3030;
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid #909090;
+        display: block;
+        width: 100%;
+        color: rgb(255, 255, 255);
         font-weight: 600;
         &::placeholder {
             font-weight: 400;
