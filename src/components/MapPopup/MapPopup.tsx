@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import c from './MapPopup.module.scss'
 import useMapStore from '../../stores/useMapStore'
 import Title from '../Title/Title'
@@ -57,6 +57,45 @@ const MapPopup: React.FC = () => {
         }).catch(() => errorAlert())
     }
 
+    const [desktop, setDesktop] = useState(true);
+
+    useEffect(() => {
+      const handleResize = () => {
+        if(window.innerWidth >= 768) {
+            setDesktop(true)
+          } else {
+            setDesktop(false)
+          }
+      };
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+
+    const mapRef = useRef(null);
+
+    const handleMapClick = (e: any) => {
+        if (!mapRef.current) return;
+    
+        // Get the clicked coordinates
+        const {lng, lat} = e.lngLat;
+        // Add a new marker to the state
+        setMarkers((prevMarkers) => [
+          ...prevMarkers,
+          {
+            lat,
+            lon: lng,
+            time: new Date().toISOString().slice(0, 16),
+            status: false,
+            title: "Your Address", // You can use Geocode here
+            unconfirmed: true,
+          },
+        ]);
+      };
+      
+
+
     return (
         isOpened && (
             <div className={c.main} onClick={() => setIsOpened(false)}>
@@ -70,6 +109,8 @@ const MapPopup: React.FC = () => {
                         Discover your next destination on the map, simply double-click, and watch a pin drop effortlessly. A convenient bar at the bottom of your screen will appear, allowing you to fine-tune your arrival details, specifying the time and date you'll be reaching the location.<br/>
                         Here's the kicker: this information is exclusively accessible to your fellow yacht teammates, ensuring a streamlined operation across all departments. With this feature in action, you can now harmonize your busy yacht schedules, making provisioning and deliveries a breeze.
                     </span>
+                    <h1>Desktop: {desktop ? "Desktop" : "Sensore"}</h1>
+                    {desktop ?
                     <ReactMapGl
                         {...viewport}
                         {...mapProps}
@@ -142,6 +183,61 @@ const MapPopup: React.FC = () => {
                             <Layer type='line' />
                         </Source>
                     </ReactMapGl>
+                    :
+                    <ReactMapGl
+                    {...viewport}
+                    ref={mapRef}
+                    {...mapProps}
+                    onDrag={(e) => setViewport(e.viewState)}
+                    onZoom={(e) => setViewport(e.viewState)}
+                    onClick={handleMapClick}
+                    style={{
+                        height: 500,
+                        width: '100%',
+                        borderRadius: 15,
+                        overflow: 'hidden',
+                    }}>
+                    {markers.length > 0 &&
+                        markers.map((item, index) => (
+                            <Marker
+                                key={`Marker ${index}`}
+                                onClick={() =>
+                                    setMarkers((prev) =>
+                                        prev.filter((i) => i !== item),
+                                    )
+                                }
+                                latitude={Number(item.lat)}
+                                longitude={Number(item.lon)}
+                                anchor='center'
+                            >
+                                <div className='marker_con'>
+                                    <Image
+                                        src='/assets/marker.png'
+                                        alt={`#${index}`}
+                                        width={20}
+                                        height={30}
+                                    />
+                                </div>
+                            </Marker>
+                        ))
+                    }
+                    <Source id="polylineLayer" type="geojson" data={{
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: markers.sort((a, b) => {
+                                const dateA = new Date(a.time)
+                                const dateB = new Date(b.time)
+
+                                return Number(dateA) - Number(dateB)
+                            }).map((item) => [item.lon, item.lat])
+                        }
+                    }}>
+                        <Layer type='line' />
+                    </Source>
+                </ReactMapGl>
+                }
                     <div className={c.inputs}>
                         {markers.length > 0 &&
                             markers.map((item, index) => (

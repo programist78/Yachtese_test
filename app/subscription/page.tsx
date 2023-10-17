@@ -47,7 +47,7 @@ const layout: FC = () => {
                 : <h3>Suppliers, join Yachtease to elevate your business. Connect with yachts effortlessly, offer seamless services, and expand your reach. Discover how Yachtease can boost your efficiency and growth in the yachting industry.</h3>}
                 </div>
         </section>
-        {userData.subscription.status == "complete" ?
+        {userData?.subscription?.status == "complete" ?
                 <section className={classNames('container', c.packages)}>
                 <>
             
