@@ -1,0 +1,41 @@
+.DropDown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    height: fit-content;
+
+    padding-top: toRem(10);
+    z-index: 5;
+
+    &_enter {
+        opacity: 0;
+        padding-top: 0;
+    }
+
+    &_enterActive {
+        opacity: 1;
+        padding-top: 10px;
+        transition: all 0.3s;
+    }
+
+    &_exit {
+        opacity: 1;
+        padding-top: 10px;
+    }
+
+    &_exitActive {
+        pointer-events: none;
+        opacity: 0;
+        padding-top: 0;
+        transition: all 0.3s;
+    }
+
+    &_content{
+        width: 312px;
+        padding: 16px;
+    
+        background-color: gray;
+        border-radius: 20px;
+    }
+}
