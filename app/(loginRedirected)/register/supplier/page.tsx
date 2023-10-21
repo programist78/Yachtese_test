@@ -58,7 +58,7 @@ const page: React.FC = () => {
         setUserData(data.registerUser.user)
         Cookies.set('token', data.registerUser.token,{ expires: 14 })
         successAlert('Registration succes')
-        router.push(RootURLsEnum.homepage)
+        router.push(RootURLsEnum.subscription)
       }).catch((err) => {
         errorAlert(err)
       })

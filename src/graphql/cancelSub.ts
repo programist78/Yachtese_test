@@ -1,13 +1,8 @@
 import { gql } from '@apollo/client'
-import { userDataType } from '../stores/useAuthStore'
-import { UserRolesType } from '../config/constants'
 
-export const REGISTER_USER_MUTATION = gql`
-mutation RegisterUser($registerUserInput: RegisterUserInput) {
-  registerUser(registerUserInput: $registerUserInput) {
-    token
-    message
-    user {
+export const CANCEL_SUB = gql`
+mutation Mutation {
+    cancelSubscription {
       _id
       createdAt
       userName
@@ -29,6 +24,7 @@ mutation RegisterUser($registerUserInput: RegisterUserInput) {
       }
       requestedYachtCompany
       connectedYachtCompany
+      connectedYacht
       teamMates
       location {
         lat
@@ -59,29 +55,8 @@ mutation RegisterUser($registerUserInput: RegisterUserInput) {
       chats
       favoriteChats
       displayFields
+      country
+      ban
     }
   }
-}
 `
-
-export interface registerUserMutationResponse {
-    registerUser: {
-        message: string
-        token: string
-        user: userDataType
-    }
-}
-
-export interface registerUserMutationInput {
-    registerUserInput: {
-        role: UserRolesType
-        userName: string
-        password: string
-        email: string
-        contactInfo?: {
-            link: string
-            name: string
-        }
-        companyName: string
-    }
-}

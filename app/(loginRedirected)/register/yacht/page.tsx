@@ -70,7 +70,7 @@ const page: React.FC = () => {
                         expires: 14,
                     })
                     successAlert('Registration succes')
-                    router.push(RootURLsEnum.homepage)
+                    router.push(RootURLsEnum.subscription)
                 })
                 .catch((err) => {
                     errorAlert(err)

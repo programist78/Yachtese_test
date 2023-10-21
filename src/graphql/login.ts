@@ -41,6 +41,7 @@ mutation Login($email: String!, $password: String!) {
         startDate
         endDate
         status
+        name
       }
       requestedYachtCompany {
         avatarURL

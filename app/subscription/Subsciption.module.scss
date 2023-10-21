@@ -57,6 +57,8 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    padding-bottom: 200px;
 
     @media (max-width:$screen-lg) {
         width: 100%;
@@ -116,6 +118,15 @@
     }
 }
 
+.bottomFixed{
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
 .buy {
     padding: 15px 50px;
     border-radius: 1000px;
@@ -124,7 +135,7 @@
 }
 
 .descr {
-    padding-top: 200px;
+    padding-top: 100px;
 
     p {
         font-size: 20px;

@@ -10,9 +10,39 @@ import { errorAlert } from '../../src/utils/alerts'
 import useAuthStore from '../../src/stores/useAuthStore'
 import { useRouter } from 'next/navigation'
 import { RootURLsEnum } from '../../src/config/constants'
+import { CANCEL_SUB } from '../../src/graphql/cancelSub'
+import Swal from 'sweetalert2'
 
 const layout: FC = () => {
+    const setUserData = useAuthStore((state) => state.setUserData)
+    const formatTimestamp = (timestamp: string): string => {
+        const date = new Date(timestamp)
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const hours = date.getHours()
+        const minutes = date.getMinutes()
+        const formattedDate = `${day}.${month} - ${year}`
+    
+        return formattedDate
+    }
     const [buy] = useMutation(BUY_LINK)
+    const [cancel] = useMutation(CANCEL_SUB, {
+        onCompleted: async (data) => {
+            await setUserData(data.cancelSubscription)
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+            })
+        },
+        onError(error) {
+            Swal.fire({
+                icon: 'error',
+                title: `${error}`,
+            })
+        },
+    }
+        )
     const isLogined = useAuthStore((state) => state.isLogined)
     const userData = useAuthStore((state) => state.userData)
     const { push, replace } = useRouter()
@@ -33,67 +63,42 @@ const layout: FC = () => {
         }).catch(errorAlert)
     }
 
-    useLayoutEffect(() => {
-        if(!isLogined) replace('/login')
-    }, [replace, isLogined])
+    // useLayoutEffect(() => {
+    //     if(!isLogined) replace('/login')
+    // }, [replace, isLogined])
 
     return <main className={c.main}>
         <section>
-            <Title className={c.title}>{!isLogined || userData.role === 'SUPPLIER' ? 'Supplier Subscription Options' : 'Yacht Subscription Options'}</Title>
+            <Title className={c.title}>{userData?.subscription?.status == "complete" ? "Congratulations" : (!isLogined || userData.role === 'SUPPLIER' ? 'Supplier Subscription Options' : 'Yacht Subscription Options')}</Title>
             <h2>One Step Away from Simplifying Your Job</h2>
             <div className='container'>
-                {!isLogined || userData.role === 'SUPPLIER'
+                {userData?.subscription?.status == "complete" ? <h3>You’re all set! The package details you have selected are below.</h3> : (!isLogined || userData.role === 'SUPPLIER'
                 ? <h3>Discover the time-saving benefits of Yachtease. Simplify your yachting operations, connect effortlessly with suppliers, and streamline your planning. Join us to make the most of your time on the water.</h3>
-                : <h3>Suppliers, join Yachtease to elevate your business. Connect with yachts effortlessly, offer seamless services, and expand your reach. Discover how Yachtease can boost your efficiency and growth in the yachting industry.</h3>}
+                : <h3>Suppliers, join Yachtease to elevate your business. Connect with yachts effortlessly, offer seamless services, and expand your reach. Discover how Yachtease can boost your efficiency and growth in the yachting industry.</h3>)}
                 </div>
         </section>
         {userData?.subscription?.status == "complete" ?
                 <section className={classNames('container', c.packages)}>
                 <>
-            
                 <article className={classNames('block', c.package)}>
-                    <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
-                    <h5>Six-Month Package with 3 Months Free:</h5>
-                    <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
+                    <Image src='/assets/completeSub.jpg' width={90} height={90} alt='Package 2' />
+                    <br /> 
+                    <h5>{userData?.subscription?.name}</h5>
+                    <h6>Start Date: {formatTimestamp(userData?.subscription?.startDate)}</h6>
+                    <h6>End Date: {formatTimestamp(userData?.subscription?.endDate)}</h6>
                     <span className={c.tabl_title}>Features:</span>
                     <p>
-                        Full access to all platform features for six months.
-                    </p>
-                    <p>
-                        Connect with suppliers, plan routes, and streamline operations.
-                    </p>
-                    <p>
-                        Experience the power of Yachtease with a generous 3-month discount.
-                    </p>
-                    <p>
-                        Gain insights into how our platform can simplify your yachting experience.
-                    </p>
-                    <p>
-                        Access to our support team for assistance and guidance during your subscription.
-                    </p>
-                    <p>
-                        Provide valuable feedback to help us improve the platform based on your needs.
-                    </p>
-                    <p>
-                        Enjoy access to any updates or new features introduced during your subscription period.
-                    </p>
-                    <p>
-                        Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
+                    Full Platform Access
                     </p>
                     <span className={c.tabl_title}>Payment:</span>
                     <p>
-                        One-time payment of $75 USD, covering six months (equivalent to 3 months free).
+                    This package will auto renew unless cancelled
                     </p>
-                    <p>
-                        No recurring monthly charges during the 6-month period
-                    </p>
-                    <p>
-                        Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
-                    </p>
-                    <span className={c.price}>75$</span>
-                    <button className={c.buy} onClick={() => {
-                        getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
-                    }}>Buy Now</button>
+                    <div className={c.bottomFixed}>
+                    <button className={c.buy} onClick={() => 
+                        cancel()
+                    }>Cancel</button>
+                    </div>
                 </article>
                 </>
             </section>
@@ -102,26 +107,12 @@ const layout: FC = () => {
         {!isLogined || userData.role === 'SUPPLIER' ? <>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <br /> 
             <h5>No-Commitment Free Trial</h5>
             <h6>Duration: 1 Month</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for one month.
-            </p>
-            <p>
-                Connect with yachts, offer services, and expand your reach.
-            </p>
-            <p>
-                Experience the power of Yachtease with no commitment.
-            </p>
-            <p>
-                Gain insights into how our platform can boost your efficiency in the yachting industry.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance during your trial.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
+            Full Platform Access
             </p>
             <span className={c.tabl_title}>After the Trial:</span>
             <p>
@@ -133,39 +124,21 @@ const layout: FC = () => {
             <p>
                 No obligation, no strings attached during the trial. Try it out, and if it works for you, we're here to support your yachting business.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>FREE</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_1)
             }}>FREE TRIAL</button>
+            </div>
         </article>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <br /> 
             <h5>Six-Month Package with 3 Months Free:</h5>
             <h6>Duration: 6 Months (Paid upfront at $30 USD)</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for six months.
-            </p>
-            <p>
-                Connect with yachts, offer services, and expand your reach.
-            </p>
-            <p>
-                Experience the power of Yachtease with a generous 3-month discount.
-            </p>
-            <p>
-                Gain insights into how our platform can boost your efficiency in the yachting industry.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance during your subscription.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
-            </p>
-            <p>
-                Enjoy access to any updates or new features introduced during your subscription period.
-            </p>
-            <p>
-                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
+            Full Platform Access
             </p>
             <span className={c.tabl_title}>Payment:</span>
             <p>
@@ -177,39 +150,21 @@ const layout: FC = () => {
             <p>
                 Stay ahead with extended access to our platform and benefit from continuous improvements and innovations.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>30$</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_2)
             }}>Buy Now</button>
+            </div>
         </article>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <br />
             <h5>One-Year Subscription with 55% Discount</h5>
             <h6>Duration: 12 Months (Paid upfront at $54 USD)</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for one year.
-            </p>
-            <p>
-                Connect with yachts, offer services, and expand your reach.
-            </p>
-            <p>
-                Enjoy an incredible 55% discount with our one-year subscription.
-            </p>
-            <p>
-                Gain insights into how our platform can boost your efficiency in the yachting industry.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance throughout your subscription.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
-            </p>
-            <p>
-                Stay up-to-date with access to any updates or new features introduced during your subscription period.
-            </p>
-            <p>
-                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your business.
+            Full Platform Access
             </p>
             <span className={c.tabl_title}>Payment:</span>
             <p>
@@ -221,35 +176,23 @@ const layout: FC = () => {
             <p>
                 Secure your place in the Yachtease community and experience uninterrupted benefits while saving significantly with this annual subscription.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>54$</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_SUPPLIER_SUB_3)
             }}>Buy Now</button>
+            </div>
         </article>
         </> : <>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <br />
             <h5>No-Commitment Free Trial</h5>
             <h6>Duration: 1 Month</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for one month.
-            </p>
-            <p>
-                Connect with suppliers, plan routes, and streamline operations.
-            </p>
-            <p>
-                Experience the power of Yachtease with no commitment.
-            </p>
-            <p>
-                Gain insights into how our platform can simplify your yachting.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance during your trial.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
-            </p>
+                    Full Platform Access
+                    </p>
             <span className={c.tabl_title}>After the Trial:</span>
             <p>
                 At the end of the one-month trial period, you have the option to sign up for the paid version.
@@ -260,40 +203,22 @@ const layout: FC = () => {
             <p>
                 No obligation, no strings attached during the trial. Try it out, and if it works for you, we`re here to assist your yachting journey.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>FREE</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
             }}>FREE TRIAL</button>
+            </div>
         </article>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <br />
             <h5>Six-Month Package with 3 Months Free:</h5>
             <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for six months.
-            </p>
-            <p>
-                Connect with suppliers, plan routes, and streamline operations.
-            </p>
-            <p>
-                Experience the power of Yachtease with a generous 3-month discount.
-            </p>
-            <p>
-                Gain insights into how our platform can simplify your yachting experience.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance during your subscription.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
-            </p>
-            <p>
-                Enjoy access to any updates or new features introduced during your subscription period.
-            </p>
-            <p>
-                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
-            </p>
+                    Full Platform Access
+                    </p>
             <span className={c.tabl_title}>Payment:</span>
             <p>
                 One-time payment of $75 USD, covering six months (equivalent to 3 months free).
@@ -304,40 +229,22 @@ const layout: FC = () => {
             <p>
                 Make the most of your yachting journey with extended access to our platform and benefit from continuous improvements and innovations.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>75$</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_YACTH_SUB_2)
             }}>Buy Now</button>
+            </div>
         </article>
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <br />
             <h5>One-Year Subscription with 55% Discount</h5>
             <h6>Duration: 12 Months (Paid upfront at $135 USD)</h6>
             <span className={c.tabl_title}>Features:</span>
             <p>
-                Full access to all platform features for one year.
-            </p>
-            <p>
-                Connect with suppliers, plan routes, and streamline operations.
-            </p>
-            <p>
-                Enjoy an incredible 55% discount with our one-year subscription.
-            </p>
-            <p>
-                Gain insights into how our platform can simplify your yachting experience.
-            </p>
-            <p>
-                Access to our support team for assistance and guidance throughout your subscription.
-            </p>
-            <p>
-                Provide valuable feedback to help us improve the platform based on your needs.
-            </p>
-            <p>
-                Stay up-to-date with access to any updates or new features introduced during your subscription period.
-            </p>
-            <p>
-                Free cancellation within the first 7 days if you decide Yachtease isn't the right fit for your yacht.
-            </p>
+                    Full Platform Access
+                    </p>
             <span className={c.tabl_title}>Payment:</span>
             <p>
                 One-time payment of $135 USD, covering a full year (equivalent to more than 6 months free).
@@ -348,10 +255,12 @@ const layout: FC = () => {
             <p>
                 Elevate your yachting journey with extended access to our platform and benefit from significant savings with this annual subscription.
             </p>
+            <div className={c.bottomFixed}>
             <span className={c.price}>135$</span>
             <button className={c.buy} onClick={() => {
                 getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
             }}>Buy Now</button>
+            </div>
         </article>
         </>}
     </section>

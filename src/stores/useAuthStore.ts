@@ -75,6 +75,7 @@ export interface userDataType {
         startDate: string | null
         endDate: string | null
         customerId: string | null
+        name: string | null
     }
     teamMates: Array<{
         avatarURL: string

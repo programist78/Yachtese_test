@@ -15,6 +15,7 @@ export const GET_USER_BY_TOKEN = gql`
       startDate
       customerId
       subscriptionId
+      name
     }
     requestedYachtCompany {
       _id

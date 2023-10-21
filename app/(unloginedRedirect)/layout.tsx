@@ -4,7 +4,7 @@ import Footer from '../../src/components/Footer/Footer'
 import Script from 'next/script'
 
 
-const layout: React.FC<PropsWithChildren> = ({ children }) => {
+const layout: React.FC<PropsWithChildren> = ({ children}) => {
     return <div className='main'>
         <UnloginRedirect>
         <Script

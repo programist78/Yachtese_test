@@ -17,7 +17,7 @@ const page: React.FC = () => {
     const router = useRouter()
 
     useEffect(() => {
-        if (isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE')) router.replace(RootURLsEnum.search)
+        if (isLogined && (userData.role === 'YACHT' || userData.role === 'YACHT_BUSINESS' || userData.role === 'YACHT_TEAMMATE')) router.replace(RootURLsEnum.subscription)
     }, [router, isLogined, userData])
 
     return <><div className='main'>
