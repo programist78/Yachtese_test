@@ -36,12 +36,11 @@ mutation Login($email: String!, $password: String!) {
       avatarURL
       companyName
       subscription {
-        subscriptionId
-        customerId
-        startDate
-        endDate
         status
-        name
+        endDate
+        startDate
+        customerId
+        subscriptionId
       }
       requestedYachtCompany {
         avatarURL

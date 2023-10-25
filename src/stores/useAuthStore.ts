@@ -70,13 +70,12 @@ export interface userDataType {
     role: UserRolesType
     services: Array<string>
     subscription: {
-        subscriptionId: string | null
-        status: string | null
-        startDate: string | null
-        endDate: string | null
-        customerId: string | null
-        name: string | null
-    }
+        status: string
+        endDate: string
+        startDate: string
+        customerId: string
+        subscriptionId: string
+      }
     teamMates: Array<{
         avatarURL: string
         _id: string

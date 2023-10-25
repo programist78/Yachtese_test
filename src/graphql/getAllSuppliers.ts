@@ -16,13 +16,13 @@ export const GET_ALL_SUPPLIERS = gql`
       userName
       email
       subscription {
-        subscriptionId
-        customerId
-        startDate
-        endDate
         status
-        name
+        endDate
+        startDate
+        customerId
+        subscriptionId
       }
+      companyName
       location {
         lat
         lon
@@ -54,6 +54,7 @@ export interface getAllSuppliercsResponse {
       role
       userName
       email
+      companyName
       location: {
         lat: string
         lon: string

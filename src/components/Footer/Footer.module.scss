@@ -47,6 +47,12 @@
         width: 154px;
     }
 
+    span {
+        color: #C1C1C1;
+        margin-top: 15px;
+        display: block;
+    }
+
     @media (max-width:$screen-sm) {
         width: 100%;
         padding-bottom: 30px;

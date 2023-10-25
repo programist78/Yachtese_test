@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions  = {
                     avatarURL: user.image,
                     userName: user.name,
                     createdAt: new Date(),
+                    displayFields: ['userName', 'avatarURL', 'imagesURL', 'services', 'departments', 'email', 'description', 'contactInfo', 'teamMates', 'favoriteSuppliers', 'yachtRoute', 'yachts', 'country']
                 }
 
                 const result = await usersCollection.insertOne(newUser)

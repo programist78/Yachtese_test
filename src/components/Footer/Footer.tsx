@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className={c.border}>
             <div className={c.left}>
                 <Image src='/assets/logo.png' alt='Yachtease' width={846} height={307} />
-                <div className={c.icons}>
+                <div className={c.icons} style={{ marginTop: 15 }}>
                     <a href={process.env.NEXT_PUBLIC_INSTAGRAM_LINK}>
                         <Image src='/assets/instagram.svg' alt='Yachtease' width={24} height={24} />
                     </a>
@@ -18,6 +18,7 @@ const Footer: React.FC = () => {
                         <Image src='/assets/facebook.svg' alt='Yachtease' width={24} height={24} />
                     </a>
                 </div>
+                <span>hello@yachtease.co</span>
             </div>
             <div className={c.menu}>
                 <div className={c.menu_item}>

@@ -20,12 +20,11 @@ mutation RegisterUser($registerUserInput: RegisterUserInput) {
       avatarURL
       companyName
       subscription {
-        subscriptionId
-        customerId
-        startDate
-        endDate
         status
-        name
+        endDate
+        startDate
+        customerId
+        subscriptionId
       }
       requestedYachtCompany
       connectedYachtCompany

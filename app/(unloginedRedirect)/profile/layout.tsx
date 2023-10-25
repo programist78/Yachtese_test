@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { PropsWithChildren, FC } from 'react'
+import { SubscriptionRedirect } from '../../../src/utils/authRedirect'
 
 export const metadata: Metadata = {
   title: 'Your Profile | Yachtease',
@@ -19,7 +20,9 @@ export const metadata: Metadata = {
 }
 
 const layout: FC<PropsWithChildren> = ({ children }) => {
+  // return <SubscriptionRedirect>
   return children
+  // </SubscriptionRedirect>
 }
 
 export default layout

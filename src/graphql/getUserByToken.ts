@@ -10,13 +10,12 @@ export const GET_USER_BY_TOKEN = gql`
     avatarURL
     companyName
     subscription {
-      status
-      endDate
-      startDate
-      customerId
-      subscriptionId
-      name
-    }
+        status
+        endDate
+        startDate
+        customerId
+        subscriptionId
+      }
     requestedYachtCompany {
       _id
       userName

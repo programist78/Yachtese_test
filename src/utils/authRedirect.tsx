@@ -30,4 +30,18 @@ export const UnloginRedirect:React.FC<React.PropsWithChildren> = ({children}) =>
     return children
 }
 
+export const SubscriptionRedirect:React.FC<React.PropsWithChildren> = ({children}) => {
+
+    const userData = useAuthStore((state) => state.userData)
+    const router = useRouter()
+
+    useLayoutEffect(() => {
+        if(!userData.subscription.status) return router.replace(RootURLsEnum.subscription)
+    }, [userData, router])
+
+    if(!userData.subscription) return null
+
+    return children
+}
+
 export default LoginedRedirect

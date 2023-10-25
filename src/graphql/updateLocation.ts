@@ -8,6 +8,7 @@ export const UPDATE_LOCATION = gql`
                 lon
                 lat
             }
+            country
         }
     }
 `

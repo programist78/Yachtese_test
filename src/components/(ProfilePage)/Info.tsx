@@ -133,7 +133,7 @@ const Location: FC = () => {
   const [isEditable, setIsEditable] = useState(false);
   const userData = useAuthStore((state) => state.userData);
   const setUserData = useAuthStore((state) => state.setUserData);
-  const [_, startTransition] = useTransition();
+  const [_, startTransition] = useTransition()
   const [place, setPlace] = useState()
   const [openedGroupName, setOpenedGroupName] = useState("");
   const [selectedCountries, setSelectedCountries] = useState(
@@ -161,7 +161,7 @@ const Location: FC = () => {
           },
         },
       }).then(({ data }) => {
-        setUserData({...userData, location: data.changeLocation.location})
+        setUserData({...userData, location: data.changeLocation.location, country: data.changeLocation.country})
       }).catch(() => {
         errorAlert()
       })
@@ -173,6 +173,25 @@ const Location: FC = () => {
       setPlace(res.results[0].formatted_address)
     })
   }, [userData.location])
+
+  useEffect(() => {
+    updateLocation({
+      variables: {
+        changeLocationInput: {
+          location: {
+            lat: +userData.location.lat,
+            lon: +userData.location.lon,
+            radius: +userData.location.radius,
+          },
+          country: selectedCountries,
+        },
+      },
+    }).then(({ data }) => {
+      setUserData({...userData, country: data.changeLocation.country})
+    }).catch(() => {
+      errorAlert()
+    })
+  }, [selectedCountries])
 
 
   return (

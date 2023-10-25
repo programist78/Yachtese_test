@@ -91,7 +91,7 @@ const page: FC = () => {
 interface SupplierProps {
     supplier: {
         avatarURL: string
-        userName: string
+        companyName: string
         location: { lat: string, lon: string }
         _id: string
         description: string
@@ -132,12 +132,12 @@ const Supplier: FC<SupplierProps> = ({ supplier }) => {
             <div className={c.supplier_con}>
                 <ImageError
                     src={supplier.avatarURL}
-                    alt={supplier.userName}
+                    alt={supplier.companyName}
                     className={c.img}
                 />
                 <div className={c.texts}>
                     <div className={c.titles}>
-                        <h2>{supplier.userName}</h2>
+                        <h2>{supplier.companyName}</h2>
                         {localTime && (
                             <span className={c.time}>
                                 Local time: {localTime}

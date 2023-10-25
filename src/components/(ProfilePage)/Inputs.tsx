@@ -34,7 +34,7 @@ export const SupplierInputs: FC = () => {
 
     return (
         <article className={classNames(supplier.inputs, 'block')}>
-            <FullNameInput />
+            <BrandNameInput />
             <DescriptionInput />
             <ContactInfo />
             <Images />
@@ -47,7 +47,7 @@ export const YachtInputs: FC = () => {
         <article className={classNames(supplier.inputs, 'block')}>
             <FullNameInput />
             <ContactInfo />
-            <AddTeammate/>
+            <AddTeammate />
         </article>
     )
 }
@@ -64,7 +64,7 @@ export const YachtBussinesInputs: FC = () => {
     return <article className={classNames(supplier.inputs, 'block')}>
         <FullNameInput />
         <ContactInfo />
-        <AddYacht/>
+        <AddYacht />
     </article>
 }
 
@@ -191,6 +191,70 @@ const FullNameInput: FC = () => {
             />
         </>
     )
+}
+
+const BrandNameInput: FC = () => {
+    const [updateUserName] = useMutation<
+        updateUserMuatationResponseType,
+        updateUserMuatationInputType
+    >(UPDATE_USER_NAME)
+
+    const userData = useAuthStore((state) => state.userData)
+    const setUserData = useAuthStore((state) => state.setUserData)
+    const [isEditable, setIsEditable] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false)
+    const [input, setInput] = useState(userData.companyName)
+
+    useEffect(() => {
+        setInput(userData.companyName)
+    }, [userData.companyName])
+
+    const setUserName = async () => {
+        try {
+            setIsEditable(false)
+            if (!input || input === userData.companyName) return
+
+            setIsDisabled(true)
+            const { data } = await updateUserName({
+                variables: {
+                    changeUserInfoInput: {
+                        companyName: input,
+                    },
+                },
+            })
+
+            setUserData({ ...userData, companyName: data.changeUserInfo.companyName })
+            setIsDisabled(false)
+        } catch (e) {
+            setIsDisabled(false)
+            setIsEditable(false)
+            errorAlert('Something went wrong!')
+        }
+    }
+
+    return !isEditable ? <>
+        <h4 className={supplier.title}>
+            Brand Name
+            <EditIcon
+                isOn={isEditable}
+                onClick={() => setIsEditable(true)}
+            />
+        </h4>
+        <h3 className={c.fullname}>
+            {isDisabled ? 'Loading...' : userData.companyName}
+        </h3>
+    </> : <>
+        <h4 className={supplier.title}>
+            Brand Name <EditIcon isOn={isEditable} onClick={setUserName} />
+        </h4>
+        <h6>Add/Change</h6>
+        <input
+            className={c.input}
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            placeholder={userData.companyName}
+        />
+    </>
 }
 
 const DescriptionInput: FC = () => {
@@ -369,7 +433,7 @@ const ContactInfo: FC = () => {
                 placeholder='Phone'
                 value={values.phone}
                 onChange={(e) => setFieldValue('phone', e)}
-                onBlur={handleBlur}/>
+                onBlur={handleBlur} />
             <PhoneInput specialLabel='Whatsapp'
                 inputClass={c.input}
                 placeholder={'Whatsapp'}
@@ -464,17 +528,17 @@ const AddTeammate: FC = () => {
 
         addTeammate({
             variables: {
-                email:input
+                email: input
             }
-        }).then(({errors}) => {
-            if(errors) return errorAlert(errors[0].message)
+        }).then(({ errors }) => {
+            if (errors) return errorAlert(errors[0].message)
             successAlert('Teammate added!')
         }).catch(() => {
             errorAlert()
         })
     }}>
         <h4 className={c.contact}>Add to Team</h4>
-        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email'/>
+        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email' />
         <button>Send</button>
     </form>
 }
@@ -488,17 +552,17 @@ const AddYacht: FC = () => {
 
         addYacht({
             variables: {
-                email:input
+                email: input
             }
-        }).then(({errors}) => {
-            if(errors) return errorAlert(errors[0].message)
+        }).then(({ errors }) => {
+            if (errors) return errorAlert(errors[0].message)
             successAlert('Invite Sent!')
         }).catch(() => {
             errorAlert()
         })
     }}>
         <h4 className={c.contact}>Add Yacht</h4>
-        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email'/>
+        <input className={c.input} value={input} onChange={(e) => setInput(e.target.value)} placeholder='Email' />
         <button>Send</button>
     </form>
 }
