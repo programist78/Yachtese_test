@@ -4,6 +4,15 @@ export const GET_ALL_SUPPLIERS = gql`
   query Query($getSuppliersByRoleInput: GetSuppliersByRoleInput) {
   getSuppliersByRole(getSuppliersByRoleInput: $getSuppliersByRoleInput) {
     count
+    mapSuppliers {
+      location {
+        lon
+        lat
+        radius
+      }
+      userName
+      _id
+    }
     suppliers {
       _id
       createdAt
@@ -67,6 +76,15 @@ export interface getAllSuppliercsResponse {
         name: string
         link: string
       }
+    }>
+    mapSuppliers: Array<{
+      location: {
+        lon: string
+        lat: string
+        radius: string
+      }
+      userName: string
+      _id: string
     }>
   }
 }

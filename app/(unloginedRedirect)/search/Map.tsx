@@ -9,21 +9,11 @@ import c from './Search.module.scss'
 const MapboxMap: FC<{
     suppliers: Array<{
         _id: string
-        createdAt: string
-        role
-        userName
-        email
+        userName: string
         location: {
             lat: string
             lon: string
             radius: string
-        }
-        services: Array<string>
-        avatarURL: string
-        description: string
-        contactInfo: {
-            name: string
-            link: string
         }
     }>
 }> = ({ suppliers }) => {
