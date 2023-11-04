@@ -140,7 +140,7 @@ const Location: FC = () => {
     userData.country ? userData.country : []
   );
   const [radius, setRadius] = useState(
-    userData.location.radius ? userData.location.radius : null
+    userData.location.radius ? userData.location.radius : ''
   )
   const [streetError, setStreetError] = useState(false);
   const changeStreetError = (street: boolean) => setStreetError(street);
@@ -167,6 +167,29 @@ const Location: FC = () => {
       })
     })
   }
+
+  useEffect(() => {
+    const tim = setTimeout(() => {
+      updateLocation({
+        variables: {
+          changeLocationInput: {
+            location: {
+              lat: +userData.location.lat,
+              lon: +userData.location.lon,
+              radius: Number(radius),
+            },
+            country: selectedCountries,
+          },
+        },
+      }).then(({ data }) => {
+        setUserData({...userData, location: data.changeLocation.location, country: data.changeLocation.country})
+      }).catch(() => {
+        errorAlert()
+      })
+    }, 300)
+
+    return () => clearTimeout(tim)
+  }, [radius])
 
   useEffect(() => {
     Geocode.fromLatLng(userData.location.lat, userData.location.lon).then((res) => {
