@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 import c from './Messages.module.scss'
 import { Metadata } from 'next'
+import { SubscriptionRedirect } from '../../../src/utils/authRedirect'
 
 export const metadata: Metadata = {
     title: 'Messages | Yachtease',
@@ -20,9 +21,11 @@ export const metadata: Metadata = {
 }
 
 const layout: FC<PropsWithChildren> = ({ children }) => {
-    return <main className={`${c.main} container`}>
-        {children}
-    </main>
+    return <SubscriptionRedirect>
+        <main className={`${c.main} container`}>
+            {children}
+        </main>
+    </SubscriptionRedirect>
 }
 
 export default layout

@@ -63,9 +63,9 @@ const layout: FC = () => {
         }).catch(errorAlert)
     }
 
-    // useLayoutEffect(() => {
-    //     if(!isLogined) replace('/login')
-    // }, [replace, isLogined])
+    useLayoutEffect(() => {
+        if(!isLogined) replace(RootURLsEnum.registerChoose)
+    }, [replace, isLogined])
 
     return <main className={c.main}>
         <section>
@@ -108,8 +108,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
             <br /> 
-            <h5>No-Commitment Free Trial</h5>
-            <h6>Duration: 1 Month</h6>
+            <div className={c.top}>
+                <h5>No-Commitment Free Trial</h5>
+                <h6>Duration: 1 Month</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
             Full Platform Access
@@ -134,8 +136,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
             <br /> 
-            <h5>Six-Month Package with 3 Months Free:</h5>
-            <h6>Duration: 6 Months (Paid upfront at $30 USD)</h6>
+            <div className={c.top}>
+                <h5>Six-Month Package with 3 Months Free:</h5>
+                <h6>Duration: 6 Months (Paid upfront at $30 USD)</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
             Full Platform Access
@@ -160,8 +164,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
             <br />
-            <h5>One-Year Subscription with 55% Discount</h5>
-            <h6>Duration: 12 Months (Paid upfront at $54 USD)</h6>
+            <div className={c.top}>
+                <h5>One-Year Subscription with 55% Discount</h5>
+                <h6>Duration: 12 Months (Paid upfront at $54 USD)</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
             Full Platform Access
@@ -187,8 +193,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
             <br />
-            <h5>No-Commitment Free Trial</h5>
-            <h6>Duration: 1 Month</h6>
+            <div className={c.top}>
+                <h5>No-Commitment Free Trial</h5>
+                <h6>Duration: 1 Month</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
                     Full Platform Access
@@ -213,8 +221,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
             <br />
-            <h5>Six-Month Package with 3 Months Free:</h5>
-            <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
+            <div className={c.top}>
+                <h5>Six-Month Package with 3 Months Free:</h5>
+                <h6>Duration: 6 Months (Paid upfront at $75 USD)</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
                     Full Platform Access
@@ -239,8 +249,10 @@ const layout: FC = () => {
         <article className={classNames('block', c.package)}>
             <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
             <br />
-            <h5>One-Year Subscription with 55% Discount</h5>
-            <h6>Duration: 12 Months (Paid upfront at $135 USD)</h6>
+            <div className={c.top}>
+                <h5>One-Year Subscription with 55% Discount</h5>
+                <h6>Duration: 12 Months (Paid upfront at $135 USD)</h6>
+            </div>
             <span className={c.tabl_title}>Features:</span>
             <p>
                     Full Platform Access

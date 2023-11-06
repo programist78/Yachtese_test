@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 }
 
 const layout: FC<PropsWithChildren> = ({ children }) => {
-  // return <SubscriptionRedirect>
-  return children
-  // </SubscriptionRedirect>
+  return <SubscriptionRedirect>
+    {children}
+  </SubscriptionRedirect>
 }
 
 export default layout
