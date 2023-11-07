@@ -106,7 +106,7 @@ const layout: FC = () => {
         <section className={classNames('container', c.packages)}>
         {!isLogined || userData.role === 'SUPPLIER' ? <>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <Image src='/assets/package1.jpg' width={90} height={90} alt='Package 1' />
             <br /> 
             <div className={c.top}>
                 <h5>No-Commitment Free Trial</h5>
@@ -134,7 +134,7 @@ const layout: FC = () => {
             </div>
         </article>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <Image src='/assets/package2.jpg' width={90} height={90} alt='Package 2' />
             <br /> 
             <div className={c.top}>
                 <h5>Six-Month Package with 3 Months Free:</h5>
@@ -162,7 +162,7 @@ const layout: FC = () => {
             </div>
         </article>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <Image src='/assets/package3.jpg' width={90} height={90} alt='Package 3' />
             <br />
             <div className={c.top}>
                 <h5>One-Year Subscription with 55% Discount</h5>
@@ -191,7 +191,7 @@ const layout: FC = () => {
         </article>
         </> : <>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package1.svg' width={90} height={90} alt='Package 1' />
+            <Image src='/assets/package1.jpg' width={90} height={90} alt='Package 1' />
             <br />
             <div className={c.top}>
                 <h5>No-Commitment Free Trial</h5>
@@ -219,7 +219,7 @@ const layout: FC = () => {
             </div>
         </article>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package2.svg' width={90} height={90} alt='Package 2' />
+            <Image src='/assets/package2.jpg' width={90} height={90} alt='Package 2' />
             <br />
             <div className={c.top}>
                 <h5>Six-Month Package with 3 Months Free:</h5>
@@ -247,7 +247,7 @@ const layout: FC = () => {
             </div>
         </article>
         <article className={classNames('block', c.package)}>
-            <Image src='/assets/package3.svg' width={90} height={90} alt='Package 3' />
+            <Image src='/assets/package3.jpg' width={90} height={90} alt='Package 3' />
             <br />
             <div className={c.top}>
                 <h5>One-Year Subscription with 55% Discount</h5>
