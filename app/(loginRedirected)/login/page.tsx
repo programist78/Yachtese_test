@@ -101,15 +101,6 @@ const page: React.FC = () => {
                     <div className={c.with}>Sign in with:</div>
                     <div className={c.icons}>
                         <Image width={35} height={35}
-                            src='/assets/facebook-icon.svg'
-                            alt='Facebook'
-                            onClick={() =>
-                                signIn('facebook', {
-                                    redirect: false,
-                                })
-                            }
-                        />
-                        <Image width={35} height={35}
                             src='/assets/google.svg'
                             alt='Google'
                             onClick={() =>
@@ -118,15 +109,6 @@ const page: React.FC = () => {
                                 })
                             }
                         />
-                        {/* <Image width={35} height={35}
-                            src='/assets/apple.svg'
-                            alt='Apple'
-                            onClick={() =>
-                                signIn('apple', {
-                                    redirect: false,
-                                })
-                            }
-                        /> */}
                     </div>
                 </div>
                 <Link href={RootURLsEnum.registerChoose} className={c.new}>

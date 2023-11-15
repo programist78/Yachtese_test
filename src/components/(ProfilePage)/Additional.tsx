@@ -11,6 +11,9 @@ import { DELETE_USER } from '../../graphql/deleteUser'
 import { errorAlert, successAlert } from '../../utils/alerts'
 import Swal from 'sweetalert2'
 import Cookies from 'js-cookie'
+import { Review as ReviewType } from '../../graphql/getReviews'
+import Stars from '../Stars/Stars'
+import useReviewsStore from '../../stores/useReviewsStore'
 
 
 export const SupplierAdditional: FC = () => {
@@ -20,7 +23,7 @@ export const SupplierAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {subscription.customerId && <Subscription />}
-        <DeleteProfile/>
+        <DeleteProfile />
     </article>
 }
 
@@ -31,18 +34,18 @@ export const YachtAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {userData.subscription.customerId && <Subscription />}
-        <Routes/>
+        <Routes />
         <Map />
-        <DeleteProfile/>
+        <DeleteProfile />
     </article>
 }
 
 export const YachtTeammateAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
-        <Routes/>
+        <Routes />
         <Map />
-        <DeleteProfile/>
+        <DeleteProfile />
     </article>
 }
 
@@ -53,9 +56,18 @@ export const YachtBussinesAdditional: FC = () => {
     return <article className={`${c.main} block`}>
         <Email />
         {subscription.customerId && <Subscription />}
-        <Routes/>
+        <Routes />
         <Map />
-        <DeleteProfile/>
+        <DeleteProfile />
+    </article>
+}
+
+export const SupplierViewAdditional: FC = () => {
+
+    const reviews = useReviewsStore((state) => state.reviews)
+
+    return reviews.length > 0 && <article className={`${c.main} block`}>
+        <Reviews />
     </article>
 }
 
@@ -95,20 +107,20 @@ const Map: FC = () => {
                     <div className='marker_con'><Image src='/assets/marker.png' alt={`#${index}`} width={20} height={30} /></div>
                 </Marker>)}
                 <Source id="polylineLayer" type="geojson" data={{
-                            type: 'Feature',
-                            properties: {},
-                            geometry: {
-                                type: 'LineString',
-                                coordinates: routes.sort((a, b) => {
-                                    const dateA = new Date(a.time)
-                                    const dateB = new Date(b.time)
-                                
-                                    return Number(dateA) - Number(dateB)
-                                  }).map((item) => [ item.lon, item.lat ])
-                            }
-                        }}>
-                            <Layer type='line' />
-                        </Source>
+                    type: 'Feature',
+                    properties: {},
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: routes.sort((a, b) => {
+                            const dateA = new Date(a.time)
+                            const dateB = new Date(b.time)
+
+                            return Number(dateA) - Number(dateB)
+                        }).map((item) => [item.lon, item.lat])
+                    }
+                }}>
+                    <Layer type='line' />
+                </Source>
             </ReactMapGl>
         </div>
     </div>
@@ -133,9 +145,9 @@ const DeleteProfile: FC = () => {
             background: '#171818',
             color: '#ffffff',
         }).then(({ isConfirmed }) => {
-            if(isConfirmed) {
+            if (isConfirmed) {
                 deleteUser().then(({ errors }) => {
-                    if(errors) return errorAlert()
+                    if (errors) return errorAlert()
                     successAlert('Your profile deleted!')
                     Cookies.remove('token')
                     setUserData(null)
@@ -162,5 +174,24 @@ const Routes: FC = () => {
             <h5>{item.title}</h5>
             <span>{new Date(item.time).getHours()}:{new Date(item.time).getMinutes()}</span>
         </div>)}
+    </div>
+}
+
+const Reviews: FC = () => {
+
+    const reviews = useReviewsStore((state) => state.reviews)
+
+    return <div>
+        <h2 className={c.reviews_title}>Customer reviews</h2>
+        {reviews.map((item) => <Review review={item} key={item._id} />)}
+    </div>
+}
+
+const Review:FC<{ review:ReviewType }> = ({ review }) => {
+    return <div className={c.review}>
+        <div className={c.review_top}>
+            {review.createdBy.userName}<Stars filled={review.rating} />
+        </div>
+        <p>{review.text}</p>
     </div>
 }

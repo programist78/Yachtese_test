@@ -270,7 +270,7 @@ const layout: FC = () => {
             <div className={c.bottomFixed}>
             <span className={c.price}>135$</span>
             <button className={c.buy} onClick={() => {
-                getLink(process.env.NEXT_PUBLIC_YACTH_SUB_1)
+                getLink(process.env.NEXT_PUBLIC_YACTH_SUB_3)
             }}>Buy Now</button>
             </div>
         </article>

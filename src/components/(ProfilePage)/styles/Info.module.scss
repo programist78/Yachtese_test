@@ -357,3 +357,32 @@
         }
     }
 }
+
+.add_review {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+
+    h4 {
+        font-size: 24px;
+        font-weight: 500;
+    }
+}
+
+.textarea {
+    border-radius: 15px;
+    border: 1px solid #909090;
+    background: #1D1D1E;
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 20px;
+}
+
+.review_btn {
+    padding: 10px 40px;
+    background: #81736B;
+    border-radius: 100px;
+}

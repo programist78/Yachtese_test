@@ -1,11 +1,12 @@
 'use client'
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import styles from './Admin.module.scss'
-import { useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import { IoIosArrowDown, IoIosArrowBack, IoIosArrowForward, IoIosArrowUp } from 'react-icons/io'
 import { useMutation } from '@apollo/client'
 import Swal from 'sweetalert2'
 import { GETUSERS_BYROLE, SEND_EMAIL_INVITES, BAN_USER, UNBAN_USER } from '../../graphql/admin'
+import { errorAlert, successAlert } from '../../utils/alerts'
 
 
 const formatTimestamp = (timestamp: string): string => {
@@ -29,7 +30,7 @@ const SupliersRegistration: FC = () => {
         variables: { role: 'SUPPLIER', pageNumber: page }
     })
 
-   if (loading || !data) return <div className={styles.part}>
+    if (loading || !data) return <div className={styles.part}>
         <p className='title'>Supplier Registration</p>
         <div className={styles.filters}>
             <div className={styles.sortby}>
@@ -57,7 +58,7 @@ const SupliersRegistration: FC = () => {
         </div>
         <table className={styles.custom_table}>
             <TableHead />
-            <TableBody users={data.getUsersByRole.users}/>
+            <TableBody users={data.getUsersByRole.users} />
         </table>
         <TablePagination page={page} setPage={setPage} />
     </div>
@@ -73,7 +74,7 @@ const YachtRegistration: FC = () => {
     })
 
 
-   if (loading || !data) return <div className={styles.part}>
+    if (loading || !data) return <div className={styles.part}>
         <p className='title'>Yachts Registration</p>
         <div className={styles.filters}>
             <div className={styles.sortby}>
@@ -101,7 +102,7 @@ const YachtRegistration: FC = () => {
         </div>
         <table className={styles.custom_table}>
             <TableHead />
-            <TableBody users={data.getUsersByRole.users}/>
+            <TableBody users={data.getUsersByRole.users} />
         </table>
         <TablePagination page={page} setPage={setPage} />
     </div>
@@ -117,7 +118,7 @@ const TeammateRegistration: FC = () => {
     })
 
 
-   if (loading || !data) return <div className={styles.part}>
+    if (loading || !data) return <div className={styles.part}>
         <p className='title'>Teammates Registration</p>
         <div className={styles.filters}>
             <div className={styles.sortby}>
@@ -145,7 +146,7 @@ const TeammateRegistration: FC = () => {
         </div>
         <table className={styles.custom_table}>
             <TableHead />
-            <TableBody users={data.getUsersByRole.users}/>
+            <TableBody users={data.getUsersByRole.users} />
         </table>
         <TablePagination page={page} setPage={setPage} />
     </div>
@@ -161,7 +162,7 @@ const BussinesRegistration: FC = () => {
     })
 
 
-   if (loading || !data) return <div className={styles.part}>
+    if (loading || !data) return <div className={styles.part}>
         <p className='title'>Fleet Registration</p>
         <div className={styles.filters}>
             <div className={styles.sortby}>
@@ -189,7 +190,7 @@ const BussinesRegistration: FC = () => {
         </div>
         <table className={styles.custom_table}>
             <TableHead />
-            <TableBody users={data.getUsersByRole.users}/>
+            <TableBody users={data.getUsersByRole.users} />
         </table>
         <TablePagination page={page} setPage={setPage} />
     </div>
@@ -347,7 +348,7 @@ const Menu: FC<{ isOpen: boolean, setArgument: Dispatch<SetStateAction<string>> 
     <div onClick={() => setArgument('brandDescription')} className='text'>Phone</div>
 </div>
 
-const TableBody: FC<{ users: Array<{ _id:string, createdAt:string, userName:string, email:string, contactInfo?: Array<{ link }> }> }> = ({users}) => {
+const TableBody: FC<{ users: Array<{ _id: string, createdAt: string, userName: string, email: string, contactInfo?: Array<{ link }> }> }> = ({ users }) => {
     return <tbody>
         {users.map((data, index) => (
             <tr key={index}>
@@ -358,6 +359,18 @@ const TableBody: FC<{ users: Array<{ _id:string, createdAt:string, userName:stri
             </tr>
         ))}
     </tbody>
+}
+
+const SendMessageToAll: FC = () => {
+    const [send] = useMutation(gql`
+        mutation Mutation {
+            sendRequestsToAll
+        }`
+    )
+
+    return <button className={styles.message_to_all} onClick={() => {
+        send().then(() => successAlert('Sent!')).catch(errorAlert)
+    }}>Send message to all!</button>
 }
 
 
@@ -375,17 +388,18 @@ const Admin: FC = () => {
         return () => window.removeEventListener('resize', handleResize)
     }, [])
 
-    if (screenWidth <= 1024) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh'}} className='title'>Please use computer to access admin panel</div>
+    if (screenWidth <= 1024) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100vh' }} className='title'>Please use computer to access admin panel</div>
 
     return (
         <div className={styles.back}>
+            <SendMessageToAll />
             <SendIvitesComponent />
-            <BanUser/>
-            <UnBanUser/>
+            <BanUser />
+            <UnBanUser />
             <SupliersRegistration />
             <YachtRegistration />
-            <TeammateRegistration/>
-            <BussinesRegistration/>
+            <TeammateRegistration />
+            <BussinesRegistration />
         </div>
     )
 }

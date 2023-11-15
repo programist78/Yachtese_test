@@ -1,38 +1,43 @@
-import { useEffect, useState, useTransition, FC } from "react";
-import c from "./styles/Info.module.scss";
-import EditIcon from "../EditIcon/EditIcon";
-import useAuthStore from "../../stores/useAuthStore";
-import Geocode from "react-geocode";
-import { useMutation } from "@apollo/client";
+import { useEffect, useState, useTransition, FC } from "react"
+import c from "./styles/Info.module.scss"
+import EditIcon from "../EditIcon/EditIcon"
+import useAuthStore from "../../stores/useAuthStore"
+import Geocode from "react-geocode"
+import { useMutation } from "@apollo/client"
 import {
   ADD_SUPLIER_SERVICE,
   addSupplierServiceInput,
   addSupplierServiceResponse,
-} from "../../graphql/addSuplierService";
-import { errorAlert, successAlert } from "../../utils/alerts";
+} from "../../graphql/addSuplierService"
+import { errorAlert, successAlert } from "../../utils/alerts"
 import {
   DELETE_SUPPLIER_SERVICE,
   deleteSupplierServiceInput,
   deleteSupplierServiceResponse,
-} from "../../graphql/deleteSupplierService";
+} from "../../graphql/deleteSupplierService"
 import {
   UPDATE_DEPARTMENTS,
   updateDepartmentsInput,
   updateDepartmentsResponse,
-} from "../../graphql/updateDepartments";
+} from "../../graphql/updateDepartments"
 import {
   UPDATE_LOCATION,
   updateLocationInput,
   updateLocationResponse,
-} from "../../graphql/updateLocation";
-import useTeamMatesPopupStore from "../../stores/useTeamMatesPopupStore";
-import useYachtPageStore from "../../stores/useYachtPageStore";
-import useSupplierPageStore from "../../stores/useSupplierPageStore";
-import useFavoriteSuppliersPopupStore from "../../stores/useFavoriteSuppliersPopupStore";
-import FavoriteSuppliersPopup from "../FavoriteSuppliersPopup/FavoriteSuppliersPopup";
-import { loactionList, servicesList } from "../../config/constants";
-import { AutocompleteField } from "../common/AutocompleteField";
+} from "../../graphql/updateLocation"
+import useTeamMatesPopupStore from "../../stores/useTeamMatesPopupStore"
+import useYachtPageStore from "../../stores/useYachtPageStore"
+import useSupplierPageStore from "../../stores/useSupplierPageStore"
+import useFavoriteSuppliersPopupStore from "../../stores/useFavoriteSuppliersPopupStore"
+import FavoriteSuppliersPopup from "../FavoriteSuppliersPopup/FavoriteSuppliersPopup"
+import { loactionList, servicesList } from "../../config/constants"
+import { AutocompleteField } from "../common/AutocompleteField"
 import { getGeocode, getLatLng } from 'use-places-autocomplete'
+import Stars from "../Stars/Stars"
+import TextArea from 'react-textarea-autosize'
+import { ADD_REVIEW, addReviewInput, addReviewResponse } from "../../graphql/addReview"
+import { useParams } from "next/navigation"
+import useReviewsStore from "../../stores/useReviewsStore"
 
 export const SupplierInfo: FC = () => {
   return (
@@ -41,7 +46,7 @@ export const SupplierInfo: FC = () => {
       <Services />
     </article>
   );
-};
+}
 
 export const YachtInfo: FC = () => {
   const userData = useAuthStore((state) => state.userData);
@@ -54,7 +59,7 @@ export const YachtInfo: FC = () => {
       <FavoriteSuppliersPopup />
     </article>
   );
-};
+}
 
 export const YachtTeammateInfo: FC = () => {
   const userData = useAuthStore((state) => state.userData);
@@ -66,7 +71,7 @@ export const YachtTeammateInfo: FC = () => {
       <FavoriteSuppliersPopup />
     </article>
   );
-};
+}
 
 export const YachtBussinesInfo: FC = () => {
   const userData = useAuthStore((state) => state.userData);
@@ -78,7 +83,7 @@ export const YachtBussinesInfo: FC = () => {
       {userData.teamMates.length > 0 && <Teammates />}
     </article>
   );
-};
+}
 
 export const YachtPageInfo: FC = () => {
   const yachtData = useYachtPageStore((state) => state.yachtData);
@@ -107,22 +112,30 @@ export const YachtPageInfo: FC = () => {
       )}
     </article>
   );
-};
+}
 
 export const SupplierViewInfo: FC = () => {
-  const services = useSupplierPageStore((state) => state.supplierData.services);
+
+  const services = useSupplierPageStore((state) => state.supplierData.services)
+  const isAdded = useReviewsStore((state) => state.isAdded)
+  const isLogined = useAuthStore((state) => state.isLogined)
+
+  if(isAdded && services.length === 0) return null
 
   return (
     <article className="block">
-      <h4 className={`${c.title} ${c.services_title}`}>All Services</h4>
-      {services.map((name) => (
-        <span key={name} className={c.service_view}>
-          {name}
-        </span>
-      ))}
+      {services.length > 0 && <>
+        <h4 className={`${c.title} ${c.services_title}`}>All Services</h4>
+        {services.map((name) => (
+          <span key={name} className={c.service_view}>
+            {name}
+          </span>
+        ))}
+      </>}
+      {!isAdded && isLogined && <AddReview />}
     </article>
-  );
-};
+  )
+}
 
 const Location: FC = () => {
   const [updateLocation] = useMutation<
@@ -161,7 +174,7 @@ const Location: FC = () => {
           },
         },
       }).then(({ data }) => {
-        setUserData({...userData, location: data.changeLocation.location, country: data.changeLocation.country})
+        setUserData({ ...userData, location: data.changeLocation.location, country: data.changeLocation.country })
       }).catch(() => {
         errorAlert()
       })
@@ -182,7 +195,7 @@ const Location: FC = () => {
           },
         },
       }).then(({ data }) => {
-        setUserData({...userData, location: data.changeLocation.location, country: data.changeLocation.country})
+        setUserData({ ...userData, location: data.changeLocation.location, country: data.changeLocation.country })
       }).catch(() => {
         errorAlert()
       })
@@ -210,7 +223,7 @@ const Location: FC = () => {
         },
       },
     }).then(({ data }) => {
-      setUserData({...userData, country: data.changeLocation.country})
+      setUserData({ ...userData, country: data.changeLocation.country })
     }).catch(() => {
       errorAlert()
     })
@@ -246,7 +259,7 @@ const Location: FC = () => {
             />
           </>
         ) : (
-        <h4 style={{ paddingBottom: 10 }}>{place ? place : 'Loading...'}</h4>
+          <h4 style={{ paddingBottom: 10 }}>{place ? place : 'Loading...'}</h4>
         )}
       </div>
       <div>
@@ -261,12 +274,12 @@ const Location: FC = () => {
           onChange={
             isEditable
               ? (e) =>
-                  startTransition(() =>
-                    setRadius(
-                      Number(e.target.value) > 1000 ? "1000" : e.target.value
-                    )
+                startTransition(() =>
+                  setRadius(
+                    Number(e.target.value) > 1000 ? "1000" : e.target.value
                   )
-              : () => {}
+                )
+              : () => { }
           }
           placeholder="Radius"
         />
@@ -280,7 +293,7 @@ const Location: FC = () => {
           onChange={
             isEditable
               ? (e) => startTransition(() => setRadius(e.target.value))
-              : () => {}
+              : () => { }
           }
         />
       </div>
@@ -376,7 +389,7 @@ const Location: FC = () => {
       </div>
     </>
   );
-};
+}
 
 const Services: FC = () => {
   const [isEditable, setIsEditable] = useState(false);
@@ -421,7 +434,7 @@ const Services: FC = () => {
       ))}
     </div>
   );
-};
+}
 
 const Service: FC<{ name: string; isEditable: boolean; isExist: boolean }> = ({
   name,
@@ -490,7 +503,7 @@ const Service: FC<{ name: string; isEditable: boolean; isExist: boolean }> = ({
       )}
     </span>
   );
-};
+}
 
 const Departments: FC = () => {
   const [updateDepartments] = useMutation<
@@ -648,7 +661,7 @@ const Departments: FC = () => {
       </div>
     </div>
   );
-};
+}
 
 const Teammates: FC = () => {
   const userData = useAuthStore((state) => state.userData);
@@ -682,7 +695,7 @@ const Teammates: FC = () => {
       </div>
     </div>
   );
-};
+}
 
 const FavouriteSuppliers: FC = () => {
   const userData = useAuthStore((state) => state.userData);
@@ -722,4 +735,43 @@ const FavouriteSuppliers: FC = () => {
       </div>
     )
   );
-};
+}
+
+const AddReview: FC = () => {
+  const [text, setText] = useState('')
+  const [stars, setStars] = useState(0)
+  const [error, setError] = useState(null)
+  const { id } = useParams()
+  const userData = useAuthStore((state) => state.userData)
+  const [addReview] = useMutation<addReviewResponse, addReviewInput>(ADD_REVIEW)
+
+  const reviewAdded = useReviewsStore((state) => state.reviewAdded)
+
+  const handleSubmit = () => {
+    if (!text) return setError('Review text is required!')
+    if (!stars) return setError('Review rating is required!')
+
+    addReview({
+      variables: {
+        addReviewInput: {
+          rating: stars,
+          receivedBy: Array.isArray(id) ? id[0] : id,
+          text
+        }
+      }
+    }).then((res) => {
+      successAlert('Review added!')
+      setText('')
+      setStars(0)
+      reviewAdded({ ...res.data.addReview, createdBy: { _id: userData._id, avatarURL: userData.avatarURL, userName: userData.userName } })
+    }).catch(errorAlert)
+  }
+
+  return <div className={c.add_review}>
+    <h4>Write a Review</h4>
+    <Stars filled={stars} setFilled={setStars} />
+    <TextArea className={c.textarea} minRows={3} value={text} onChange={(e) => setText(e.target.value)} placeholder="Write a review" />
+    {error && <div>{error}</div>}
+    <button className={c.review_btn} onClick={handleSubmit}>Send</button>
+  </div>
+}

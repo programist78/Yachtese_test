@@ -14,7 +14,7 @@ interface CitiesDropdownProps {
   placeholder: string;
   seacrhItem: string;
   onSelect: (value: string) => void;
-  changeInput: (value: string) => void
+  changeInput: any
   error: boolean;
   setError: (state: boolean) => void;
   icon: ReactNode;

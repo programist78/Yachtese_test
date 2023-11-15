@@ -7,6 +7,8 @@ import {
     getSupplierByIdResponse,
 } from '../../../src/graphql/getSupplierById'
 import { Metadata } from 'next'
+import { GET_REVIEW, getReviewsResponse } from '../../../src/graphql/getReviews'
+import ReviewsStoreInitializer from '../../../src/utils/ReviewsStoreInitializer'
 
 interface Props {
     children: ReactNode
@@ -63,19 +65,16 @@ export const generateMetadata = async ({ params }): Promise<Metadata> => {
 }
 
 const layout: FC<Props> = async ({ children, params }) => {
-    const { data } = await getClient().query<
-        getSupplierByIdResponse,
-        getSupplierByIdInput
-    >({
-        query: GET_SUPPLIER_BY_ID,
-        variables: {
-            id: params.id,
-        },
-    })
+
+    const [{ data: supplierData }, { data: reviewData }] = await Promise.all([
+        getClient().query<getSupplierByIdResponse, getSupplierByIdInput>({ query: GET_SUPPLIER_BY_ID, variables: { id: params.id }}),
+        getClient().query<getReviewsResponse>({ query: GET_REVIEW,  variables: { userId: params.id } })
+    ])
 
     return (
         <>
-            <SupplierPageStoreInitializer supplierData={data.getSupplierById} />
+            <SupplierPageStoreInitializer supplierData={supplierData.getSupplierById} />
+            <ReviewsStoreInitializer data={reviewData.getUserReviews} />
             {children}
         </>
     )

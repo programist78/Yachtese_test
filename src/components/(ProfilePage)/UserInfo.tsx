@@ -144,7 +144,7 @@ export const YachtInfo: FC = () => {
 export const SupplierUserInfo: FC = () => {
 
     const supplierData = useSupplierPageStore((state) => state.supplierData)
-    const _id = useAuthStore((state) => state.userData._id)
+    const userData = useAuthStore((state) => state.userData)
     const [localTime, setLocalTime] = useState<Date | null>(null)
     const [location, setLocation] = useState(null)
 
@@ -190,7 +190,7 @@ export const SupplierUserInfo: FC = () => {
             </div>
         </div>
         <div className={c.btns}>
-            <Link className={c.pursepal} href={supplierData._id == _id ? RootURLsEnum.profile : `${RootURLsEnum.messages}/${supplierData._id}new`}>Write Message</Link>
+            <Link className={c.pursepal} href={userData && supplierData._id === userData._id ? RootURLsEnum.profile : `${RootURLsEnum.messages}/${supplierData._id}new`}>Write Message</Link>
         </div>
     </article>
 }
