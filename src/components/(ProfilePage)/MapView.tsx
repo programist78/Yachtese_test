@@ -6,6 +6,7 @@ import useYachtPageStore from '../../stores/useYachtPageStore'
 import { mapProps } from '../../config/constants'
 import c from './styles/Additional.module.scss'
 import useMapOnlyViewStore from '../../stores/useMapOnlyViewStore'
+import useAuthStore from '../../stores/useAuthStore'
 
 const MapView: FC = () => {
     const routes = useYachtPageStore((state) => state.yachtData.yachtRoute)
@@ -46,6 +47,53 @@ const MapView: FC = () => {
                             </div>
                         </Marker>
                     ))}
+                </ReactMapGl>
+            </div>
+        </div>
+    )
+}
+
+export const MapViewBussines: FC = () => {
+    const setIsOpened = useMapOnlyViewStore((state) => state.setIsOpened)
+    const routes = useAuthStore((state) => state.userData.allYachtRoutes)
+
+    return (
+        <div className={`block ${c.map_onlyview}`}>
+            <h4 className={c.title}>Map Route</h4>
+            <div className={c.map_con}>
+                <ReactMapGl
+                    onClick={() => {
+                        setIsOpened(true)
+                    }}
+                    {...mapProps}
+                    longitude={0}
+                    latitude={0}
+                    zoom={0}
+                    cursor='pointer'
+                    style={{
+                        height: 300,
+                        width: '100%',
+                        borderRadius: 15,
+                        overflow: 'hidden',
+                    }}>
+                    {routes.map((item) => <>
+                        {item.yachtRoutes.map((item, index) => (
+                            <Marker
+                                key={`Marker ${index}`}
+                                latitude={Number(item.lat)}
+                                longitude={Number(item.lon)}
+                                anchor='center'>
+                                <div className='marker_con'>
+                                    <Image
+                                        src='/assets/marker.png'
+                                        alt={`#${index}`}
+                                        width={20}
+                                        height={30}
+                                    />
+                                </div>
+                            </Marker>
+                        ))}
+                    </>)}
                 </ReactMapGl>
             </div>
         </div>

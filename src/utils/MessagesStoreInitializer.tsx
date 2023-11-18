@@ -1,31 +1,18 @@
 'use client'
-import React, { useLayoutEffect, useRef } from 'react'
-import useMessagesStore, { Message } from '../stores/useMessagesStore'
+import React, { useRef } from 'react'
+import useMessagesStore, { MessageType } from '../stores/useMessagesStore'
 import useAuthStore, { Populate } from '../stores/useAuthStore'
 
 interface Props {
-    messagesList: Array<Message>
+    messagesList: Array<MessageType>
     chatId: string
     newChatUserData?: Populate
-    offers?: Array<{
-        _id: string
-        accepted: boolean
-        chatId: string
-        createdFor: string
-        createdBy: string
-        createdAt: string
-        description: string
-        services: string[]
-        title: string
-        fileUrl: string[]
-    }>
 }
 
 const MessagesStoreInitializer: React.FC<Props> = ({
     messagesList,
     chatId,
-    newChatUserData,
-    offers
+    newChatUserData
 }) => {
     const initialized = useRef(false)
     const userID = useAuthStore((state) => state.userData._id)
@@ -49,7 +36,7 @@ const MessagesStoreInitializer: React.FC<Props> = ({
     }
 
     if (!initialized.current) {
-        useMessagesStore.setState({ messagesList, selectedUser: user(), selectedChatId: chatId, offerData: offers })
+        useMessagesStore.setState({ messagesList, selectedUser: user(), selectedChatId: chatId })
         initialized.current = true
     }
 

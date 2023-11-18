@@ -14,6 +14,8 @@ import TeamMatesPopup from '../../../src/components/TeamMatesPopup/TeamMatesPopu
 import MapPopup from '../../../src/components/MapPopup/MapPopup'
 import YachtRequest from '../../../src/components/YachtRequest/YachtRequest'
 import Admin from '../../../src/components/Admin/Admin'
+import { MapViewBussines } from '../../../src/components/(ProfilePage)/MapView'
+import { MapOnlyViewBussinesPopup } from '../../../src/components/MapPopup/MapOnlyViewPopup'
 
 
 const page: FC = () => {
@@ -76,10 +78,11 @@ const page: FC = () => {
                 </div>
                 <div className={c.right}>
                     <YachtBussinesInputs />
+                    <MapViewBussines />
                     <YachtBussinesAdditional />
                 </div>
                 <DisplayFields />
-                <MapPopup />
+                <MapOnlyViewBussinesPopup />
             </main>
         }
         case 'ADMIN': {

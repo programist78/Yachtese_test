@@ -4,72 +4,24 @@ import React from 'react'
 import { LAST_MESSAGE, lastMessageResponse } from '../../graphql/lastMessageSubscription'
 import useAuthStore from '../../stores/useAuthStore'
 import useMessagesStore from '../../stores/useMessagesStore'
+import { useParams } from 'next/navigation'
 
 
 const SubscriptionMessages: React.FC = () => {
 
-    const setUserData = useAuthStore((state) => state.setUserData)
-    const userData = useAuthStore((state) => state.userData)
-    const selectedChatId = useMessagesStore((state) => state.selectedChatId)
     const addMessage = useMessagesStore((state) => state.addMessage)
-    const addOffer = useMessagesStore((state) => state.addOffer)
+    const messageToUnselectedChat = useAuthStore((state) => state.messageToUnselectedChat)
+    const messageToSelectedChat = useAuthStore((state) => state.messageToSelectedChat)
+    const { id } = useParams()
 
-    useSubscription<lastMessageResponse>(LAST_MESSAGE,
-        {
+    useSubscription<lastMessageResponse>(LAST_MESSAGE, {
             onData: ({ data }) => {
-
-                const { avatarURL, chatId, created, message, user, userName, isOffer, role } = data.data.lastMessage
-
-                // if(isOffer && selectedChatId === chatId) {
-                //     addOffer({
-                //         _id: 
-                //     })
-
-                //     return
-                // }
-
-                if (selectedChatId === chatId) {
-                    addMessage({
-                        createdAt: created,
-                        message,
-                        user: {
-                            createdAt: '',
-                            _id: user,
-                            avatarURL: avatarURL,
-                            role: role,
-                            userName
-                        }
-                    })
-
-                    return
+                if (id === data.data.lastMessage.chat._id) {
+                    addMessage(data.data.lastMessage.message)
+                    return messageToSelectedChat(data.data.lastMessage.chat, data.data.lastMessage.message)
                 }
 
-                const chat = userData.chats.find((c) => c._id === chatId)
-
-                if (chat) {
-                    setUserData({
-                        ...userData, chats: userData.chats.map((item) => item._id === chat._id
-                            ? { ...chat, lastMessage: { created, message, user }, notification: selectedChatId !== chatId }
-                            : item)
-                    })
-                } else {
-
-                    setUserData({
-                        ...userData,
-                        chats: [
-                            ...userData.chats,
-                            {
-                                _id: chatId, lastMessage: { created, message, user },
-                                // eslint-disable-next-line
-                                user_1: { _id: userData._id, avatarURL: userData.avatarURL, createdAt: userData.createdAt, role: userData.role, userName: userData.userName },
-                                // eslint-disable-next-line
-                                user_2: { createdAt: '', _id: user, avatarURL: avatarURL, role: 'SUPPLIER', userName }, // EDIT
-                                notification: true
-                            }
-                        ]
-                    })
-                }
-
+                messageToUnselectedChat(data.data.lastMessage.chat, data.data.lastMessage.message)
             }
         })
 

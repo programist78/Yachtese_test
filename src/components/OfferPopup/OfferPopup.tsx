@@ -14,6 +14,7 @@ import * as Yup from 'yup'
 
 const OfferPopup: FC = () => {
     const [createOffer] = useMutation<sendOfferResponse, sendOfferInput>(CREATE_OFFER)
+    const addMessage = useMessagesStore((state) => state.addMessage)
     const params = useParams()
 
     const popup = useOfferPopupStore()
@@ -36,12 +37,41 @@ const OfferPopup: FC = () => {
             const formData = new FormData
 
             formData.append('messageFile', file)
-
-            instans.post('/messageFile', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(({ data }) => {
+            if(file) {
+                instans.post('/messageFile', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then(({ data }) => {
+                    createOffer({
+                        variables: {
+                            sendOfferInput: {
+                                accepted: false,
+                                //@ts-ignore
+                                chatId: params.id,
+                                createdFor: selectedUser._id,
+                                description: values.description,
+                                services: values.service,
+                                title: values.title,
+                                //@ts-ignore
+                                fileUrl: [data.messageImageURL]
+                            }
+                        }
+                    }).then(({ data }) => {
+                        successAlert('Offer sent!')
+                        popup.setIsOpened(false)
+                        addMessage(data.sendOffer)
+                        helpers.resetForm()
+                    }).catch(() => {
+                        errorAlert()
+                        popup.setIsOpened(false)
+                        helpers.resetForm()
+                    })
+                }).catch((err) => {
+                    errorAlert(err.response.data.message)
+                    setFile(null)
+                })
+            } else {
                 createOffer({
                     variables: {
                         sendOfferInput: {
@@ -53,22 +83,20 @@ const OfferPopup: FC = () => {
                             services: values.service,
                             title: values.title,
                             //@ts-ignore
-                            fileUrl: [data.messageImageURL]
+                            fileUrl: null
                         }
                     }
-                }).then(() => {
+                }).then(({ data }) => {
                     successAlert('Offer sent!')
                     popup.setIsOpened(false)
+                    addMessage(data.sendOffer)
                     helpers.resetForm()
                 }).catch(() => {
                     errorAlert()
                     popup.setIsOpened(false)
                     helpers.resetForm()
                 })
-            }).catch((err) => {
-                errorAlert(err.response.data.message)
-                setFile(null)
-            })
+            }
         },
     })
 

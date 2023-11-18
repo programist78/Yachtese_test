@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
-import { UserRolesType } from '../config/constants'
+import { MessageType } from '../stores/useMessagesStore'
 
 export const GET_MESSAGES = gql`
-query Query($getMessagesInput: GetMessagesInput) {
+  query GetMessages($getMessagesInput: GetMessagesInput) {
   getMessages(getMessagesInput: $getMessagesInput) {
     messages {
       _id
@@ -15,23 +15,19 @@ query Query($getMessagesInput: GetMessagesInput) {
       message
       readStatus
       images
-    }
-    offers {
-      _id
-      createdAt
-      createdBy
-      createdFor
-      title
-      description
-      services
-      accepted
-      chatId
-      fileUrl
+      offerId {
+        _id
+        createdFor
+        title
+        description
+        services
+        accepted
+        fileUrl
+      }
     }
   }
 }
 `
-//add role
 export interface getMessagesInput {
   getMessagesInput: {
     chatId: string
@@ -40,28 +36,6 @@ export interface getMessagesInput {
 
 export interface getMessagesResponse {
   getMessages: {
-    messages: Array<{
-      createdAt: string,
-      message: string,
-      user: {
-        userName: string,
-        avatarURL: string,
-        _id: string
-        role: UserRolesType
-        createdAt: string
-      }
-    }>
-    offers: Array<{
-      _id: string
-      accepted: boolean
-      chatId: string
-      createdFor: string
-      createdBy: string
-      createdAt: string
-      description: string
-      services: string[]
-      title: string
-      fileUrl: string[]
-    }>
+    messages: Array<MessageType>
   }
 }

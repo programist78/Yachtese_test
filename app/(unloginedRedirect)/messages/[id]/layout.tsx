@@ -81,7 +81,6 @@ const layout: FC<Props> = async ({ params, children }) => {
             <>
                 <MessagesStoreInitializer
                     messagesList={data.getMessages.messages}
-                    offers={data.getMessages.offers}
                     chatId={params.id}
                 />
                 {children}

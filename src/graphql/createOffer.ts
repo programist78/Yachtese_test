@@ -1,19 +1,30 @@
+import { MessageType } from './../stores/useMessagesStore';
 import { gql } from '@apollo/client'
 
 export const CREATE_OFFER = gql`
     mutation SendOffer($sendOfferInput: SendOfferInput) {
-        sendOffer(sendOfferInput: $sendOfferInput) {
-            _id
-            accepted
-            chatId
-            createdAt
-            createdBy
-            createdFor
-            description
-            services
-            title
-        }
+  sendOffer(sendOfferInput: $sendOfferInput) {
+    _id
+    createdAt
+    user {
+      _id
+      userName
+      avatarURL
     }
+    message
+    readStatus
+    images
+    offerId {
+      _id
+      createdFor
+      title
+      description
+      services
+      accepted
+      fileUrl
+    }
+  }
+}
 `
 
 export interface sendOfferInput {
@@ -29,13 +40,5 @@ export interface sendOfferInput {
 }
 
 export interface sendOfferResponse {
-    _id: string
-    accepted: string
-    chatId: string
-    createdAt: string
-    createdBy: string
-    createdFor: string
-    description: string
-    services: string
-    title: string
+    sendOffer: MessageType
 }

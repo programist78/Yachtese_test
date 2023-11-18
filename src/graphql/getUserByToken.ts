@@ -87,6 +87,7 @@ export const GET_USER_BY_TOKEN = gql`
         _id
       }
       _id
+      readStatus
     }
     favoriteChats {
       lastMessage {
@@ -105,9 +106,20 @@ export const GET_USER_BY_TOKEN = gql`
         _id
       }
       _id
+      readStatus
     }
     displayFields
     country
+    allYachtRoutes {
+      email
+      yachtRoutes {
+        lat
+        lon
+        title
+        time
+        status
+      }
+    }
   }
 }
 `

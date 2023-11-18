@@ -14,8 +14,6 @@ const Header: React.FC = () => {
     const [isMenuOpened, setIsMenuOpened] = useState(false)
     const menuRef = useRef(null)
 
-    const notificationCount = isLogined ? userData.chats.filter((item) => item.notification === true).length : 0
-
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -53,7 +51,7 @@ const Header: React.FC = () => {
                     {isLogined ? (
                         <>
                             <Link href={RootURLsEnum.profile}>Profile</Link>
-                            <Link href={RootURLsEnum.messages}>Messages {notificationCount > 0 && <span className={c.notification}>{notificationCount}</span>}</Link>
+                            <Link href={RootURLsEnum.messages}>Messages</Link>
                             <Link href={RootURLsEnum.homepage} onClick={logOut}>
                                 Log Out
                             </Link>

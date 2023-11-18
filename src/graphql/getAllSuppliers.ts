@@ -15,6 +15,7 @@ export const GET_ALL_SUPPLIERS = gql`
     }
     suppliers {
       _id
+      rating
       createdAt
       resetPassword {
         token
@@ -60,6 +61,7 @@ export interface getAllSuppliercsResponse {
     suppliers: Array<{
       _id: string
       createdAt: string
+      rating: number
       role
       userName
       email

@@ -57,7 +57,6 @@ export const YachtBussinesAdditional: FC = () => {
         <Email />
         {subscription.customerId && <Subscription />}
         <Routes />
-        <Map />
         <DeleteProfile />
     </article>
 }

@@ -14,22 +14,23 @@ import Link from 'next/link'
 import { RootURLsEnum } from '../../../../src/config/constants'
 import useAuthStore from '../../../../src/stores/useAuthStore'
 import { useRouter } from 'next/navigation'
-import OfferPopup from '../../../../src/components/OfferPopup/OfferPopup'
 import useOfferPopupStore from '../../../../src/stores/useOfferPopupStore'
 import ChatList from '../../../../src/components/ChatList/ChatList'
 import { errorAlert, successAlert } from '../../../../src/utils/alerts'
+import { isImageFileName } from '../../../../src/utils/tools'
+import OfferPopup from '../../../../src/components/OfferPopup/OfferPopup'
 
-const formatTimeTo12HourFormat = (d:string) => {
+const formatTimeTo12HourFormat = (d: string) => {
     const date = new Date(d)
     const hours = date.getHours()
     const minutes = date.getMinutes()
     const amPm = hours >= 12 ? 'pm' : 'am'
     const formattedHours = hours % 12 || 12
-  
+
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
-  
+
     return `${formattedHours}:${formattedMinutes} ${amPm}`
-  }
+}
 
 const page: FC = () => {
     const params = useParams()
@@ -38,7 +39,6 @@ const page: FC = () => {
     const selectedUser = useMessagesStore((state) => state.selectedUser)
     const userData = useAuthStore((state) => state.userData)
     const setOfferMenuIsOpen = useOfferPopupStore((state) => state.setIsOpened)
-    const offers = useMessagesStore((state) => state.offerData)
     const [isOfferViewOpened, setIsOfferViewOpened] = useState(false)
 
     useEffect(() => {
@@ -75,9 +75,6 @@ const page: FC = () => {
             </div>
             <div className={c.main_messages}>
                 <div className={c.meessages_container}>
-                {offers && offers[0] && <div className={c.offer_pop} onClick={() => setIsOfferViewOpened(true)}>
-                    You received a new offer!
-                </div>}
                     <MessagesList />
                     <Form />
                 </div>
@@ -103,7 +100,7 @@ const page: FC = () => {
                     </div>
                 </aside>
             </div>
-            <OfferView setIsOfferViewOpened={setIsOfferViewOpened} isOfferViewOpened={isOfferViewOpened} />
+            {/* <OfferView setIsOfferViewOpened={setIsOfferViewOpened} isOfferViewOpened={isOfferViewOpened} /> */}
             <OfferPopup />
             <div className={c.add_offer_mobile} onClick={() => setOfferMenuIsOpen(true)}>+</div>
         </article>
@@ -113,12 +110,55 @@ const page: FC = () => {
 
 const MessagesList: FC = () => {
 
+    const { id } = useParams()
     const messagesContainerRef = useRef(null)
     const userData = useAuthStore((state) => state.userData)
+    const readChat = useAuthStore((state) => state.readChat)
     const messages = useMessagesStore((state) => state.messagesList)
+    const acceptOffer = useMessagesStore((state) => state.acceptOffer)
+    const [submitOffer] = useMutation(gql`
+        mutation AnswerOffer($answerOfferInput: AnswerOfferInput) {
+            answerOffer(answerOfferInput: $answerOfferInput) {
+                link
+            }
+        }`
+    )
+ 
+    const List = messages.map((item, index) => {
+        if (item.offerId) {
+            return <div className={c.offer} key={index + item.message}>
+                <h3>{item.offerId.title}</h3>
+                <p>{item.offerId.description}</p>
+                {item.offerId.services.length > 0 && <p><b>Services: </b>{item.offerId.services}</p>}
 
-    const List = messages.map((item) => (
-        <div key={item.createdAt} className={item.user._id === userData._id ? c.your_message : c.message}>
+                {item.offerId.fileUrl && (isImageFileName(item.offerId.fileUrl)? <div className={c.offer_image_con}>
+                    <ImageError src={item.offerId.fileUrl} alt={`Offer Image ${index}`} />
+                </div> : <div className={c.file_svg}><svg onClick={() => window.open(item.offerId.fileUrl, '_blank')} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+                    <path d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z"></path>
+                </svg>
+                    <span onClick={() => window.open(item.offerId.fileUrl, '_blank')}>Click to download</span>
+                </div>)}
+
+                {item.user._id !== userData._id ? <button disabled={item.offerId.accepted} onClick={() => {
+                    submitOffer({
+                        variables: {
+                            answerOfferInput: {
+                                offerId: item.offerId._id,
+                                answer: true
+                            }
+                        }
+                    }).then(() => {
+                        successAlert('Offer submitted!')
+                        acceptOffer(item.offerId._id)
+                    }).catch(() => {
+                        errorAlert()
+                    })
+                }}>{item.offerId.accepted ? 'Accepted' : 'Accept'}</button> : <button disabled>
+                    {item.offerId.accepted ? 'Accepted' : 'Waiting for accepting'}
+                </button>}
+            </div>
+        }
+        return <div key={item.createdAt} className={item.user._id === userData._id ? c.your_message : c.message}>
             <div className={c.left_message}>
                 <ImageError
                     src={item.user.avatarURL}
@@ -138,12 +178,14 @@ const MessagesList: FC = () => {
                 </div>
             </div>
         </div>
-    ))
+    })
 
     useEffect(() => {
         messagesContainerRef.current.scrollTop =
             messagesContainerRef.current.scrollHeight
     }, [messages])
+
+    useEffect(() => readChat(Array.isArray(id) ? id[0] : id), [id, readChat])
 
     return <div className={c.messages} ref={messagesContainerRef}>
         {List}
@@ -173,9 +215,10 @@ const Form: FC = () => {
                 _id: userData._id,
                 avatarURL: userData.avatarURL,
                 userName: userData.userName,
-                createdAt: userData.createdAt,
-                role: userData.role
             },
+            offerId: null,
+            images: [],
+            readStatus: false
         })
         setInput('')
 
@@ -263,49 +306,49 @@ const Form: FC = () => {
     </form>
 }
 
-const OfferView: FC<{setIsOfferViewOpened:any, isOfferViewOpened:boolean}> = ({setIsOfferViewOpened, isOfferViewOpened}) => {
+// const OfferView: FC<{setIsOfferViewOpened:any, isOfferViewOpened:boolean}> = ({setIsOfferViewOpened, isOfferViewOpened}) => {
 
-    const offers = useMessagesStore((state) => state.offerData)
-    const deleteFirstOffer = useMessagesStore((state) => state.deleteFirstOffer)
-    const [submitOffer] = useMutation(gql`
-    mutation AnswerOffer($answerOfferInput: AnswerOfferInput) {
-        answerOffer(answerOfferInput: $answerOfferInput) {
-            link
-        }
-    }
-    `)
+//     const offers = useMessagesStore((state) => state.offerData)
+//     const deleteFirstOffer = useMessagesStore((state) => state.deleteFirstOffer)
+//     const [submitOffer] = useMutation(gql`
+//     mutation AnswerOffer($answerOfferInput: AnswerOfferInput) {
+//         answerOffer(answerOfferInput: $answerOfferInput) {
+//             link
+//         }
+//     }
+//     `)
 
-    return isOfferViewOpened && offers.length > 0 && <div onClick={() => setIsOfferViewOpened(false)} className={c.backdrop}>
-        <div className={c.block} onClick={(e) => {
-            e.stopPropagation()
-            e.preventDefault()
-        }}>
-            <h2>{offers[0].title}</h2>
-            <p className={c.offer_descr}>{offers[0].description}</p>
-            {offers[0].services.map((item) =><p className={c.offer_services} key={item}>{item}</p>)}
-            {offers[0].fileUrl && <div className={c.file_svg}><svg onClick={() => window.open(offers[0].fileUrl[0], '_blank')} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
-                <path d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z"></path>
-            </svg>
-            <span onClick={() => window.open(offers[0].fileUrl[0], '_blank')}>Click to download</span>
-            </div>}
-            <button className={c.offer_accept} onClick={() => {
-                submitOffer({
-                    variables: {
-                        answerOfferInput: {
-                            offerId: offers[0]._id,
-                            answer: true
-                          }
-                    }
-                }).then(() => {
-                    successAlert('Offer submitted!')
-                    setIsOfferViewOpened(false)
-                    deleteFirstOffer()
-                }).catch(() => {
-                    errorAlert()
-                })
-            }}>Accept</button>
-        </div>
-    </div>
-}
+//     return isOfferViewOpened && offers.length > 0 && <div onClick={() => setIsOfferViewOpened(false)} className={c.backdrop}>
+//         <div className={c.block} onClick={(e) => {
+//             e.stopPropagation()
+//             e.preventDefault()
+//         }}>
+//             <h2>{offers[0].title}</h2>
+//             <p className={c.offer_descr}>{offers[0].description}</p>
+//             {offers[0].services.map((item) =><p className={c.offer_services} key={item}>{item}</p>)}
+//             {offers[0].fileUrl && <div className={c.file_svg}><svg onClick={() => window.open(offers[0].fileUrl[0], '_blank')} xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50">
+//                 <path d="M 7 2 L 7 48 L 43 48 L 43 14.59375 L 42.71875 14.28125 L 30.71875 2.28125 L 30.40625 2 Z M 9 4 L 29 4 L 29 16 L 41 16 L 41 46 L 9 46 Z M 31 5.4375 L 39.5625 14 L 31 14 Z"></path>
+//             </svg>
+//             <span onClick={() => window.open(offers[0].fileUrl[0], '_blank')}>Click to download</span>
+//             </div>}
+//             <button className={c.offer_accept} onClick={() => {
+//                 submitOffer({
+//                     variables: {
+//                         answerOfferInput: {
+//                             offerId: offers[0]._id,
+//                             answer: true
+//                           }
+//                     }
+//                 }).then(() => {
+//                     successAlert('Offer submitted!')
+//                     setIsOfferViewOpened(false)
+//                     deleteFirstOffer()
+//                 }).catch(() => {
+//                     errorAlert()
+//                 })
+//             }}>Accept</button>
+//         </div>
+//     </div>
+// }
 
 export default page
