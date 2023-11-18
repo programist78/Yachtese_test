@@ -36,10 +36,10 @@ export const SubscriptionRedirect:React.FC<React.PropsWithChildren> = ({children
     const router = useRouter()
 
     useLayoutEffect(() => {
-        // if(!userData.subscription.status) return router.replace(RootURLsEnum.subscription)
+        if(!userData.subscription.status && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return router.replace(RootURLsEnum.subscription)
     }, [userData, router])
 
-    if(!userData.subscription) return null
+    if(!userData.subscription && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return null
 
     return children
 }
