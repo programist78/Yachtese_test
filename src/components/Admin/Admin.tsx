@@ -393,7 +393,7 @@ const Admin: FC = () => {
     return (
         <div className={styles.back}>
             <SendMessageToAll />
-            <SendIvitesComponent />
+            {/* <SendIvitesComponent /> */}
             <BanUser />
             <UnBanUser />
             <SupliersRegistration />
