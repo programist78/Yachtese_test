@@ -81,7 +81,7 @@ const layout: FC = () => {
                 <section className={classNames('container', c.packages)}>
                 <>
                 <article className={classNames('block', c.package)}>
-                    <Image src='/assets/package2.jpg' width={90} height={90} alt='Package 2' />
+                    <Image src='/assets/completeSub.png' width={90} height={90} alt='Package 2' />
                     <br /> 
                     <h5>{userData?.subscription?.name}</h5>
                     <h6>Start Date: {formatTimestamp(userData?.subscription?.startDate)}</h6>
