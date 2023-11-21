@@ -5,7 +5,7 @@ import EditIcon from '../EditIcon/EditIcon'
 import c from './styles/UserInfo.module.scss'
 import { useMutation } from '@apollo/client'
 import { UPDATE_USER_NAME, updateUserMuatationInputType, updateUserMuatationResponseType } from '../../graphql/updataUserName'
-import { errorAlert, successAlert } from '../../utils/alerts'
+import { errorAlert } from '../../utils/alerts'
 import Link from 'next/link'
 import { RootURLsEnum } from '../../config/constants'
 import useYachtPageStore from '../../stores/useYachtPageStore'
@@ -13,6 +13,8 @@ import instans from '../../config/axios'
 import useSupplierPageStore from '../../stores/useSupplierPageStore'
 import getLocalTime, { formatLocalTime } from '../../utils/getLocalTime'
 import Geocode from 'react-geocode'
+import type { Dispatch, SetStateAction } from 'react'
+import Image from 'next/image'
 
 
 const UserInfo: FC = () => {
@@ -147,6 +149,7 @@ export const SupplierUserInfo: FC = () => {
     const userData = useAuthStore((state) => state.userData)
     const [localTime, setLocalTime] = useState<Date | null>(null)
     const [location, setLocation] = useState(null)
+    const [IsImageOpened, setIsImageOpened] = useState(false)
 
     useEffect(() => {
         if (!supplierData.location || !supplierData.location.lat) return
@@ -181,7 +184,7 @@ export const SupplierUserInfo: FC = () => {
 
     return <article className={'block'}>
         <div className={c.user_info_view}>
-            <ImageError alt={supplierData.userName} src={supplierData.avatarURL} className={c.avatar} />
+            <ImageError alt={supplierData.userName} src={supplierData.avatarURL} className={c.avatar} onClick={() => setIsImageOpened(true)} />
             <div className={c.con}>
                 <div className={c.name}>
                     <h2 style={{ maxWidth: '90%' }}>{supplierData.userName}</h2>
@@ -192,7 +195,21 @@ export const SupplierUserInfo: FC = () => {
         <div className={c.btns}>
             <Link className={c.pursepal} href={userData && supplierData._id === userData._id ? RootURLsEnum.profile : `${RootURLsEnum.messages}/${supplierData._id}new`}>Write Message</Link>
         </div>
+        <ImageViewSupplier isOpened={IsImageOpened} setIsOpened={setIsImageOpened} />
     </article>
 }
+
+
+const ImageViewSupplier: FC<{ isOpened: boolean, setIsOpened: Dispatch<SetStateAction<boolean>> }> = ({ isOpened, setIsOpened }) => {
+
+    const supplierData = useSupplierPageStore((state) => state.supplierData)
+
+    return isOpened && <div className={c.image_pop} onClick={() => setIsOpened(false)}>
+        <div className={c.image_pop_con} onClick={(e) => e.preventDefault()}>
+            <img onClick={(e) => e.preventDefault()} src={supplierData.avatarURL ? supplierData.avatarURL : process.env.NEXT_PUBLIC_AVATAR_ERROR} alt={supplierData.userName} fill />
+        </div>
+    </div>
+}
+
 
 export default UserInfo

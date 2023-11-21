@@ -90,7 +90,7 @@ const page: FC = () => {
                         <button
                             className={c.offer}
                             onClick={() => setOfferMenuIsOpen(true)}>
-                            Quote Request
+                            Send Quote
                         </button>
                         <Link
                             href={selectedUser.role === 'SUPPLIER' ? `${RootURLsEnum.supplier}/${selectedUser._id}` : `${RootURLsEnum.yacht}/${selectedUser._id}`}
@@ -154,7 +154,7 @@ const MessagesList: FC = () => {
                         errorAlert()
                     })
                 }}>{item.offerId.accepted ? 'Accepted' : 'Accept'}</button> : <button disabled>
-                    {item.offerId.accepted ? 'Accepted' : 'Waiting for accepting'}
+                    {item.offerId.accepted ? 'Accepted' : 'Pending Confirmation'}
                 </button>}
             </div>
         }

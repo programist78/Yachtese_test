@@ -167,11 +167,26 @@ const Routes: FC = () => {
     const userData = useAuthStore((state) => state.userData)
     const setIsOpened = useMapStore((state) => state.setIsOpened)
 
+    const formatDateTime = (d) => {
+        const date = new Date(d)
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const hours = date.getHours()
+        const minutes = date.getMinutes()
+      
+        const formattedDate = `${(day < 10 ? '0' : '') + day}/${(month < 10 ? '0' : '') + month}/${year} ${(
+          hours < 10 ? '0' : ''
+        ) + hours}:${(minutes < 10 ? '0' : '') + minutes}`
+      
+        return formattedDate
+      }
+
     return userData.yachtRoute && userData.yachtRoute.length > 0 && <div className={c.routes}>
         <h4 className={c.title}>Routes</h4>
         {userData.yachtRoute.map((item, i) => <div key={i} onClick={() => setIsOpened(true)}>
             <h5>{item.title}</h5>
-            <span>{new Date(item.time).getHours()}:{new Date(item.time).getMinutes()}</span>
+            <span>{formatDateTime(item.time)}</span>
         </div>)}
     </div>
 }
