@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import { RootURLsEnum } from '../../src/config/constants'
 import { CANCEL_SUB } from '../../src/graphql/cancelSub'
 import Swal from 'sweetalert2'
+import completedPricing from '../../public/assets/completeSub.jpg'
 
 const layout: FC = () => {
     const setUserData = useAuthStore((state) => state.setUserData)
@@ -81,7 +82,7 @@ const layout: FC = () => {
                 <section className={classNames('container', c.packages)}>
                 <>
                 <article className={classNames('block', c.package)}>
-                    <Image src='/assets/completeSub.jpg' width={90} height={90} alt='Package 2' />
+                    <Image src={completedPricing} width={90} height={90} alt='Package 2' />
                     <br /> 
                     <h5>{userData?.subscription?.name}</h5>
                     <h6>Start Date: {formatTimestamp(userData?.subscription?.startDate)}</h6>
