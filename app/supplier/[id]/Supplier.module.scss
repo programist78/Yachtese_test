@@ -13,6 +13,7 @@
 
 .left {
     width: 35%;
+    z-index: 0;
 
     @media (max-width: $screen-md)  {
         width: 100%;

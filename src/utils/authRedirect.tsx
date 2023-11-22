@@ -32,14 +32,14 @@ export const UnloginRedirect:React.FC<React.PropsWithChildren> = ({children}) =>
 
 export const SubscriptionRedirect:React.FC<React.PropsWithChildren> = ({children}) => {
 
-    const userData = useAuthStore((state) => state.userData)
-    const router = useRouter()
+    // const userData = useAuthStore((state) => state.userData)
+    // const router = useRouter()
 
-    useLayoutEffect(() => {
-        if(!userData.subscription.status && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return router.replace(RootURLsEnum.subscription)
-    }, [userData, router])
+    // useLayoutEffect(() => {
+    //     if(!userData.subscription.status && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return router.replace(RootURLsEnum.subscription)
+    // }, [userData, router])
 
-    if(!userData.subscription && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return null
+    // if(!userData.subscription && userData.role !== 'YACHT_TEAMMATE' && userData.role !== 'ADMIN') return null
 
     return children
 }

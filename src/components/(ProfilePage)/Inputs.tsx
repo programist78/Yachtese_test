@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useState, FC, useEffect } from 'react'
+import { useState, FC, useEffect, Dispatch, SetStateAction } from 'react'
 import supplier from './styles/SupplierInput.module.scss'
 import c from './styles/Inputs.module.scss'
 import useAuthStore from '../../stores/useAuthStore'
@@ -93,6 +93,7 @@ export const YachtPageInputs: FC = () => {
 export const SupplierViewInputs: FC = () => {
 
     const supplierData = useSupplierPageStore((state) => state.supplierData)
+    const [image, setImage] = useState<string | null>(null)
 
     return (
         <article className={`${supplier.inputs} block`}>
@@ -118,12 +119,19 @@ export const SupplierViewInputs: FC = () => {
             {supplierData.imagesURL && supplierData.imagesURL[0] && <h4 className={supplier.title}>Images</h4>}
             {supplierData.imagesURL && <div className={supplier.images}>
                 {supplierData.imagesURL.map((item, i) => (
-                    <img key={`Image ${i + 1}`} className={supplier.image} src={item} alt={`Image ${i + 1}`} />
+                    <img key={`Image ${i + 1}`} className={supplier.image} src={item} alt={`Image ${i + 1}`} onClick={() => setImage(item)} />
                 ))}
             </div>}
+            <ImageViewSupplier image={image} setIsOpened={setImage} />
         </article>
     )
 }
+
+const ImageViewSupplier: FC<{ image: string | null, setIsOpened: Dispatch<SetStateAction<string | null>> }> = ({ image, setIsOpened }) => {
+    return image && <div className={c.image_pop} onClick={() => setIsOpened(null)}>
+        <img onClick={(e) => e.preventDefault()} src={image} alt='Photo' />
+    </div>
+  }
 
 const FullNameInput: FC = () => {
     const [updateUserName] = useMutation<

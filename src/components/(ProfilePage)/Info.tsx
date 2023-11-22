@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition, FC } from "react"
+import { useEffect, useState, useTransition, FC, Dispatch, SetStateAction } from "react"
 import c from "./styles/Info.module.scss"
 import EditIcon from "../EditIcon/EditIcon"
 import useAuthStore from "../../stores/useAuthStore"
